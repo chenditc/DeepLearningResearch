@@ -549,4 +549,3 @@ if __name__ == '__main__':
     opt_W, opt_b = sgd_optimization_mnist()
     print opt_W, opt_b
     print sgd_optimization_mnist(init_W = opt_W, init_b = opt_b)
-
