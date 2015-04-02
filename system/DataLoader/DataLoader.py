@@ -4,6 +4,7 @@
 
 import MySQLdb 
 import json
+import os.path
 
 class formatError(Exception):
     def __init__(self, value):
@@ -129,7 +130,7 @@ class DataLoader:
     #
     # @param data_id    query key
     #
-    # @return 
+    # @return           a data matrix contains xy values and split_n 
     def downloadData(self, data_id):
         cursor = self.getDatabaseCursor()
         # query database:
@@ -154,8 +155,100 @@ class DataLoader:
             dataMatrix.append( x + y )
         return dataMatrix, split_n
 
-if __name__ == "__main__":
+    ##
+    # @brief                        Parse one row 
+    #
+    # @param inputString            
+    # @param columnDeliminator      Deliminator for column
+    # @param "
+    #
+    # @return 
+    def parseRow(self, inputString, columnDeliminator = ","):
+        elements = inputString.split(columnDeliminator)
+        dataRow = []
+        for element in elements:
+            if ("" == element):
+                continue
+            dataRow.append(float(element))
+        return dataRow
 
+    ##
+    # @brief                    Parse the data matrix from a file
+    #
+    # @param inputString        a file as string
+    # @param rowDeliminator     The deliminator for each row, default is "\n"
+    # @param columnDeliminator  The deliminator for each column, default is ","
+    #
+    # @return 
+    def parseMatrix(self, inputString, rowDeliminator = "\n" , columnDeliminator = ","):
+        stringRows = inputString.split(rowDeliminator)
+        dataMatrix = []
+        for stringRow in stringRows:
+            if ("" == stringRow):
+                continue
+            dataRow = self.parseRow(stringRow, columnDeliminator)
+            dataMatrix.append(dataRow)
+        return dataMatrix
+
+    ##
+    # @brief            parse the file and upload the data using file name as data key
+    #
+    # @param filePath
+    #
+    # @return 
+    def uploadDataFile(self, filePath):
+        try:
+            fileName = os.path.basename(filePath)
+            fileString = open(filePath).read()
+            dataMatrix = self.parseMatrix(fileString)
+            self.uploadData(dataMatrix, data_id = fileName, split_n=1)
+            return 0 
+        except Exception as error:
+            if 1062 == error[0] :
+                print error
+                print "The key is duplicated: ", fileName
+                return 1
+
+    ##
+    # @brief            Remove a set of data by data_id
+    #
+    # @param data_id    The id to identify which set of data to remove
+    #
+    # @return 
+    def removeDataSet(self, data_id):
+        cursor = self.getDatabaseCursor()
+        cursor.execute('DELETE TrainingData1 FROM TrainingData1 WHERE data_id = %s', data_id)
+        dataLoader.commitData();
+        return 0 
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description='data upload and download module.')
+    parser.add_argument('-u', '--upload', dest='uploadFile', help='the data file to read and upload to database')
+    parser.add_argument('-r', '--remove', dest='removeDataId', help='remove the data set with dataId')
+    parser.add_argument('-t', '--test', dest='test_mode', action='store_true', help='the data file to read and upload to database')
+    args = parser.parse_args()
+
+    test_mode = args.test_mode
+    uploadFile = args.uploadFile
+    removeDataId = args.removeDataId
+
+if (uploadFile != None):
+    dataLoader = DataLoader()
+    rcode = dataLoader.uploadDataFile(uploadFile)
+    if 0 == rcode:
+        print "Upload success"
+    
+
+if (removeDataId != None):
+    dataLoader = DataLoader()
+    rcode = dataLoader.removeDataSet(removeDataId)
+    if 0 == rcode:
+        print "Remove success"
+
+
+if (True == test_mode):
     print "===================="
     print "Test db connect"
     dataLoader = DataLoader()
@@ -164,12 +257,11 @@ if __name__ == "__main__":
     print "====================\n"
 
     # clean up
-    cursor.execute('DELETE TrainingData1 FROM TrainingData1 WHERE data_id = "test_set"')
-    dataLoader.commitData();
-   
+    dataLoader.removeDataSet("test_set")
+    dataLoader.removeDataSet("test_sum_positive")
     print "===================="
     print "Test db select"
-    cursor.execute("SELECT * FROM TrainingData1")
+    cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
     print cursor.fetchall()
     print "SELECT result see above"
     print "====================\n"
@@ -177,7 +269,7 @@ if __name__ == "__main__":
     print "===================="
     print "Test db insert"
     cursor.execute('INSERT INTO TrainingData1 (data_id, row_id, x, y) VALUES ("test_set", 0, "x value", "y value")')
-    cursor.execute("SELECT * FROM TrainingData1")
+    cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
     dataLoader.commitData();
     print cursor.fetchall()
     print "Insert result see above"
@@ -187,7 +279,7 @@ if __name__ == "__main__":
     print "Test db delete"
     cursor.execute('DELETE TrainingData1 FROM TrainingData1 WHERE data_id = "test_set"')
     # print result
-    cursor.execute("SELECT * FROM TrainingData1")
+    cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
     dataLoader.commitData();
     print cursor.fetchall()
     print "Delete result see above"
@@ -199,7 +291,7 @@ if __name__ == "__main__":
     data_id = "test_set"
     dataLoader.uploadData(dataMatrix, data_id)
     # print result
-    cursor.execute("SELECT * FROM TrainingData1")
+    cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
     print cursor.fetchall()
     print "upload result see above"
     print "====================\n"
@@ -213,6 +305,9 @@ if __name__ == "__main__":
     print "download result see above"
     print "====================\n"
 
-   
-
-
+    print "===================="
+    print "Test uploadDataFile()"
+    dataLoader.uploadDataFile("test_sum_positive")
+    print dataLoader.downloadData("test_sum_positive")[0][:10]
+    print "10 parsed result see above"
+    print "====================\n"
