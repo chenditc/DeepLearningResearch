@@ -105,7 +105,6 @@ class TrainModel:
         yValue = train_set_y.eval()
 
         # Get required meta data from data set, eg. dimensionality
-        trainSize = len(xValue)
         inputDim = len(xValue[0])
         outputDim = 0
         if (isClassifier):
@@ -113,16 +112,11 @@ class TrainModel:
         else:
             outputDim = len(yValue[0])
 
-        validSize = len(valid_set_x.get_value())
-        testSize = len(test_set_x.get_value())
-
         # Create training model
         classifier = LogisticRegression.LogisticRegression(n_in = inputDim, n_out = outputDim)
 
-
         # Call trainModel(trainingSet, validationSet) to train the model
         classifier.trainModel(train_set_x, train_set_y, valid_set_x, valid_set_y, test_set_x, test_set_y)
-
 
         # Call testModel(testSet) to test the model
 

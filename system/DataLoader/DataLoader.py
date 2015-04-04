@@ -4,6 +4,7 @@
 
 import MySQLdb 
 import json
+import numpy
 import os.path
 
 class formatError(Exception):
@@ -23,10 +24,18 @@ class orderError(Exception):
 
 class DataLoader:
 
-    def __init__(self):
+    def __init__(self, training_split = 0.6, validation_split = 0.2, test_split = 0.2):
         # private variables:
         self._dbCursor = None
         self._dbConnector = None
+        self._data_id = None
+        self._dataMatrix = None
+        self._split_n = None
+        self._training_split = training_split
+        self. _validation_split = validation_split
+        self._test_split = test_split
+        if (training_split + validation_split + test_split != 1):
+            raise test_split("The training_split + validation_split + test_split is not 1")
 
     ##
     # @brief    Lazy initialization for database cursor    
@@ -153,6 +162,11 @@ class DataLoader:
             split_n = len(y)
             # set row
             dataMatrix.append( x + y )
+
+        # store the data in class
+        self._data_id = data_id;
+        self._dataMatrix = dataMatrix
+        self._split_n = split_n
         return dataMatrix, split_n
 
     ##
@@ -208,6 +222,9 @@ class DataLoader:
                 print error
                 print "The key is duplicated: ", fileName
                 return 1
+            else:
+                print error
+                raise error
 
     ##
     # @brief            Remove a set of data by data_id
@@ -221,8 +238,59 @@ class DataLoader:
         dataLoader.commitData();
         return 0 
 
+    
+    ##
+    # @brief                Split the input data and output data
+    #
+    # @param dataMatrix     The matrix that contain rows of data
+    # @param split_n        number of last columns as output
+    #
+    # @return 
+    def splitInputAndOutput(self, dataMatrix, split_n):
+        dataMatrix = numpy.array(dataMatrix)
+        # Get first (len - split_n) column as input
+        # The last column as training output
+        inputColumn = range(len(dataMatrix[0]) - split_n ) 
+        outputColumn = range(- split_n, 0)
+        inputData = dataMatrix[:,inputColumn]
+        outputData = dataMatrix[:,outputColumn]
+        return inputData, outputData
+
+
+    ##
+    # @brief    return training input and training output both as 2-D array
+    #
+    # @return 
+    def getTrainingSet(self):
+        stopIndex = int(len(self._dataMatrix) * self._training_split)
+        trainingSet = self._dataMatrix[: stopIndex]
+        return self.splitInputAndOutput(trainingSet, self._split_n)
+
+    ##
+    # @brief    return validation input and training output both as 2-D array
+    #
+    # @return 
+    def getValidationSet(self):
+        startIndex = int(len(self._dataMatrix) * self._training_split)
+        stopIndex = int(len(self._dataMatrix) * ( self._training_split + self._validation_split))
+        validationSet = self._dataMatrix[startIndex: stopIndex]
+        return self.splitInputAndOutput(validationSet,self._split_n)
+
+    ##
+    # @brief    return validation input and training output both as 2-D array
+    #
+    # @return 
+    def getTestSet(self):
+        startIndex = int(len(self._dataMatrix) * ( self._training_split + self._validation_split))
+        testSet = self._dataMatrix[startIndex:]
+        return self.splitInputAndOutput(testSet, self._split_n)
+
+
+
+
 if __name__ == "__main__":
     import argparse
+    import sys
 
     parser = argparse.ArgumentParser(description='data upload and download module.')
     parser.add_argument('-u', '--upload', dest='uploadFile', help='the data file to read and upload to database')
@@ -234,80 +302,112 @@ if __name__ == "__main__":
     uploadFile = args.uploadFile
     removeDataId = args.removeDataId
 
-if (uploadFile != None):
-    dataLoader = DataLoader()
-    rcode = dataLoader.uploadDataFile(uploadFile)
-    if 0 == rcode:
-        print "Upload success"
-    
+    if  len(sys.argv) == 1:
+        print parser.print_help()
+        quit()
 
-if (removeDataId != None):
-    dataLoader = DataLoader()
-    rcode = dataLoader.removeDataSet(removeDataId)
-    if 0 == rcode:
-        print "Remove success"
+    if (uploadFile != None):
+        print "Start uploading", uploadFile
+        dataLoader = DataLoader()
+        rcode = dataLoader.uploadDataFile(uploadFile)
+        if 0 == rcode:
+            print "Upload success"
+        
+
+    if (removeDataId != None):
+        dataLoader = DataLoader()
+        rcode = dataLoader.removeDataSet(removeDataId)
+        if 0 == rcode:
+            print "Remove success"
 
 
-if (True == test_mode):
-    print "===================="
-    print "Test db connect"
-    dataLoader = DataLoader()
-    cursor = dataLoader.getDatabaseCursor()
-    print "Connect success!"
-    print "====================\n"
+    if (True == test_mode):
+        print "===================="
+        print "Test db connect"
+        dataLoader = DataLoader()
+        cursor = dataLoader.getDatabaseCursor()
+        print "Connect success!"
+        print "====================\n"
 
-    # clean up
-    dataLoader.removeDataSet("test_set")
-    dataLoader.removeDataSet("test_sum_positive")
-    print "===================="
-    print "Test db select"
-    cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
-    print cursor.fetchall()
-    print "SELECT result see above"
-    print "====================\n"
+        # clean up
+        dataLoader.removeDataSet("test_set")
+        dataLoader.removeDataSet("test_sum_positive")
+        print "===================="
+        print "Test db select"
+        cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
+        print cursor.fetchall()
+        print "SELECT result see above"
+        print "====================\n"
 
-    print "===================="
-    print "Test db insert"
-    cursor.execute('INSERT INTO TrainingData1 (data_id, row_id, x, y) VALUES ("test_set", 0, "x value", "y value")')
-    cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
-    dataLoader.commitData();
-    print cursor.fetchall()
-    print "Insert result see above"
-    print "====================\n"
+        print "===================="
+        print "Test db insert"
+        cursor.execute('INSERT INTO TrainingData1 (data_id, row_id, x, y) VALUES ("test_set", 0, "x value", "y value")')
+        cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
+        dataLoader.commitData();
+        print cursor.fetchall()
+        print "Insert result see above"
+        print "====================\n"
 
-    print "===================="
-    print "Test db delete"
-    cursor.execute('DELETE TrainingData1 FROM TrainingData1 WHERE data_id = "test_set"')
-    # print result
-    cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
-    dataLoader.commitData();
-    print cursor.fetchall()
-    print "Delete result see above"
-    print "====================\n"
+        print "===================="
+        print "Test db delete"
+        cursor.execute('DELETE TrainingData1 FROM TrainingData1 WHERE data_id = "test_set"')
+        # print result
+        cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
+        dataLoader.commitData();
+        print cursor.fetchall()
+        print "Delete result see above"
+        print "====================\n"
 
-    print "===================="
-    print "Test uploadData()"
-    dataMatrix = [[1,2,3],[4,5,6]]
-    data_id = "test_set"
-    dataLoader.uploadData(dataMatrix, data_id)
-    # print result
-    cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
-    print cursor.fetchall()
-    print "upload result see above"
-    print "====================\n"
+        print "===================="
+        print "Test uploadData()"
+        dataMatrix = [[1,2,3]]*10
+        data_id = "test_set"
+        dataLoader.uploadData(dataMatrix, data_id)
+        # print result
+        cursor.execute('SELECT * FROM TrainingData1 WHERE data_id = "test_set"')
+        print cursor.fetchall()
+        print "upload result see above"
+        print "====================\n"
 
-    print "===================="
-    print "Test downloadData()"
-    data_id = "test_set"
-    dataMatrix, n = dataLoader.downloadData(data_id)
-    print dataMatrix
-    print n 
-    print "download result see above"
-    print "====================\n"
+        print "===================="
+        print "Test downloadData()"
+        data_id = "test_set"
+        dataMatrix, n = dataLoader.downloadData(data_id)
+        print dataMatrix
+        print n 
+        print "download result see above"
+        print "====================\n"
 
-    print "===================="
-    print "Test uploadDataFile()"
-    dataLoader.uploadDataFile("test_sum_positive")
-    print dataLoader.downloadData("test_sum_positive")[0][:10]
-    print "10 parsed result see above"
-    print "====================\n"
+        print "===================="
+        print "Test dataLoader.getTrainingSet()"
+        data_id = "test_set"
+        dataLoader.downloadData(data_id)
+        print dataLoader.getTrainingSet()
+        print "Result see above"
+        print "====================\n"
+
+        print "===================="
+        print "Test dataLoader.getTrainingSet()"
+        data_id = "test_set"
+        dataLoader.downloadData(data_id)
+        print dataLoader.getTrainingSet()
+        print "Result see above"
+        print "====================\n"
+
+        print "===================="
+        print "Test dataLoader.getValidationSet()"
+        data_id = "test_set"
+        dataLoader.downloadData(data_id)
+        print dataLoader.getValidationSet()
+        print "Result see above"
+        print "====================\n"
+
+        print "===================="
+        print "Test dataLoader.getTestSet()"
+        data_id = "test_set"
+        dataLoader.downloadData(data_id)
+        print dataLoader.getTestSet()
+        print "Result see above"
+        print "====================\n"
+
+   
