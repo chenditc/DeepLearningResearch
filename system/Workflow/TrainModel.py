@@ -135,5 +135,17 @@ class TrainModel:
         # Call testModel(testSet) to test the model
 
 if __name__ == "__main__" :
-    trainer = TrainModel(data_id = 'mnist_data_set')
+    import argparse
+    import sys
+
+    parser = argparse.ArgumentParser(description='Training Entrance.')
+    parser.add_argument('--data_id', dest='data_id', help='the data used to train')
+    args = parser.parse_args()
+
+    if (args.data_id == None):
+        parser.print_help()
+        quit()
+
+
+    trainer = TrainModel(data_id = args.data_id)
     trainer.startTraining()

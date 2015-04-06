@@ -72,7 +72,7 @@ class EarlyStopTrainer:
 
                 best_validation_loss = this_validation_loss
 
-                print "Get new best validation loss:", best_validation_loss
+                print "Get new best validation loss: %f", best_validation_loss * 100
 
             if patience < epoch:
                 break
