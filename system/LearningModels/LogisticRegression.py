@@ -1,5 +1,3 @@
-
-
 ##
 # @brief 
 # """
@@ -40,7 +38,6 @@ __docformat__ = 'restructedtext en'
 
 import os
 import sys
-import time
 
 import numpy
 
@@ -117,7 +114,8 @@ class LogisticRegression(object):
         # This can be stored and reload to replicate the same result
         self.params = [self.W, self.b]
 
-       # end-snippet-2
+        # initialize train model
+        self._trainModel = None;
 
     def errors(self, y):
         """Return a float representing the number of errors in the minibatch
@@ -143,10 +141,96 @@ class LogisticRegression(object):
         else:
             raise NotImplementedError()
 
-    def trainModel(self, train_set_x, train_set_y,
-                   valid_set_x, valid_set_y,
-                   test_set_x, test_set_y,
-                   lossFunction = LossFunctions.LossFunctions.negative_log_likelihood
+    ##
+    # @brief            Given a list of inputs , return a list of prediction
+    #
+    # @param testInput  
+    #
+    # @return 
+    def testModel(self, testInput):
+        # build test Model
+        testInput = testInput.get_value()
+
+        # loop through the input and compute prediction
+        test_model = theano.function(
+            inputs=[self._x],
+            outputs=self.y_pred,
+        )
+
+        preditction = test_model(testInput)
+        return preditction 
+
+
+    ##
+    # @brief                Given a list of inputs
+    #
+    # @param testInput      test input
+    # @param testOutput     right output
+    #
+    # @return               error rate 
+    def getTestError(self, testInput, testOutput):
+        # compare the prediction with the output
+        error = 0.0
+        prediction = self.testModel(testInput)
+        testOutput = testOutput.eval()
+        for i in range(len(prediction)):
+            if prediction[i] != testOutput[i]:
+                error += 1
+
+        return error / len(prediction)
+
+    ##
+    # @brief                Create theano function that take training x and y
+    #                       and update W and b
+    #
+    # @param train_set_x    
+    # @param train_set_y
+    # @param lossFunction   The loss function that will calculate gradient. A function takes x and y
+    # @param learning_rate  the step updateing parameters
+    # @param batch_size     The size of training data to compute at once
+    #
+    # @return 
+    def buildTrainingModel(self, train_set_x, train_set_y,
+                           lossFunction = LossFunctions.LossFunctions.negative_log_likelihood, 
+                           learning_rate = 0.1, batch_size = 600):
+
+        ######################
+        # BUILD ACTUAL MODEL #
+        ######################
+
+        index = T.lscalar()  # index to a [mini]batch
+
+        # the cost we minimize during training is the negative log likelihood of
+        # the model in symbolic format
+        cost = lossFunction(self.p_y_given_x, self._y)
+
+        # compute the gradient of cost with respect to theta = (W,b)
+        g_W = T.grad(cost=cost, wrt=self.W)
+        g_b = T.grad(cost=cost, wrt=self.b)
+
+        # start-snippet-3
+        # specify how to update the parameters of the model as a list of
+        # (variable, update expression) pairs.
+        updates = [(self.W, self.W - learning_rate * g_W),
+                   (self.b, self.b - learning_rate * g_b)]
+
+        # compiling a Theano function `trainModel` that returns the cost, but in
+        # the same time updates the parameter of the model based on the rules
+        # defined in `updates`
+        self._trainModel = theano.function(
+            inputs=[index],
+            outputs=cost,
+            updates=updates,
+            givens={
+                self._x: train_set_x[index * batch_size: (index + 1) * batch_size],
+                self._y: train_set_y[index * batch_size: (index + 1) * batch_size]
+            }
+        )
+
+        self._totalBatches = train_set_x.get_value(borrow=True).shape[0] / batch_size
+
+    def trainModel(self, train_set_x = None, train_set_y = None,
+                   lossFunction = LossFunctions.LossFunctions.negative_log_likelihood,
                    learning_rate=0.13, n_epochs=1000,
                    batch_size=600):
         """
@@ -165,155 +249,15 @@ class LogisticRegression(object):
                      http://www.iro.umontreal.ca/~lisa/deep/data/mnist/mnist.pkl.gz
 
         """
-        ######################
-        # BUILD ACTUAL MODEL #
-        ######################
-        print '... building the model'
+        # if the model is empty, build the trainModel
+        if (self._trainModel == None):
+            if (train_set_x != None and train_set_y != None):
+                self.buildTrainingModel(train_set_x, train_set_y, lossFunction,
+                                        learning_rate,  batch_size)
+            else:
+                print "You have not build any training model yet."
+                quit()
 
-        # compute number of minibatches for training, validation and testing
-        n_train_batches = train_set_x.get_value(borrow=True).shape[0] / batch_size
-        n_valid_batches = valid_set_x.get_value(borrow=True).shape[0] / batch_size
-        n_test_batches = test_set_x.get_value(borrow=True).shape[0] / batch_size
-
-
-        index = T.lscalar()  # index to a [mini]batch
-
-        # the cost we minimize during training is the negative log likelihood of
-        # the model in symbolic format
-        cost = lossFunction(self.p_y_given_x, self._y)
-
-        # compiling a Theano function that computes the mistakes that are made by
-        # the model on a minibatch
-        test_model = theano.function(
-            inputs=[index],
-            outputs=self.errors(self._y),
-            givens={
-                self._x: test_set_x[index * batch_size: (index + 1) * batch_size],
-                self._y: test_set_y[index * batch_size: (index + 1) * batch_size]
-            }
-        )
-
-        validate_model = theano.function(
-            inputs=[index],
-            outputs=self.errors(self._y),
-            givens={
-                self._x: valid_set_x[index * batch_size: (index + 1) * batch_size],
-                self._y: valid_set_y[index * batch_size: (index + 1) * batch_size]
-            }
-        )
-
-        # compute the gradient of cost with respect to theta = (W,b)
-        g_W = T.grad(cost=cost, wrt=self.W)
-        g_b = T.grad(cost=cost, wrt=self.b)
-
-        # start-snippet-3
-        # specify how to update the parameters of the model as a list of
-        # (variable, update expression) pairs.
-        updates = [(self.W, self.W - learning_rate * g_W),
-                   (self.b, self.b - learning_rate * g_b)]
-
-        # compiling a Theano function `train_model` that returns the cost, but in
-        # the same time updates the parameter of the model based on the rules
-        # defined in `updates`
-        train_model = theano.function(
-            inputs=[index],
-            outputs=cost,
-            updates=updates,
-            givens={
-                self._x: train_set_x[index * batch_size: (index + 1) * batch_size],
-                self._y: train_set_y[index * batch_size: (index + 1) * batch_size]
-            }
-        )
-        # end-snippet-3
-
-        ###############
-        # TRAIN MODEL #
-        ###############
-        print '... training the model'
-        # early-stopping parameters
-        patience = 5000  # look as this many examples regardless
-        patience_increase = 2  # wait this much longer when a new best is
-                                      # found
-        improvement_threshold = 0.995  # a relative improvement of this much is
-                                      # considered significant
-        validation_frequency = min(n_train_batches, patience / 2)
-                                      # go through this many
-                                      # minibatche before checking the network
-                                      # on the validation set; in this case we
-                                      # check every epoch
-
-        best_validation_loss = numpy.inf
-        test_score = 0.
-        start_time = time.clock()
-
-        done_looping = False
-        epoch = 0
-        while (epoch < n_epochs) and (not done_looping):
-            epoch = epoch + 1
-            for minibatch_index in xrange(n_train_batches):
-
-                minibatch_avg_cost = train_model(minibatch_index)
-                # iteration number
-                iter = (epoch - 1) * n_train_batches + minibatch_index
-
-                if (iter + 1) % validation_frequency == 0:
-                    # compute zero-one loss on validation set
-                    validation_losses = [validate_model(i)
-                                         for i in xrange(n_valid_batches)]
-                    this_validation_loss = numpy.mean(validation_losses)
-
-                    print(
-                        'epoch %i, minibatch %i/%i, validation error %f %%' %
-                        (
-                            epoch,
-                            minibatch_index + 1,
-                            n_train_batches,
-                            this_validation_loss * 100.
-                        )
-                    )
-
-                    # if we got the best validation score until now
-                    if this_validation_loss < best_validation_loss:
-                        #improve patience if loss improvement is good enough
-                        if this_validation_loss < best_validation_loss *  \
-                           improvement_threshold:
-                            patience = max(patience, iter * patience_increase)
-
-                        best_validation_loss = this_validation_loss
-                        # test it on the test set
-
-                        test_losses = [test_model(i)
-                                       for i in xrange(n_test_batches)]
-                        test_score = numpy.mean(test_losses)
-
-                        print(
-                            (
-                                '     epoch %i, minibatch %i/%i, test error of'
-                                ' best model %f %%'
-                            ) %
-                            (
-                                epoch,
-                                minibatch_index + 1,
-                                n_train_batches,
-                                test_score * 100.
-                            )
-                        )
-
-                if patience <= iter:
-                    done_looping = True
-                    break
-
-        end_time = time.clock()
-        print(
-            (
-                'Optimization complete with best validation score of %f %%,'
-                'with test performance %f %%'
-            )
-            % (best_validation_loss * 100., test_score * 100.)
-        )
-        print 'The code run for %d epochs, with %f epochs/sec' % (
-            epoch, 1. * epoch / (end_time - start_time))
-        print >> sys.stderr, ('The code for file ' +
-                              os.path.split(__file__)[1] +
-                              ' ran for %.1fs' % ((end_time - start_time)))
-
+        # train the minibatchs
+        for minibatch_index in xrange(self._totalBatches):
+            minibatch_avg_cost = self._trainModel(minibatch_index)

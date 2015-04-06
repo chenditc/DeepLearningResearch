@@ -4,7 +4,9 @@
 # Container of different kinds of loss functions
 # 
 class LossFunctions:
-    def negative_log_likelihood(self, p_y_given_x , true_y):
+    @staticmethod
+    def negative_log_likelihood(p_y_given_x , true_y):
+        import theano.tensor as T
         """Return the mean of the negative log-likelihood of the prediction
         of this model under a given target distribution.
 

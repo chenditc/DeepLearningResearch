@@ -6,6 +6,8 @@ import numpy
 import theano
 import theano.tensor as T
 import LogisticRegression
+import LossFunctions
+import EarlyStopTrainer
 
 class TrainModel:
 
@@ -95,8 +97,13 @@ class TrainModel:
 
     def startTraining(self, isClassifier = True):
         # Use Dataloader class to load data set.
+        print "#####################################"
+        print "Loading data: ", self._data_id
         datasets = self.load_data(self._data_id)
+        print "#####################################"
 
+        print "#####################################"
+        print "Calcualting model setting" 
         train_set_x, train_set_y = datasets[0]
         valid_set_x, valid_set_y = datasets[1]
         test_set_x, test_set_y = datasets[2]
@@ -111,12 +118,19 @@ class TrainModel:
             outputDim = max(yValue) + 1
         else:
             outputDim = len(yValue[0])
+        print "#####################################"
+
 
         # Create training model
+        print "#####################################"
+        print "Initializing model: ", LogisticRegression.LogisticRegression.__name__
         classifier = LogisticRegression.LogisticRegression(n_in = inputDim, n_out = outputDim)
+        
+        # Initialize trainer, here we use Early stopping 
+        trainer = EarlyStopTrainer.EarlyStopTrainer(classifier, train_set_x, train_set_y, valid_set_x, valid_set_y, test_set_x, test_set_y) 
 
-        # Call trainModel(trainingSet, validationSet) to train the model
-        classifier.trainModel(train_set_x, train_set_y, valid_set_x, valid_set_y, test_set_x, test_set_y)
+        # Use trainer to train model
+        trainer.trainModel()
 
         # Call testModel(testSet) to test the model
 
