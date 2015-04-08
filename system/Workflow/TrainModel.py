@@ -5,9 +5,11 @@
 import numpy
 import theano
 import theano.tensor as T
+
 import LogisticRegression
 import LossFunctions
 import EarlyStopTrainer
+import TestModel
 
 class TrainModel:
 
@@ -78,7 +80,7 @@ class TrainModel:
         #target to the example with the same index in the input.
         import DataLoader
         dataLoader = DataLoader.DataLoader()
-        dataLoader.downloadData("mnist_data_set")
+        dataLoader.downloadData(dataset)
         trainingInput, trainingOutput = dataLoader.getTrainingSet() 
         validationInput, validationOutput = dataLoader.getValidationSet() 
         testInput, testOutput = dataLoader.getTestSet() 
@@ -118,6 +120,8 @@ class TrainModel:
             outputDim = max(yValue) + 1
         else:
             outputDim = len(yValue[0])
+        xValue = None
+        yValue = None
         print "#####################################"
 
 
@@ -133,6 +137,8 @@ class TrainModel:
         trainer.trainModel()
 
         # Call testModel(testSet) to test the model
+        tester = TestModel.TestModel(model = classifier)
+        tester.testModel()
 
 if __name__ == "__main__" :
     import argparse

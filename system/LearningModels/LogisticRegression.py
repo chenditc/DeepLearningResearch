@@ -149,7 +149,8 @@ class LogisticRegression(object):
     # @return 
     def testModel(self, testInput):
         # build test Model
-        testInput = testInput.get_value()
+        if (isinstance(testInput, theano.compile.sharedvalue.SharedVariable)):
+            testInput = testInput.get_value()
 
         # loop through the input and compute prediction
         test_model = theano.function(
