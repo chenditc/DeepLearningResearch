@@ -149,11 +149,12 @@ class DataLoader:
         split_n = 1
         
         # Error checking
-        if len(cursor.fetchall()) == 0:
+        dataRows = cursor.fetchall()
+        if len(dataRows) == 0:
             print "No data available for: ", data_id
             quit()
 
-        for row in cursor.fetchall():
+        for row in dataRows:
             row_id, x, y = row
             # check id
             if (expect_row_id != row_id):

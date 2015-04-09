@@ -59,7 +59,7 @@ import Classifier
 # 
 class LogisticRegression(Classifier.Classifier):
 
-    def __init__(self, n_in, n_out):
+    def __init__(self, n_in, n_out, inputVariable = None, outputVariable = None):
         """ Initialize the parameters of the logistic regression
 
         :type n_in: int
@@ -79,6 +79,11 @@ class LogisticRegression(Classifier.Classifier):
         # minibatch)
         self._x = T.matrix('x')  # data, presented as rasterized images
         self._y = T.ivector('y')  # labels, presented as 1D vector of [int] labels
+
+        if inputVariable != None:
+            self._x = inputVariable
+        if outputVariable != None:
+            self._y = outputVariable
 
         # TODO: change initialize value to configurable, eg. random
         # initialize with 0 the weights W as a matrix of shape (n_in, n_out)
