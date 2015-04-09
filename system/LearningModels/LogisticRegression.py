@@ -45,6 +45,8 @@ import theano
 import theano.tensor as T
 
 import LossFunctions
+import ModelUtility
+import Classifier
 
 ##
 # @brief 
@@ -55,7 +57,7 @@ import LossFunctions
 # points onto a set of hyperplanes, the distance to which is used to
 # determine a class membership probability.
 # 
-class LogisticRegression(object):
+class LogisticRegression(Classifier.Classifier):
 
     def __init__(self, n_in, n_out):
         """ Initialize the parameters of the logistic regression
@@ -70,6 +72,9 @@ class LogisticRegression(object):
 
         """
 
+        # initialize classifier class
+        super(LogisticRegression, self).__init__()
+
         # generate symbolic variables for input (x and y represent a
         # minibatch)
         self._x = T.matrix('x')  # data, presented as rasterized images
@@ -78,8 +83,8 @@ class LogisticRegression(object):
         # TODO: change initialize value to configurable, eg. random
         # initialize with 0 the weights W as a matrix of shape (n_in, n_out)
         self.W = theano.shared(
-            value=numpy.zeros(
-                (n_in, n_out),
+            value=numpy.asarray(
+                ModelUtility.getRandomNumpyMatrix(n_in, n_out),
                 dtype=theano.config.floatX
             ),
             name='W',
@@ -91,6 +96,10 @@ class LogisticRegression(object):
                 (n_out,),
                 dtype=theano.config.floatX
             ),
+#            value=numpy.asarray(
+#                ModelUtility.getRandomNumpyMatrix(n_out, 1),
+#                dtype=theano.config.floatX
+#            ),
             name='b',
             borrow=True
         )
@@ -116,69 +125,11 @@ class LogisticRegression(object):
 
         # initialize train model
         self._trainModel = None;
-
-    def errors(self, y):
-        """Return a float representing the number of errors in the minibatch
-        over the total number of examples of the minibatch ; zero one
-        loss over the size of the minibatch
-
-        :type y: theano.tensor.TensorType
-        :param y: corresponds to a vector that gives for each example the
-                  correct label
-        """
-
-        # check if y has same dimension of y_pred
-        if y.ndim != self.y_pred.ndim:
-            raise TypeError(
-                'y should have the same shape as self.y_pred',
-                ('y', y.type, 'y_pred', self.y_pred.type)
-            )
-        # check if y is of the correct datatype
-        if y.dtype.startswith('int'):
-            # the T.neq operator returns a vector of 0s and 1s, where 1
-            # represents a mistake in prediction
-            return T.mean(T.neq(self.y_pred, y))
-        else:
-            raise NotImplementedError()
-
-    ##
-    # @brief            Given a list of inputs , return a list of prediction
-    #
-    # @param testInput  
-    #
-    # @return 
-    def testModel(self, testInput):
-        # build test Model
-        if (isinstance(testInput, theano.compile.sharedvalue.SharedVariable)):
-            testInput = testInput.get_value()
-
-        # loop through the input and compute prediction
-        test_model = theano.function(
+        self._testModel = theano.function(
             inputs=[self._x],
             outputs=self.y_pred,
         )
 
-        preditction = test_model(testInput)
-        return preditction 
-
-
-    ##
-    # @brief                Given a list of inputs
-    #
-    # @param testInput      test input
-    # @param testOutput     right output
-    #
-    # @return               error rate 
-    def getTestError(self, testInput, testOutput):
-        # compare the prediction with the output
-        error = 0.0
-        prediction = self.testModel(testInput)
-        testOutput = testOutput.eval()
-        for i in range(len(prediction)):
-            if prediction[i] != testOutput[i]:
-                error += 1
-
-        return error / len(prediction)
 
     ##
     # @brief                Create theano function that take training x and y
