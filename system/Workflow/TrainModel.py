@@ -125,6 +125,7 @@ class TrainModel:
         print "#####################################"
 
 
+
         # Create training model
         print "#####################################"
         print "Initializing model: ", LogisticRegression.LogisticRegression.__name__

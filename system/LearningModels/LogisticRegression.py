@@ -82,7 +82,7 @@ class LogisticRegression(Classifier.Classifier):
 
         # TODO: change initialize value to configurable, eg. random
         # initialize with 0 the weights W as a matrix of shape (n_in, n_out)
-        self.W = theano.shared(
+        self._W = theano.shared(
             value=numpy.asarray(
                 ModelUtility.getRandomNumpyMatrix(n_in, n_out),
                 dtype=theano.config.floatX
@@ -91,15 +91,11 @@ class LogisticRegression(Classifier.Classifier):
             borrow=True
         )
         # initialize the baises b as a vector of n_out 0s
-        self.b = theano.shared(
+        self._b = theano.shared(
             value=numpy.zeros(
                 (n_out,),
                 dtype=theano.config.floatX
             ),
-#            value=numpy.asarray(
-#                ModelUtility.getRandomNumpyMatrix(n_out, 1),
-#                dtype=theano.config.floatX
-#            ),
             name='b',
             borrow=True
         )
@@ -112,7 +108,7 @@ class LogisticRegression(Classifier.Classifier):
         # x is a matrix where row-j  represents input training sample-j
         # b is a vector where element-k represent the free parameter of hyper
         # plain-k
-        self.p_y_given_x = T.nnet.softmax(T.dot(self._x, self.W) + self.b)
+        self.p_y_given_x = T.nnet.softmax(T.dot(self._x, self._W) + self._b)
 
         # symbolic description of how to compute prediction as class whose
         # probability is maximal
@@ -121,7 +117,7 @@ class LogisticRegression(Classifier.Classifier):
 
         # parameters of the model, will be used later to update
         # This can be stored and reload to replicate the same result
-        self.params = [self.W, self.b]
+        self.params = [self._W, self._b]
 
         # initialize train model
         self._trainModel = None;
@@ -137,14 +133,19 @@ class LogisticRegression(Classifier.Classifier):
     #
     # @param train_set_x    
     # @param train_set_y
-    # @param lossFunction   The loss function that will calculate gradient. A function takes x and y
-    # @param learning_rate  the step updateing parameters
-    # @param batch_size     The size of training data to compute at once
+    # @param parameterToTrain   A list of parameter index to train in this training model
+    # @param lossFunction       The loss function that will calculate gradient. A function takes x and y
+    # @param learning_rate      the step updateing parameters
+    # @param batch_size         The size of training data to compute at once
     #
     # @return 
-    def buildTrainingModel(self, train_set_x, train_set_y,
+    def buildTrainingModel(self, 
+                           train_set_x, 
+                           train_set_y,
+                           parameterToTrain = [],
                            lossFunction = LossFunctions.LossFunctions.negative_log_likelihood, 
-                           learning_rate = 0.1, batch_size = 600):
+                           learning_rate = 0.1, 
+                           batch_size = 600):
 
         ######################
         # BUILD ACTUAL MODEL #
@@ -157,14 +158,27 @@ class LogisticRegression(Classifier.Classifier):
         cost = lossFunction(self.p_y_given_x, self._y)
 
         # compute the gradient of cost with respect to theta = (W,b)
-        g_W = T.grad(cost=cost, wrt=self.W)
-        g_b = T.grad(cost=cost, wrt=self.b)
+        self.g_params = []
+        for i in range(len(self.params)):
+            param = self.params[i]
+            g_param = T.grad(cost=cost, wrt=param)
+            self.g_params.append(g_param)
 
         # start-snippet-3
         # specify how to update the parameters of the model as a list of
         # (variable, update expression) pairs.
-        updates = [(self.W, self.W - learning_rate * g_W),
-                   (self.b, self.b - learning_rate * g_b)]
+        updates = []
+        if len(parameterToTrain) == 0:
+            for i in range(len(self.params)):
+                updates.append(
+                        (self.params[i], self.params[i] - learning_rate * self.g_params[i])
+                )
+        else:
+            # if specified which parameter to train, we update that parametr only
+            for i in parameterToTrain:
+                updates.append(
+                        (self.params[i], self.params[i] - learning_rate * self.g_params[i])
+                )
 
         # compiling a Theano function `trainModel` that returns the cost, but in
         # the same time updates the parameter of the model based on the rules
@@ -181,26 +195,22 @@ class LogisticRegression(Classifier.Classifier):
 
         self._totalBatches = train_set_x.get_value(borrow=True).shape[0] / batch_size
 
+    ##
+    # @brief                    Run the index to go through the training set  
+    #
+    # @param train_set_x        Training input x
+    # @param train_set_y        Training output y
+    # @param lossFunction       lossfunction to run gradient
+    # @param learning_rate      update learning rate
+    # @param n_epochs           maximum epoch to train
+    # @param batch_size         how much data to train for one minibatch
+    #
+    # @return 
     def trainModel(self, train_set_x = None, train_set_y = None,
                    lossFunction = LossFunctions.LossFunctions.negative_log_likelihood,
                    learning_rate=0.13, n_epochs=1000,
-                   batch_size=600):
-        """
-        Demonstrate stochastic gradient descent optimization of a log-linear
-        model
+                   batch_size=20):
 
-        :type learning_rate: float
-        :param learning_rate: learning rate used (factor for the stochastic
-                              gradient)
-
-        :type n_epochs: int
-        :param n_epochs: maximal number of epochs to run the optimizer
-
-        :type dataset: string
-        :param dataset: the path of the MNIST dataset file from
-                     http://www.iro.umontreal.ca/~lisa/deep/data/mnist/mnist.pkl.gz
-
-        """
         # if the model is empty, build the trainModel
         if (self._trainModel == None):
             if (train_set_x != None and train_set_y != None):

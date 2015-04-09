@@ -39,3 +39,14 @@ class Model(object):
         preditction = self._testModel(testInput)
         return preditction 
 
+
+    ##
+    # @brief                Given a json string which wrap all the parameters,
+    #                       Initialize the model to a trained state
+    #
+    # @param jsonString     A json string contains a map, key is the variable name
+    #                       Value is the corresponding value of the variable
+    #
+    # @return 
+    def loadModelFromJson(self, jsonString):
+        raise NoImplementationError("loadModelFromJson")

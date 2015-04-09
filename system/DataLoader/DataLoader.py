@@ -147,6 +147,12 @@ class DataLoader:
         dataMatrix = []
         expect_row_id = 0
         split_n = 1
+        
+        # Error checking
+        if len(cursor.fetchall()) == 0:
+            print "No data available for: ", data_id
+            quit()
+
         for row in cursor.fetchall():
             row_id, x, y = row
             # check id
