@@ -122,7 +122,10 @@ class LogisticRegression(Classifier.Classifier):
 
         # parameters of the model, will be used later to update
         # This can be stored and reload to replicate the same result
-        self.params = [self._W, self._b]
+        self.params = {
+            'W' : self._W, 
+            'b' : self._b
+        }
 
         # initialize train model
         self._trainModel = None;
@@ -162,28 +165,7 @@ class LogisticRegression(Classifier.Classifier):
         # the model in symbolic format
         cost = lossFunction(self.p_y_given_x, self._y)
 
-        # compute the gradient of cost with respect to theta = (W,b)
-        self.g_params = []
-        for i in range(len(self.params)):
-            param = self.params[i]
-            g_param = T.grad(cost=cost, wrt=param)
-            self.g_params.append(g_param)
-
-        # start-snippet-3
-        # specify how to update the parameters of the model as a list of
-        # (variable, update expression) pairs.
-        updates = []
-        if len(parameterToTrain) == 0:
-            for i in range(len(self.params)):
-                updates.append(
-                        (self.params[i], self.params[i] - learning_rate * self.g_params[i])
-                )
-        else:
-            # if specified which parameter to train, we update that parametr only
-            for i in parameterToTrain:
-                updates.append(
-                        (self.params[i], self.params[i] - learning_rate * self.g_params[i])
-                )
+        updates = self.getUpdateForVariable(cost, learning_rate, self.params, onlyTrain=parameterToTrain)
 
         # compiling a Theano function `trainModel` that returns the cost, but in
         # the same time updates the parameter of the model based on the rules

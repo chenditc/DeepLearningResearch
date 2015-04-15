@@ -1,4 +1,9 @@
 import theano
+import theano.tensor as T
+import json
+import numpy
+
+import DataLoader
 
 
 class NoImplementationError(Exception):
@@ -49,4 +54,60 @@ class Model(object):
     #
     # @return 
     def loadModelFromJson(self, jsonString):
-        raise NoImplementationError("loadModelFromJson")
+        parameters = json.loads(jsonString)
+        for key in parameters:
+            self.params[key] = theano.shared(
+                value=numpy.asarray(
+                    parameters[key],
+                    dtype=theano.config.floatX
+                ),
+                name=key,
+                borrow=True
+            )
+
+
+    ##
+    # @brief        store the parameters to a json string
+    #
+    # @return       json string that represent the parameter map
+    def storeModelToJson(self):
+        parameters = {}
+        for key in self.params:
+            parameters[key] = self.params[key].get_value().tolist()
+        return json.dumps(parameters)
+
+    def uploadModel(self):
+        loader = DataLoader.DataLoader()
+        cursor = loader.getDatabaseCursor()
+        parameters = self.storeModelToJson()
+        cursor.execute('INSERT INTO Model1 ( model_name, parameters, description, data_id ) VALUES (%s, %s, %s, %s)',
+                        ("testModel", parameters, "y = x * W + b", "sum_positive_1"))
+        loader.commitData()
+        print self.storeModelToJson() 
+
+
+    ##
+    # @brief                Get update array from learning rate, parameters and etc.
+    #
+    # @param cost           The cost function to minimize
+    # @param learningRate   
+    # @param parameters     The tensor variable of all parameters in the model
+    # @param onlyTrain      The parameters that will be trained. If the array is empty, update all
+    #
+    # @return               the array of update parameters 
+    def getUpdateForVariable(self, cost, learningRate, parameters, onlyTrain=[]):
+        # compute the gradient of cost with respect to theta = (W,b)
+        if len(onlyTrain) == 0:
+            onlyTrain = parameters.keys()
+
+        updates = []
+        for key in onlyTrain:
+            gradient = T.grad(cost=cost, wrt=parameters[key])
+            # specify how to update the parameters of the model as a list of
+            # (variable, update expression) pairs.
+            updates.append(
+                    (parameters[key], parameters[key] - learningRate * gradient)
+            )
+        return updates
+
+
