@@ -6,6 +6,8 @@ import MySQLdb
 import json
 import numpy
 import os.path
+import theano
+import theano.tensor as T
 
 class formatError(Exception):
     def __init__(self, value):
@@ -137,6 +139,52 @@ class DataLoader:
         # sync database after all done
         self.commitData()
         return 
+
+
+    ##
+    # @brief            Fetch all data with data_id
+    #
+    # @param data_id    query key
+    #
+    # @return           a data matrix contains xy values and split_n 
+    def downloadData(self, data_id):
+        cursor = self.getDatabaseCursor()
+        # query database:
+        cursor.execute('SELECT row_id, x, y FROM TrainingData1 WHERE data_id = %s order by row_id asc', (data_id) )
+        dataMatrix = []
+        expect_row_id = 0
+        split_n = 1
+        
+        # Error checking
+        dataRows = cursor.fetchall()
+        if len(dataRows) == 0:
+            print "No data available for: ", data_id
+            quit()
+
+        for row in dataRows:
+            row_id, x, y = row
+            # check id
+            if (expect_row_id != row_id):
+                errorMessage = ( "Data Missing or Wrong.  expect:" 
+                            + str(expect_row_id) + " ,get: " + str(row_id) )
+                raise orderError(errorMessage)
+            expect_row_id += 1
+            x = self.decodeNumberArray(x)
+            y = self.decodeNumberArray(y)
+
+            # set split_n
+            split_n = len(y)
+            # set row
+            dataMatrix.append( x + y )
+
+        # store the data in class
+        self._data_id = data_id;
+        self._dataMatrix = dataMatrix
+        self._split_n = split_n
+        return dataMatrix, split_n
+
+
+
     ##
     # @brief                        Parse one row 
     #
@@ -207,8 +255,50 @@ class DataLoader:
         return 0 
 
 ############# Training related functions ##############################
+ 
+    ##
+    # @brief 
+    #    Function that loads the dataset into shared variables
+    #
+    #    The reason we store our dataset in shared variables is to allow
+    #    Theano to copy it into the GPU memory (when code is run on GPU).
+    #    Since copying data into the GPU is slow, copying a minibatch everytime
+    #    is needed (the default behaviour if the data is not in a shared
+    #    variable) would lead to a large decrease in performance.
+    #    
+    # @param inputData      the input data to model 
+    # @param outputData     the output data to model
+    # @param borrow         if enable shallow copy or not
+    # @param isClassifier   if this is a classifier
+    #
+    # @return 
+    @staticmethod
+    def shared_dataset(inputData, outputData, borrow=True, isClassifier = True):
+        data_x = inputData
+        data_y = outputData
 
-    
+        # if the data is for a classifier, use the first column of y only
+        # and also change it to an array of scalar
+        if isClassifier:
+            data_y = data_y[:,0]
+
+        # Create share variable from numpy array
+        shared_x = theano.shared(numpy.asarray(data_x,
+                                               dtype=theano.config.floatX),
+                                 borrow=borrow)
+        shared_y = theano.shared(numpy.asarray(data_y,
+                                               dtype=theano.config.floatX),
+                                 borrow=borrow)
+        # When storing data on the GPU it has to be stored as floats
+        # therefore we will store the labels as ``floatX`` as well
+        # (``shared_y`` does exactly that). But during our computations
+        # we need them as ints (we use labels as index, and if they are
+        # floats it doesn't make sense) therefore instead of returning
+        # ``shared_y`` we will have to cast it to int. This little hack
+        # lets ous get around this issue
+        return shared_x, T.cast(shared_y, 'int32')
+
+   
     ##
     # @brief                Split the input data and output data
     #
@@ -285,49 +375,6 @@ class DataLoader:
 
 
     ##
-    # @brief            Fetch all data with data_id
-    #
-    # @param data_id    query key
-    #
-    # @return           a data matrix contains xy values and split_n 
-    def downloadData(self, data_id):
-        cursor = self.getDatabaseCursor()
-        # query database:
-        cursor.execute('SELECT row_id, x, y FROM TrainingData1 WHERE data_id = %s order by row_id asc', (data_id) )
-        dataMatrix = []
-        expect_row_id = 0
-        split_n = 1
-        
-        # Error checking
-        dataRows = cursor.fetchall()
-        if len(dataRows) == 0:
-            print "No data available for: ", data_id
-            quit()
-
-        for row in dataRows:
-            row_id, x, y = row
-            # check id
-            if (expect_row_id != row_id):
-                errorMessage = ( "Data Missing or Wrong.  expect:" 
-                            + str(expect_row_id) + " ,get: " + str(row_id) )
-                raise orderError(errorMessage)
-            expect_row_id += 1
-            x = self.decodeNumberArray(x)
-            y = self.decodeNumberArray(y)
-
-            # set split_n
-            split_n = len(y)
-            # set row
-            dataMatrix.append( x + y )
-
-        # store the data in class
-        self._data_id = data_id;
-        self._dataMatrix = dataMatrix
-        self._split_n = split_n
-        return dataMatrix, split_n
-
-
-    ##
     # @brief    return training input and training output both as 2-D array
     #
     # @return 
@@ -335,7 +382,8 @@ class DataLoader:
         start = 0
         end = int(self._maxRowID * self._training_split)
         dataMatrix, split_n = self.downloadDataInRange(start, end)
-        return self.splitInputAndOutput(dataMatrix, split_n)
+        inputData, outputData = self.splitInputAndOutput(dataMatrix, split_n)
+        return DataLoader.shared_dataset(inputData, outputData)
 
     ##
     # @brief    return validation input and training output both as 2-D array
@@ -345,7 +393,8 @@ class DataLoader:
         start = int(self._maxRowID * self._training_split)
         end = int(self._maxRowID * ( self._training_split + self._validation_split))
         dataMatrix, split_n = self.downloadDataInRange(start, end)
-        return self.splitInputAndOutput(dataMatrix, split_n)
+        inputData, outputData = self.splitInputAndOutput(dataMatrix, split_n)
+        return DataLoader.shared_dataset(inputData, outputData)
 
     ##
     # @brief    return validation input and training output both as 2-D array
@@ -355,7 +404,8 @@ class DataLoader:
         start = int(self._maxRowID * ( self._training_split + self._validation_split))
         end = self._maxRowID
         dataMatrix, split_n = self.downloadDataInRange(start, end)
-        return self.splitInputAndOutput(dataMatrix, split_n)
+        inputData, outputData = self.splitInputAndOutput(dataMatrix, split_n)
+        return DataLoader.shared_dataset(inputData, outputData)
 
 
 

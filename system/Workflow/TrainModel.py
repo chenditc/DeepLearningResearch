@@ -18,49 +18,6 @@ class TrainModel:
         self._data_id = data_id
 
 
-
-    ##
-    # @brief 
-    #    Function that loads the dataset into shared variables
-    #
-    #    The reason we store our dataset in shared variables is to allow
-    #    Theano to copy it into the GPU memory (when code is run on GPU).
-    #    Since copying data into the GPU is slow, copying a minibatch everytime
-    #    is needed (the default behaviour if the data is not in a shared
-    #    variable) would lead to a large decrease in performance.
-    #    
-    # @param inputData      the input data to model 
-    # @param outputData     the output data to model
-    # @param borrow         if enable shallow copy or not
-    # @param isClassifier   if this is a classifier
-    #
-    # @return 
-    @staticmethod
-    def shared_dataset(inputData, outputData, borrow=True, isClassifier = True):
-        data_x = inputData
-        data_y = outputData
-
-        # if the data is for a classifier, use the first column of y only
-        # and also change it to an array of scalar
-        if isClassifier:
-            data_y = data_y[:,0]
-
-        # Create share variable from numpy array
-        shared_x = theano.shared(numpy.asarray(data_x,
-                                               dtype=theano.config.floatX),
-                                 borrow=borrow)
-        shared_y = theano.shared(numpy.asarray(data_y,
-                                               dtype=theano.config.floatX),
-                                 borrow=borrow)
-        # When storing data on the GPU it has to be stored as floats
-        # therefore we will store the labels as ``floatX`` as well
-        # (``shared_y`` does exactly that). But during our computations
-        # we need them as ints (we use labels as index, and if they are
-        # floats it doesn't make sense) therefore instead of returning
-        # ``shared_y`` we will have to cast it to int. This little hack
-        # lets ous get around this issue
-        return shared_x, T.cast(shared_y, 'int32')
-
     def load_data(self, dataset):
         ''' Loads the dataset
 
@@ -80,15 +37,10 @@ class TrainModel:
         #target to the example with the same index in the input.
         import DataLoader
         dataLoader = DataLoader.DataLoader(dataset=dataset)
-        trainingInput, trainingOutput = dataLoader.getTrainingSet() 
-        validationInput, validationOutput = dataLoader.getValidationSet() 
-        testInput, testOutput = dataLoader.getTestSet() 
 
-
-        # Create 
-        train_set_x, train_set_y = TrainModel.shared_dataset(trainingInput, trainingOutput)
-        valid_set_x, valid_set_y = TrainModel.shared_dataset(validationInput, validationOutput)
-        test_set_x, test_set_y = TrainModel.shared_dataset(testInput, testOutput)
+        train_set_x, train_set_y = dataLoader.getTrainingSet() 
+        valid_set_x, valid_set_y = dataLoader.getValidationSet() 
+        test_set_x, test_set_y = dataLoader.getTestSet() 
 
         rval = [(train_set_x, train_set_y), (valid_set_x, valid_set_y),
                 (test_set_x, test_set_y)]
