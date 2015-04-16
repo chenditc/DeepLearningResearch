@@ -79,8 +79,7 @@ class TrainModel:
         #the number of rows in the input. It should give the target
         #target to the example with the same index in the input.
         import DataLoader
-        dataLoader = DataLoader.DataLoader()
-        dataLoader.downloadData(dataset)
+        dataLoader = DataLoader.DataLoader(dataset=dataset)
         trainingInput, trainingOutput = dataLoader.getTrainingSet() 
         validationInput, validationOutput = dataLoader.getValidationSet() 
         testInput, testOutput = dataLoader.getTestSet() 

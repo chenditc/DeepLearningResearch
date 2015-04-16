@@ -24,7 +24,9 @@ class orderError(Exception):
 
 class DataLoader:
 
-    def __init__(self, training_split = 0.6, validation_split = 0.2, test_split = 0.2):
+####################### Utility functions ######################
+
+    def __init__(self, dataset, training_split = 0.6, validation_split = 0.2, test_split = 0.2):
         # private variables:
         self._dbCursor = None
         self._dbConnector = None
@@ -34,6 +36,8 @@ class DataLoader:
         self._training_split = training_split
         self. _validation_split = validation_split
         self._test_split = test_split
+        self._data_id = dataset
+        self.peekMaximumRowID(dataset)
         if (training_split + validation_split + test_split != 1):
             raise test_split("The training_split + validation_split + test_split is not 1")
 
@@ -133,49 +137,6 @@ class DataLoader:
         # sync database after all done
         self.commitData()
         return 
-
-    ##
-    # @brief            Fetch all data with data_id
-    #
-    # @param data_id    query key
-    #
-    # @return           a data matrix contains xy values and split_n 
-    def downloadData(self, data_id):
-        cursor = self.getDatabaseCursor()
-        # query database:
-        cursor.execute('SELECT row_id, x, y FROM TrainingData1 WHERE data_id = %s order by row_id asc', (data_id) )
-        dataMatrix = []
-        expect_row_id = 0
-        split_n = 1
-        
-        # Error checking
-        dataRows = cursor.fetchall()
-        if len(dataRows) == 0:
-            print "No data available for: ", data_id
-            quit()
-
-        for row in dataRows:
-            row_id, x, y = row
-            # check id
-            if (expect_row_id != row_id):
-                errorMessage = ( "Data Missing or Wrong.  expect:" 
-                            + str(expect_row_id) + " ,get: " + str(row_id) )
-                raise orderError(errorMessage)
-            expect_row_id += 1
-            x = self.decodeNumberArray(x)
-            y = self.decodeNumberArray(y)
-
-            # set split_n
-            split_n = len(y)
-            # set row
-            dataMatrix.append( x + y )
-
-        # store the data in class
-        self._data_id = data_id;
-        self._dataMatrix = dataMatrix
-        self._split_n = split_n
-        return dataMatrix, split_n
-
     ##
     # @brief                        Parse one row 
     #
@@ -245,6 +206,8 @@ class DataLoader:
         dataLoader.commitData();
         return 0 
 
+############# Training related functions ##############################
+
     
     ##
     # @brief                Split the input data and output data
@@ -265,32 +228,134 @@ class DataLoader:
 
 
     ##
+    # @brief            Get the maximum row id for a given data set
+    #
+    # @param data_id
+    #
+    # @return 
+    def peekMaximumRowID(self, data_id):
+        cursor = self.getDatabaseCursor()
+        # query database:
+        cursor.execute('SELECT max(row_id) as max_row_id FROM TrainingData1 WHERE data_id = %s', (data_id) )
+        dataRows = cursor.fetchall()
+        if len(dataRows) == 0:
+            print "No data available for: ", data_id
+            quit()
+        # first row, first element
+        self._maxRowID = dataRows[0][0]
+        self._data_id = data_id
+
+    ##
+    # @brief            Given a range of start and end id, fetch the data set
+    #
+    # @param start      start row id
+    # @param end        end row id
+    #
+    # @return 
+    def downloadDataInRange(self, start, end):
+        cursor = self.getDatabaseCursor()
+        # query database:
+        cursor.execute('SELECT row_id, x, y FROM TrainingData1 WHERE data_id = %s AND row_id >= %s AND row_id <= %s order by row_id asc', (self._data_id, start, end) )
+        dataMatrix = []
+        expect_row_id = start
+        split_n = 1
+        
+        # Error checking
+        dataRows = cursor.fetchall()
+        if len(dataRows) == 0:
+            print "No data available for: ", data_id
+            quit()
+
+        for row in dataRows:
+            row_id, x, y = row
+            # check id
+            if (expect_row_id != row_id):
+                errorMessage = ( "Data Missing or Wrong.  expect:" 
+                            + str(expect_row_id) + " ,get: " + str(row_id) )
+                raise orderError(errorMessage)
+            expect_row_id += 1
+            x = self.decodeNumberArray(x)
+            y = self.decodeNumberArray(y)
+
+            split_n = len(y)
+            # set row
+            dataMatrix.append( x + y )
+
+        return dataMatrix, split_n
+
+
+    ##
+    # @brief            Fetch all data with data_id
+    #
+    # @param data_id    query key
+    #
+    # @return           a data matrix contains xy values and split_n 
+    def downloadData(self, data_id):
+        cursor = self.getDatabaseCursor()
+        # query database:
+        cursor.execute('SELECT row_id, x, y FROM TrainingData1 WHERE data_id = %s order by row_id asc', (data_id) )
+        dataMatrix = []
+        expect_row_id = 0
+        split_n = 1
+        
+        # Error checking
+        dataRows = cursor.fetchall()
+        if len(dataRows) == 0:
+            print "No data available for: ", data_id
+            quit()
+
+        for row in dataRows:
+            row_id, x, y = row
+            # check id
+            if (expect_row_id != row_id):
+                errorMessage = ( "Data Missing or Wrong.  expect:" 
+                            + str(expect_row_id) + " ,get: " + str(row_id) )
+                raise orderError(errorMessage)
+            expect_row_id += 1
+            x = self.decodeNumberArray(x)
+            y = self.decodeNumberArray(y)
+
+            # set split_n
+            split_n = len(y)
+            # set row
+            dataMatrix.append( x + y )
+
+        # store the data in class
+        self._data_id = data_id;
+        self._dataMatrix = dataMatrix
+        self._split_n = split_n
+        return dataMatrix, split_n
+
+
+    ##
     # @brief    return training input and training output both as 2-D array
     #
     # @return 
     def getTrainingSet(self):
-        stopIndex = int(len(self._dataMatrix) * self._training_split)
-        trainingSet = self._dataMatrix[: stopIndex]
-        return self.splitInputAndOutput(trainingSet, self._split_n)
+        start = 0
+        end = int(self._maxRowID * self._training_split)
+        dataMatrix, split_n = self.downloadDataInRange(start, end)
+        return self.splitInputAndOutput(dataMatrix, split_n)
 
     ##
     # @brief    return validation input and training output both as 2-D array
     #
     # @return 
     def getValidationSet(self):
-        startIndex = int(len(self._dataMatrix) * self._training_split)
-        stopIndex = int(len(self._dataMatrix) * ( self._training_split + self._validation_split))
-        validationSet = self._dataMatrix[startIndex: stopIndex]
-        return self.splitInputAndOutput(validationSet,self._split_n)
+        start = int(self._maxRowID * self._training_split)
+        end = int(self._maxRowID * ( self._training_split + self._validation_split))
+        dataMatrix, split_n = self.downloadDataInRange(start, end)
+        return self.splitInputAndOutput(dataMatrix, split_n)
 
     ##
     # @brief    return validation input and training output both as 2-D array
     #
     # @return 
     def getTestSet(self):
-        startIndex = int(len(self._dataMatrix) * ( self._training_split + self._validation_split))
-        testSet = self._dataMatrix[startIndex:]
-        return self.splitInputAndOutput(testSet, self._split_n)
+        start = int(self._maxRowID * ( self._training_split + self._validation_split))
+        end = self._maxRowID
+        dataMatrix, split_n = self.downloadDataInRange(start, end)
+        return self.splitInputAndOutput(dataMatrix, split_n)
 
 
 
