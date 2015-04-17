@@ -28,18 +28,18 @@ class DataLoader:
 
 ####################### Utility functions ######################
 
-    def __init__(self, dataset, training_split = 0.6, validation_split = 0.2, test_split = 0.2):
+    def __init__(self, dataset, isClassifier = True, training_split = 0.6, validation_split = 0.2, test_split = 0.2):
         # private variables:
         self._dbCursor = None
         self._dbConnector = None
-        self._data_id = None
         self._dataMatrix = None
         self._split_n = None
         self._training_split = training_split
         self. _validation_split = validation_split
         self._test_split = test_split
         self._data_id = dataset
-        self.peekMaximumRowID(dataset)
+        self.peekMaximumRowID()
+        self.peekDataDimension(isClassifier)
         if (training_split + validation_split + test_split != 1):
             raise test_split("The training_split + validation_split + test_split is not 1")
 
@@ -323,17 +323,47 @@ class DataLoader:
     # @param data_id
     #
     # @return 
-    def peekMaximumRowID(self, data_id):
+    def peekMaximumRowID(self):
         cursor = self.getDatabaseCursor()
         # query database:
-        cursor.execute('SELECT max(row_id) as max_row_id FROM TrainingData1 WHERE data_id = %s', (data_id) )
+        cursor.execute('SELECT max(row_id) as max_row_id FROM TrainingData1 WHERE data_id = %s', (self._data_id) )
         dataRows = cursor.fetchall()
         if len(dataRows) == 0:
             print "No data available for: ", data_id
             quit()
         # first row, first element
         self._maxRowID = dataRows[0][0]
-        self._data_id = data_id
+
+    ##
+    # @brief    check the input and output dimension
+    #
+    # @return 
+    # TODO: add non-classifier dimension
+    def peekDataDimension(self, isClassifier):
+        cursor = self.getDatabaseCursor()
+        # query database:
+        cursor.execute('SELECT x, max(y) as max_y FROM TrainingData1 WHERE data_id = %s LIMIT 1', (self._data_id) )
+        dataRows = cursor.fetchall()
+        if len(dataRows) == 0:
+            print "No data available for: ", data_id
+            quit()
+        # first row, first element
+        x, y = dataRows[0]
+        x = self.decodeNumberArray(x)
+        y = self.decodeNumberArray(y)
+        self._inDim = len(x)
+        if isClassifier:
+            # add one because the class number start from 1
+            self._outDim = int(y[0]) + 1
+        else:
+            self._outDim = len(y)
+
+    ##
+    # @brief    Getter for input and output dimension
+    #
+    # @return   input dimension and output dimension
+    def getDataDimension(self):
+        return self._inDim, self._outDim
 
     ##
     # @brief            Given a range of start and end id, fetch the data set

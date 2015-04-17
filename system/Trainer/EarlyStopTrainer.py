@@ -5,9 +5,7 @@ import time
 
 class EarlyStopTrainer:
     def __init__(self, model, 
-                 train_set_x, train_set_y, 
-                 valid_set_x, valid_set_y, 
-                 test_set_x, test_set_y, 
+                 dataLoader,
                  startLearningRate = 0.2, maxEpoch = 10000):
         self._startLearningRate = startLearningRate
         self._maxEpoch = maxEpoch
@@ -15,13 +13,9 @@ class EarlyStopTrainer:
         # store model
         self._model = model
 
-        # store data set
-        self._train_set_x = train_set_x
-        self._train_set_y = train_set_y
-        self._valid_set_x = valid_set_x
-        self._valid_set_y = valid_set_y
-        self._test_set_x = test_set_x
-        self._test_set_y = test_set_y
+        self._train_set_x, self._train_set_y = dataLoader.getTrainingSet() 
+        self._valid_set_x, self._valid_set_y = dataLoader.getValidationSet() 
+        test_set_x, test_set_y = dataLoader.getTestSet() 
 
         # Building training model
         print "#####################################"
