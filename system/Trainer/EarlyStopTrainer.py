@@ -15,7 +15,7 @@ class EarlyStopTrainer:
 
         self._train_set_x, self._train_set_y = dataLoader.getTrainingSet() 
         self._valid_set_x, self._valid_set_y = dataLoader.getValidationSet() 
-        test_set_x, test_set_y = dataLoader.getTestSet() 
+        self._test_set_x, self._test_set_y = dataLoader.getTestSet() 
 
         # Building training model
         print "#####################################"
