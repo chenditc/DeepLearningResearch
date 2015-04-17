@@ -34,12 +34,19 @@ class DataLoader:
         self._dbConnector = None
         self._dataMatrix = None
         self._split_n = None
+        self._trainSetIndex = 0
+
+        # TODO: automaticly figure out how much a batch should be
+        self._dataBatch = 500
         self._training_split = training_split
         self. _validation_split = validation_split
         self._test_split = test_split
         self._data_id = dataset
+        self._isClassifier = isClassifier
+
+        # initialization functions
         self.peekMaximumRowID()
-        self.peekDataDimension(isClassifier)
+        self.peekDataDimension()
         if (training_split + validation_split + test_split != 1):
             raise test_split("The training_split + validation_split + test_split is not 1")
 
@@ -272,15 +279,9 @@ class DataLoader:
     # @param isClassifier   if this is a classifier
     #
     # @return 
-    @staticmethod
-    def shared_dataset(inputData, outputData, borrow=True, isClassifier = True):
+    def shared_dataset(self, inputData, outputData, borrow=True):
         data_x = inputData
         data_y = outputData
-
-        # if the data is for a classifier, use the first column of y only
-        # and also change it to an array of scalar
-        if isClassifier:
-            data_y = data_y[:,0]
 
         # Create share variable from numpy array
         shared_x = theano.shared(numpy.asarray(data_x,
@@ -289,6 +290,9 @@ class DataLoader:
         shared_y = theano.shared(numpy.asarray(data_y,
                                                dtype=theano.config.floatX),
                                  borrow=borrow)
+
+        self._shared_x = shared_x
+        self._shared_y = shared_y
         # When storing data on the GPU it has to be stored as floats
         # therefore we will store the labels as ``floatX`` as well
         # (``shared_y`` does exactly that). But during our computations
@@ -314,6 +318,12 @@ class DataLoader:
         outputColumn = range(- split_n, 0)
         inputData = dataMatrix[:,inputColumn]
         outputData = dataMatrix[:,outputColumn]
+
+        # if the data is for a classifier, use the first column of y only
+        # and also change it to an array of scalar
+        if self._isClassifier:
+            outputData = outputData[:,0]
+
         return inputData, outputData
 
 
@@ -339,7 +349,7 @@ class DataLoader:
     #
     # @return 
     # TODO: add non-classifier dimension
-    def peekDataDimension(self, isClassifier):
+    def peekDataDimension(self):
         cursor = self.getDatabaseCursor()
         # query database:
         cursor.execute('SELECT x, max(y) as max_y FROM TrainingData1 WHERE data_id = %s LIMIT 1', (self._data_id) )
@@ -352,7 +362,7 @@ class DataLoader:
         x = self.decodeNumberArray(x)
         y = self.decodeNumberArray(y)
         self._inDim = len(x)
-        if isClassifier:
+        if self._isClassifier:
             # add one because the class number start from 1
             self._outDim = int(y[0]) + 1
         else:
@@ -375,7 +385,7 @@ class DataLoader:
     def downloadDataInRange(self, start, end):
         cursor = self.getDatabaseCursor()
         # query database:
-        cursor.execute('SELECT row_id, x, y FROM TrainingData1 WHERE data_id = %s AND row_id >= %s AND row_id <= %s order by row_id asc', (self._data_id, start, end) )
+        cursor.execute('SELECT row_id, x, y FROM TrainingData1 WHERE data_id = %s AND row_id >= %s AND row_id < %s order by row_id asc', (self._data_id, start, end) )
         dataMatrix = []
         expect_row_id = start
         split_n = 1
@@ -403,17 +413,34 @@ class DataLoader:
 
         return dataMatrix, split_n
 
+    def updateTrainingSet(self):
+        self._trainSetIndex = self._trainSetIndex % self._maxTrainBatchNumber
+        start = self._trainSetIndex * self._dataBatch
+        end = (self._trainSetIndex + 1) * self._dataBatch
+         
+        # get the data
+        dataMatrix, split_n = self.downloadDataInRange(start, end)
+        inputData, outputData = self.splitInputAndOutput(dataMatrix, split_n)
+
+        self._shared_y.set_value(outputData)
+        self._shared_x.set_value(inputData)
+      
+        self._trainSetIndex += 1
 
     ##
     # @brief    return training input and training output both as 2-D array
     #
     # @return 
     def getTrainingSet(self):
+        # calculate index
         start = 0
         end = int(self._maxRowID * self._training_split)
+        self._maxTrainBatchNumber = int( end / self._dataBatch)
+
+        # get the data
         dataMatrix, split_n = self.downloadDataInRange(start, end)
         inputData, outputData = self.splitInputAndOutput(dataMatrix, split_n)
-        return DataLoader.shared_dataset(inputData, outputData)
+        return self.shared_dataset(inputData, outputData)
 
     ##
     # @brief    return validation input and training output both as 2-D array
@@ -424,7 +451,7 @@ class DataLoader:
         end = int(self._maxRowID * ( self._training_split + self._validation_split))
         dataMatrix, split_n = self.downloadDataInRange(start, end)
         inputData, outputData = self.splitInputAndOutput(dataMatrix, split_n)
-        return DataLoader.shared_dataset(inputData, outputData)
+        return self.shared_dataset(inputData, outputData)
 
     ##
     # @brief    return validation input and training output both as 2-D array
@@ -435,7 +462,7 @@ class DataLoader:
         end = self._maxRowID
         dataMatrix, split_n = self.downloadDataInRange(start, end)
         inputData, outputData = self.splitInputAndOutput(dataMatrix, split_n)
-        return DataLoader.shared_dataset(inputData, outputData)
+        return self.shared_dataset(inputData, outputData)
 
 
 

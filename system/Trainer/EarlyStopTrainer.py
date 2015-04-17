@@ -12,7 +12,7 @@ class EarlyStopTrainer:
 
         # store model
         self._model = model
-
+        self._dataLoader = dataLoader
         self._train_set_x, self._train_set_y = dataLoader.getTrainingSet() 
         self._valid_set_x, self._valid_set_y = dataLoader.getValidationSet() 
         self._test_set_x, self._test_set_y = dataLoader.getTestSet() 
@@ -43,6 +43,7 @@ class EarlyStopTrainer:
 
         # loop until finish the epoch or explicitly end it by setting variable
         for epoch in range(self._maxEpoch):
+            self._dataLoader.updateTrainingSet()
             # Call trainModel(trainingSet, validationSet) to train the one epoch of the model
             self._model.trainModel()
 
