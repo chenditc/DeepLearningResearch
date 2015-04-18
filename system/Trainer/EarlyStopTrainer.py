@@ -33,36 +33,30 @@ class EarlyStopTrainer:
         # early-stopping parameters
         patience = 50  # look as this many examples regardless
         patience_increase = 2  # wait this much longer when a new best is
-                                      # found
-        # compute number of minibatches for training, validation and testing
+                              # found
 
         best_validation_loss = numpy.inf
         start_time = time.clock()
 
         # loop until finish the epoch or explicitly end it by setting variable
         for epoch in range(self._maxEpoch):
+            # update the data we use, and then train one epoch
             self._dataLoader.updateTrainingSet()
-
-            # Call trainModel to train the one update of the model
             self._model.trainModel()
 
             # compute zero-one loss on validation set
             this_validation_loss = self._model.getTestError(self._valid_set_x, self._valid_set_y)
 
-            print(
-                'epoch %i, validation error %f %%' %
-                (
-                    epoch,
-                    this_validation_loss * 100.
-                )
-            )
+            print 'epoch %i, validation error %f %%' % (epoch, this_validation_loss * 100. )
 
             # if we got the best validation score until now
             if this_validation_loss < best_validation_loss:
-                patience += epoch * patience_increase
+                patience +=  patience_increase
                 best_validation_loss = this_validation_loss
                 print "Get new best validation loss: %f", best_validation_loss * 100
 
+            # if we think the performance is saturated
+            # TODO: we should probably lower the training rate here
             if patience < epoch:
                 break
 
