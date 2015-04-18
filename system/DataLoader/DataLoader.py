@@ -200,7 +200,8 @@ class DataLoader:
     # @param "
     #
     # @return 
-    def parseRow(self, inputString, columnDeliminator = ","):
+    @staticmethod
+    def parseRow(inputString, columnDeliminator = ","):
         elements = inputString.split(columnDeliminator)
         dataRow = []
         for element in elements:
@@ -223,7 +224,7 @@ class DataLoader:
         for stringRow in stringRows:
             if ("" == stringRow):
                 continue
-            dataRow = self.parseRow(stringRow, columnDeliminator)
+            dataRow = DataLoader.parseRow(stringRow, columnDeliminator)
             dataMatrix.append(dataRow)
         return dataMatrix
 

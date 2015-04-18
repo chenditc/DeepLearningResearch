@@ -1,4 +1,5 @@
 import Model
+import theano.tensor as T
 
 ##
 # @brief    This class is a virtual class that contain few method that will be share among classifiers
@@ -7,6 +8,12 @@ class Classifier(Model.Model):
     def __init__(self):
         print "Initializing Classifier"
         self.getTestError = self.getClassificationError
+
+        # generate symbolic variables for input (x and y represent a
+        # minibatch)
+        self._x = T.matrix('x')  # data, presented as rasterized images
+        self._y = T.ivector('y')  # labels, presented as 1D vector of [int] labels
+
 
     ##
     # @brief                Given a list of inputs

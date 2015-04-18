@@ -19,6 +19,14 @@ class NoImplementationError(Exception):
 # @brief abstract class for machine learning models
 #
 class Model(object):
+
+    @staticmethod
+    def loadModelByName(name):
+        module = __import__(name)
+        className = getattr(module, name)
+        classInstance = className(2,3)
+        return classInstance
+
     ##
     # @brief                Given a list of inputs
     #
@@ -56,14 +64,21 @@ class Model(object):
     def loadModelFromJson(self, jsonString):
         parameters = json.loads(jsonString)
         for key in parameters:
-            self.params[key] = theano.shared(
-                value=numpy.asarray(
-                    parameters[key],
-                    dtype=theano.config.floatX
-                ),
-                name=key,
-                borrow=True
-            )
+            self.params[key].set_value(parameters[key])
+
+    ##
+    # @brief                Download the paramters from database and set them in shared variable 
+    #
+    # @param dataLoader
+    #
+    # @return 
+    def downloadModel(self, dataLoader):
+        cursor = dataLoader.getDatabaseCursor()
+        cursor.execute('SELECT parameters FROM DeepLearningDB1.Model1 WHERE data_id = %s AND model_name = %s ORDER BY error_rate ASC LIMIT 1',
+                        (dataLoader._data_id, self.__class__.__name__))
+        dataRows = cursor.fetchall()
+        jsonString = dataRows[0][0]
+        self.loadModelFromJson(jsonString)
 
 
     ##
@@ -79,7 +94,8 @@ class Model(object):
     ##
     # @brief                Upload necessary data to the database
     #
-    # @param dataLoader
+    # @param dataLoader     the loader will be used to upload data
+    # @param errorRate      error rate of database
     #
     # @return 
     def uploadModel(self ,dataLoader, errorRate):

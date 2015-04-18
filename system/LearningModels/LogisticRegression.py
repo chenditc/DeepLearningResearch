@@ -63,51 +63,22 @@ class LogisticRegression(Classifier.Classifier):
     # this will used to upload to database
     description = "y = x * W + b" 
     
-    def __init__(self, n_in, n_out, inputVariable = None, outputVariable = None):
-        """ Initialize the parameters of the logistic regression
-
-        :type n_in: int
-        :param n_in: number of input units, the dimension of the space in
-                     which the datapoints lie
-
-        :type n_out: int
-        :param n_out: number of output units, the dimension of the space in
-                      which the labels lie
-
-        """
-
+    ##
+    # @brief            Initialize the parameters of the logistic regression
+    #
+    # @param n_in       number of input units, the dimension of the space in
+    #                       which the datapoints lie
+    # @param n_out      number of output units, the dimension of the space in
+    #                       which the labels lie
+    # @param params     The parameters that can be used to initialize the model
+    #
+    # @return 
+    def __init__(self, n_in, n_out):
         # initialize classifier class
         super(LogisticRegression, self).__init__()
 
-        # generate symbolic variables for input (x and y represent a
-        # minibatch)
-        self._x = T.matrix('x')  # data, presented as rasterized images
-        self._y = T.ivector('y')  # labels, presented as 1D vector of [int] labels
 
-        if inputVariable != None:
-            self._x = inputVariable
-        if outputVariable != None:
-            self._y = outputVariable
-
-        # TODO: change initialize value to configurable, eg. random
-        # initialize with 0 the weights W as a matrix of shape (n_in, n_out)
-        self._W = theano.shared(
-            value=numpy.asarray(
-                ModelUtility.getRandomNumpyMatrix(n_in, n_out),
-                dtype=theano.config.floatX
-            ),
-            name='W',
-            borrow=True
-        )
-        # initialize the baises b as a vector of n_out 0s
-        self._b = theano.shared(
-            value=numpy.zeros(
-                (n_out,),
-                dtype=theano.config.floatX
-            ),
-            name='b',
-            borrow=True
-        )
+        self.randomInitializeParameters(n_in, n_out)
 
         # symbolic expression for computing the matrix of class-membership
         # probabilities
@@ -117,19 +88,12 @@ class LogisticRegression(Classifier.Classifier):
         # x is a matrix where row-j  represents input training sample-j
         # b is a vector where element-k represent the free parameter of hyper
         # plain-k
-        self.p_y_given_x = T.nnet.softmax(T.dot(self._x, self._W) + self._b)
+        self.p_y_given_x = T.nnet.softmax(T.dot(self._x, self.params['W']) + self.params['b'])
 
         # symbolic description of how to compute prediction as class whose
         # probability is maximal
         self.y_pred = T.argmax(self.p_y_given_x, axis=1)
         # end-snippet-1
-
-        # parameters of the model, will be used later to update
-        # This can be stored and reload to replicate the same result
-        self.params = {
-            'W' : self._W, 
-            'b' : self._b
-        }
 
         # initialize train model
         self._trainModel = None;
@@ -137,6 +101,34 @@ class LogisticRegression(Classifier.Classifier):
             inputs=[self._x],
             outputs=self.y_pred,
         )
+
+    def randomInitializeParameters(self, n_in, n_out):
+        # TODO: change initialize value to configurable, eg. random
+        # initialize with 0 the weights W as a matrix of shape (n_in, n_out)
+        W = theano.shared(
+            value=numpy.asarray(
+                ModelUtility.getRandomNumpyMatrix(n_in, n_out),
+                dtype=theano.config.floatX
+            ),
+            name='W',
+            borrow=True
+        )
+        # initialize the baises b as a vector of n_out 0s
+        b = theano.shared(
+            value=numpy.zeros(
+                (n_out,),
+                dtype=theano.config.floatX
+            ),
+            name='b',
+            borrow=True
+        )
+
+        # parameters of the model, will be used later to update
+        # This can be stored and reload to replicate the same result
+        self.params = {
+            'W' : W, 
+            'b' : b
+        }
 
 
     ##
