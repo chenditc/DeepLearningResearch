@@ -59,6 +59,10 @@ import Classifier
 # 
 class LogisticRegression(Classifier.Classifier):
 
+    # must have property of learning model
+    # this will used to upload to database
+    description = "y = x * W + b" 
+    
     def __init__(self, n_in, n_out, inputVariable = None, outputVariable = None):
         """ Initialize the parameters of the logistic regression
 

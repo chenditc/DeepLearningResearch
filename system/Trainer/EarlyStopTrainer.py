@@ -53,6 +53,8 @@ class EarlyStopTrainer:
             if this_validation_loss < best_validation_loss:
                 patience +=  patience_increase
                 best_validation_loss = this_validation_loss
+                # store the model
+                self._model.uploadModel(self._dataLoader, best_validation_loss) 
                 print "Get new best validation loss: %f", best_validation_loss * 100
 
             # if we think the performance is saturated

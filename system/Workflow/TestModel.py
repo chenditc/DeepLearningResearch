@@ -15,6 +15,8 @@ class TestModel:
         self._model = model
 
         # TODO: if the model id is set, load the model from database
+        if model_id != None:
+            self._model = None 
 
     def testModel(self):
         while (1):

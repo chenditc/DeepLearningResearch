@@ -76,15 +76,18 @@ class Model(object):
             parameters[key] = self.params[key].get_value().tolist()
         return json.dumps(parameters)
 
-    def uploadModel(self):
-        loader = DataLoader.DataLoader()
-        cursor = loader.getDatabaseCursor()
+    ##
+    # @brief                Upload necessary data to the database
+    #
+    # @param dataLoader
+    #
+    # @return 
+    def uploadModel(self ,dataLoader, errorRate):
+        cursor = dataLoader.getDatabaseCursor()
         parameters = self.storeModelToJson()
-        cursor.execute('INSERT INTO Model1 ( model_name, parameters, description, data_id ) VALUES (%s, %s, %s, %s)',
-                        ("testModel", parameters, "y = x * W + b", "sum_positive_1"))
-        loader.commitData()
-        print self.storeModelToJson() 
-
+        cursor.execute('INSERT INTO Model1 ( model_name, parameters, description, data_id, error_rate ) VALUES (%s, %s, %s, %s, %s)',
+                        (self.__class__.__name__, parameters, self.__class__.description, dataLoader._data_id, errorRate))
+        dataLoader.commitData()
 
     ##
     # @brief                Get update array from learning rate, parameters and etc.
