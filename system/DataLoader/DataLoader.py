@@ -279,7 +279,7 @@ class DataLoader:
     # @param isClassifier   if this is a classifier
     #
     # @return 
-    def shared_dataset(self, inputData, outputData, borrow=True):
+    def shared_dataset(self, inputData, outputData, borrow=True, store=False):
         data_x = inputData
         data_y = outputData
 
@@ -290,9 +290,9 @@ class DataLoader:
         shared_y = theano.shared(numpy.asarray(data_y,
                                                dtype=theano.config.floatX),
                                  borrow=borrow)
-
-        self._shared_x = shared_x
-        self._shared_y = shared_y
+        if (store == True):
+            self._shared_x = shared_x
+            self._shared_y = shared_y
         # When storing data on the GPU it has to be stored as floats
         # therefore we will store the labels as ``floatX`` as well
         # (``shared_y`` does exactly that). But during our computations
@@ -424,7 +424,7 @@ class DataLoader:
 
         self._shared_y.set_value(outputData)
         self._shared_x.set_value(inputData)
-      
+
         self._trainSetIndex += 1
 
     ##
@@ -438,9 +438,9 @@ class DataLoader:
         self._maxTrainBatchNumber = int( end / self._dataBatch)
 
         # get the data
-        dataMatrix, split_n = self.downloadDataInRange(start, end)
+        dataMatrix, split_n = self.downloadDataInRange(start, start + self._dataBatch)
         inputData, outputData = self.splitInputAndOutput(dataMatrix, split_n)
-        return self.shared_dataset(inputData, outputData)
+        return self.shared_dataset(inputData, outputData, store=True)
 
     ##
     # @brief    return validation input and training output both as 2-D array

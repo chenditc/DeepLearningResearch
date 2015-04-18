@@ -153,7 +153,7 @@ class LogisticRegression(Classifier.Classifier):
                            parameterToTrain = [],
                            lossFunction = LossFunctions.LossFunctions.negative_log_likelihood, 
                            learning_rate = 0.1, 
-                           batch_size = 600):
+                           batch_size = 20):
 
         ######################
         # BUILD ACTUAL MODEL #
@@ -189,13 +189,12 @@ class LogisticRegression(Classifier.Classifier):
     # @param train_set_y        Training output y
     # @param lossFunction       lossfunction to run gradient
     # @param learning_rate      update learning rate
-    # @param n_epochs           maximum epoch to train
     # @param batch_size         how much data to train for one minibatch
     #
     # @return 
     def trainModel(self, train_set_x = None, train_set_y = None,
                    lossFunction = LossFunctions.LossFunctions.negative_log_likelihood,
-                   learning_rate=0.13, n_epochs=1000,
+                   learning_rate=0.13,
                    batch_size=20):
 
         # if the model is empty, build the trainModel
