@@ -41,12 +41,12 @@ class TestModel:
 
     def testModel(self):
         while (1):
-            line = sys.stdin.readline()
+            line = raw_input('Please type input:\n')
             if ',' not in line:
                 print "Online test finish"
                 break
             dataRow = DataLoader.DataLoader.parseRow(line)
-            print "For data: ", dataRow
+            print "Get data with size %d:" % len(dataRow), dataRow
             print "Test result: ", self._model.testModel([dataRow])
             print "================================"
 

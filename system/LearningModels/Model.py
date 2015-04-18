@@ -24,7 +24,8 @@ class Model(object):
     def loadModelByName(name):
         module = __import__(name)
         className = getattr(module, name)
-        classInstance = className(2,3)
+        # The dimension here should be dummy, does not influence the model
+        classInstance = className(2,2)
         return classInstance
 
     ##
