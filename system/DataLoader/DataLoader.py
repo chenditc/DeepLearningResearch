@@ -176,9 +176,9 @@ class DataLoader:
                             + str(expect_row_id) + " ,get: " + str(row_id) )
                 raise orderError(errorMessage)
             expect_row_id += 1
+
             x = self.decodeNumberArray(x)
             y = self.decodeNumberArray(y)
-
             # set split_n
             split_n = len(y)
             # set row
@@ -405,12 +405,14 @@ class DataLoader:
                             + str(expect_row_id) + " ,get: " + str(row_id) )
                 raise orderError(errorMessage)
             expect_row_id += 1
+
             x = self.decodeNumberArray(x)
             y = self.decodeNumberArray(y)
-
             split_n = len(y)
-            # set row
-            dataMatrix.append( x + y )
+            # TODO: this seems to be able to release the reference of x and y,
+            # But I don't understand why
+            temp_result = numpy.array(x+y)
+            dataMatrix.append(temp_result)
 
         return dataMatrix, split_n
 
