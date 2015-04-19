@@ -28,6 +28,22 @@ class Model(object):
         classInstance = className(2,2)
         return classInstance
 
+
+    ##
+    # @brief                    Run the index to go through the training set  
+    #
+    # @return 
+    def trainModel(self):
+
+        # if the model is empty, build the trainModel
+        if (self._trainModel == None):
+            print "You have not build any training model yet."
+            quit()
+
+        # train the minibatchs
+        for minibatch_index in xrange(self._totalBatches):
+            minibatch_avg_cost = self._trainModel(minibatch_index)
+
     ##
     # @brief                Given a list of inputs
     #
@@ -48,6 +64,12 @@ class Model(object):
         # build test Model
         if (isinstance(testInput, theano.compile.sharedvalue.SharedVariable)):
             testInput = testInput.get_value()
+
+        if self._testModel == None:
+            self._testModel = theano.function(
+                inputs=[self._x],
+                outputs=self.y_pred,
+            )
 
         # loop through the input and compute prediction
         preditction = self._testModel(testInput)

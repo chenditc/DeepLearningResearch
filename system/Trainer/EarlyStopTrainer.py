@@ -6,7 +6,7 @@ import time
 class EarlyStopTrainer:
     def __init__(self, model, 
                  dataLoader,
-                 startLearningRate = 0.2, maxEpoch = 10000):
+                 startLearningRate = 0.1, maxEpoch = 10000):
         self._startLearningRate = startLearningRate
         self._maxEpoch = maxEpoch
 
@@ -20,7 +20,7 @@ class EarlyStopTrainer:
         # Building training model
         print "#####################################"
         print "Building model: ", self._model.__class__.__name__
-        self._model.buildTrainingModel(self._train_set_x, self._train_set_y) 
+        self._model.buildTrainingModel(self._train_set_x, self._train_set_y, learning_rate = startLearningRate) 
         print "#####################################"
 
     def trainModel(self):

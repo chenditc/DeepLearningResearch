@@ -48,6 +48,47 @@ import LossFunctions
 import ModelUtility
 import Classifier
 
+
+def getLogisticRegressionLayer(inputVariable, n_in, n_out):
+    # TODO: change initialize value to configurable, eg. random
+    # initialize with 0 the weights W as a matrix of shape (n_in, n_out)
+    W = theano.shared(
+        value=numpy.asarray(
+            ModelUtility.getRandomNumpyMatrix(n_in, n_out),
+            dtype=theano.config.floatX
+        ),
+        name='W',
+        borrow=True
+    )
+    # initialize the baises b as a vector of n_out 0s
+    b = theano.shared(
+        value=numpy.zeros(
+            (n_out,),
+            dtype=theano.config.floatX
+        ),
+        name='b',
+        borrow=True
+    )
+
+    # parameters of the model, will be used later to update
+    # This can be stored and reload to replicate the same result
+    params = {
+        'W' : W, 
+        'b' : b
+    }
+
+    # symbolic expression for computing the matrix of class-membership
+    # probabilities
+    # Where:
+    # W is a matrix where column-k represent the separation hyper plain for
+    # class-k
+    # x is a matrix where row-j  represents input training sample-j
+    # b is a vector where element-k represent the free parameter of hyper
+    # plain-k
+    y_given_x = T.nnet.softmax(T.dot(inputVariable, params['W']) + params['b'])
+
+    return y_given_x, params
+
 ##
 # @brief 
 # Multi-class Logistic Regression Class
@@ -78,130 +119,9 @@ class LogisticRegression(Classifier.Classifier):
         super(LogisticRegression, self).__init__()
 
 
-        self.randomInitializeParameters(n_in, n_out)
-
-        # symbolic expression for computing the matrix of class-membership
-        # probabilities
-        # Where:
-        # W is a matrix where column-k represent the separation hyper plain for
-        # class-k
-        # x is a matrix where row-j  represents input training sample-j
-        # b is a vector where element-k represent the free parameter of hyper
-        # plain-k
-        self.p_y_given_x = T.nnet.softmax(T.dot(self._x, self.params['W']) + self.params['b'])
+        self.p_y_given_x, self.params= getLogisticRegressionLayer(self._x, n_in, n_out) 
 
         # symbolic description of how to compute prediction as class whose
         # probability is maximal
         self.y_pred = T.argmax(self.p_y_given_x, axis=1)
-        # end-snippet-1
 
-        # initialize train model
-        self._trainModel = None;
-        self._testModel = theano.function(
-            inputs=[self._x],
-            outputs=self.y_pred,
-        )
-
-    def randomInitializeParameters(self, n_in, n_out):
-        # TODO: change initialize value to configurable, eg. random
-        # initialize with 0 the weights W as a matrix of shape (n_in, n_out)
-        W = theano.shared(
-            value=numpy.asarray(
-                ModelUtility.getRandomNumpyMatrix(n_in, n_out),
-                dtype=theano.config.floatX
-            ),
-            name='W',
-            borrow=True
-        )
-        # initialize the baises b as a vector of n_out 0s
-        b = theano.shared(
-            value=numpy.zeros(
-                (n_out,),
-                dtype=theano.config.floatX
-            ),
-            name='b',
-            borrow=True
-        )
-
-        # parameters of the model, will be used later to update
-        # This can be stored and reload to replicate the same result
-        self.params = {
-            'W' : W, 
-            'b' : b
-        }
-
-
-    ##
-    # @brief                Create theano function that take training x and y
-    #                       and update W and b
-    #
-    # @param train_set_x    
-    # @param train_set_y
-    # @param parameterToTrain   A list of parameter index to train in this training model
-    # @param lossFunction       The loss function that will calculate gradient. A function takes x and y
-    # @param learning_rate      the step updateing parameters
-    # @param batch_size         The size of training data to compute at once
-    #
-    # @return 
-    def buildTrainingModel(self, 
-                           train_set_x, 
-                           train_set_y,
-                           parameterToTrain = [],
-                           lossFunction = LossFunctions.LossFunctions.negative_log_likelihood, 
-                           learning_rate = 0.1, 
-                           batch_size = 20):
-
-        ######################
-        # BUILD ACTUAL MODEL #
-        ######################
-
-        index = T.lscalar()  # index to a [mini]batch
-
-        # the cost we minimize during training is the negative log likelihood of
-        # the model in symbolic format
-        cost = lossFunction(self.p_y_given_x, self._y)
-
-        updates = self.getUpdateForVariable(cost, learning_rate, self.params, onlyTrain=parameterToTrain)
-
-        # compiling a Theano function `trainModel` that returns the cost, but in
-        # the same time updates the parameter of the model based on the rules
-        # defined in `updates`
-        self._trainModel = theano.function(
-            inputs=[index],
-            outputs=cost,
-            updates=updates,
-            givens={
-                self._x: train_set_x[index * batch_size: (index + 1) * batch_size],
-                self._y: train_set_y[index * batch_size: (index + 1) * batch_size]
-            }
-        )
-
-        self._totalBatches = train_set_x.get_value(borrow=True).shape[0] / batch_size
-
-    ##
-    # @brief                    Run the index to go through the training set  
-    #
-    # @param train_set_x        Training input x
-    # @param train_set_y        Training output y
-    # @param lossFunction       lossfunction to run gradient
-    # @param learning_rate      update learning rate
-    # @param batch_size         how much data to train for one minibatch
-    #
-    # @return 
-    def trainModel(self, train_set_x = None, train_set_y = None,
-                   lossFunction = LossFunctions.LossFunctions.negative_log_likelihood,
-                   learning_rate=0.13,
-                   batch_size=20):
-
-        # if the model is empty, build the trainModel
-        if (self._trainModel == None):
-            if (train_set_x != None and train_set_y != None):
-                self.buildTrainingModel(train_set_x, train_set_y, lossFunction,
-                                        learning_rate,  batch_size)
-            else:
-                print "You have not build any training model yet."
-                quit()
-
-        # train the minibatchs
-        for minibatch_index in xrange(self._totalBatches):
-            minibatch_avg_cost = self._trainModel(minibatch_index)
