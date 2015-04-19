@@ -57,7 +57,6 @@ def getLogisticRegressionLayer(inputVariable, n_in, n_out):
             ModelUtility.getRandomNumpyMatrix(n_in, n_out),
             dtype=theano.config.floatX
         ),
-        name='W',
         borrow=True
     )
     # initialize the baises b as a vector of n_out 0s
@@ -66,7 +65,6 @@ def getLogisticRegressionLayer(inputVariable, n_in, n_out):
             (n_out,),
             dtype=theano.config.floatX
         ),
-        name='b',
         borrow=True
     )
 

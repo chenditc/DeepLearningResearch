@@ -6,7 +6,8 @@ import time
 class EarlyStopTrainer:
     def __init__(self, model, 
                  dataLoader,
-                 startLearningRate = 0.1, maxEpoch = 10000):
+                 batch_size = 200,
+                 startLearningRate = 0.01, maxEpoch = 10000):
         self._startLearningRate = startLearningRate
         self._maxEpoch = maxEpoch
 
@@ -20,7 +21,7 @@ class EarlyStopTrainer:
         # Building training model
         print "#####################################"
         print "Building model: ", self._model.__class__.__name__
-        self._model.buildTrainingModel(self._train_set_x, self._train_set_y, learning_rate = startLearningRate) 
+        self._model.buildTrainingModel(self._train_set_x, self._train_set_y, learning_rate = startLearningRate, batch_size = batch_size) 
         print "#####################################"
 
     def trainModel(self):
@@ -31,7 +32,7 @@ class EarlyStopTrainer:
         # TRAIN MODEL #
         ###############
         # early-stopping parameters
-        patience = 50  # look as this many examples regardless
+        patience = 500  # look as this many examples regardless
         patience_increase = 2  # wait this much longer when a new best is
                               # found
 
@@ -54,7 +55,7 @@ class EarlyStopTrainer:
                 patience +=  patience_increase
                 best_validation_loss = this_validation_loss
                 # store the model
-                self._model.uploadModel(self._dataLoader, best_validation_loss) 
+#                self._model.uploadModel(self._dataLoader, best_validation_loss) 
                 print "Get new best validation loss: %f", best_validation_loss * 100
 
             # if we think the performance is saturated

@@ -37,7 +37,7 @@ class DataLoader:
         self._trainSetIndex = 0
 
         # TODO: automaticly figure out how much a batch should be
-        self._dataBatch = 500
+        self._dataBatch = 2000
         self._training_split = training_split
         self. _validation_split = validation_split
         self._test_split = test_split
