@@ -72,7 +72,7 @@ class Classifier(Model.Model):
 
         #TODO: make regularization configurable
         L2_reg=0.0001
-        L1_reg=0.001
+        L1_reg=0.00
         L1 = sum([abs(self.params[key]).sum() for key in self.params])
         L2 = sum([(self.params[key] ** 2).sum() for key in self.params])
         cost = cost + L1_reg * L1 + L2_reg * L2 

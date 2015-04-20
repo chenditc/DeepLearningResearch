@@ -6,7 +6,7 @@ import time
 class EarlyStopTrainer:
     def __init__(self, model, 
                  dataLoader,
-                 batch_size = 200,
+                 batch_size = 20,
                  startLearningRate = 0.01, maxEpoch = 10000):
         self._startLearningRate = startLearningRate
         self._maxEpoch = maxEpoch
@@ -77,5 +77,6 @@ class EarlyStopTrainer:
         )
         print 'The code run for %d epochs, with %f epochs/sec' % (
             epoch, 1. * epoch / (end_time - start_time))
+        print 'Total time %f' % (end_time - start_time)
 
         print "#####################################"
