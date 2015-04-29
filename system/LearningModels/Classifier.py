@@ -9,6 +9,7 @@ import Model
 class Classifier(Model.Model):
 
     def __init__(self):
+        super(Classifier, self).__init__()
         print "Initializing Classifier"
         self.getTestError = self.getClassificationError
 

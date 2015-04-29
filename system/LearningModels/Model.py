@@ -20,6 +20,9 @@ class NoImplementationError(Exception):
 #
 class Model(object):
 
+    def __init__(self):
+        self._pretrainModel = None
+
     @staticmethod
     def loadModelByName(name):
         module = __import__(name)
@@ -43,6 +46,15 @@ class Model(object):
         # train the minibatchs
         for minibatch_index in xrange(self._totalBatches):
             minibatch_avg_cost = self._trainModel(minibatch_index)
+
+    def pretrainModel(self):
+        # if the model is empty, build the trainModel
+        if self._pretrainModel == None:
+            print "You have not build any pre-training model yet."
+            return
+        # train the minibatchs
+        for minibatch_index in xrange(self._totalBatches):
+            minibatch_avg_cost = self._pretrainModel(minibatch_index)
 
     ##
     # @brief                Given a list of inputs
@@ -141,6 +153,9 @@ class Model(object):
         # compute the gradient of cost with respect to theta = (W,b)
         if len(onlyTrain) == 0:
             onlyTrain = parameters.keys()
+
+        print "Build training model to train:"
+        print onlyTrain
 
         updates = []
         for key in onlyTrain:

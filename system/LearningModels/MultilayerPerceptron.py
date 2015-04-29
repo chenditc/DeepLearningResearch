@@ -46,6 +46,7 @@ import LossFunctions
 import ModelUtility
 import Classifier
 import LogisticRegression
+import rbm
 
 
 ##
@@ -62,6 +63,13 @@ def getMultilayerPerceptron(inputVariable, n_in, layers):
     # This can be stored and reload to replicate the same result
     params = {}
     output = inputVariable
+
+    outputs = {}
+    wVariables = {}
+    bVariables = {}
+
+    # The first output is the input variable
+    outputs[0] = output
 
     # initialize each layer and put them into params 
     for i in range(len(layers)):
@@ -102,9 +110,14 @@ def getMultilayerPerceptron(inputVariable, n_in, layers):
         # plain-k
         output = T.tanh(T.dot(output, W) + b)
 
-    return output, params
-    
+        # store output and parameters
+        outputs[i + 1] = output
+        wVariables[i + 1] = W
+        bVariables[i + 1] = b
 
+
+    return outputs, params, wVariables, bVariables
+    
 
 # Multi-Layer Perceptron Class
 # 
@@ -135,14 +148,17 @@ class MultilayerPerceptron(Classifier.Classifier):
         # initialize classifier class
         super(MultilayerPerceptron, self).__init__()
 
-        mlpOuput, mlpParams = getMultilayerPerceptron(self._x, n_in, layers)
+        # variables to store layer info
+        self.mlpOutputs, self.mlpParams, self.wVariables, self.bVariables = getMultilayerPerceptron(self._x, n_in, layers)
+
+
         logisticRegressionInputNumber = layers[-1]
-        self.p_y_given_x, logisticRegressionParams= LogisticRegression.getLogisticRegressionLayer(mlpOuput, logisticRegressionInputNumber, n_out) 
+        self.p_y_given_x, logisticRegressionParams= LogisticRegression.getLogisticRegressionLayer(self.mlpOutputs[len(layers)], logisticRegressionInputNumber, n_out) 
 
         self.params = {}
-        for key in mlpParams:
+        for key in self.mlpParams:
             newKey = "mlp-" + key
-            self.params[newKey] = mlpParams[key]
+            self.params[newKey] = self.mlpParams[key]
         for key in logisticRegressionParams:
             newKey = "logisticRegression-" + key
             self.params[newKey] = logisticRegressionParams[key]
@@ -150,4 +166,15 @@ class MultilayerPerceptron(Classifier.Classifier):
         # symbolic description of how to compute prediction as class whose
         # probability is maximal
         self.y_pred = T.argmax(self.p_y_given_x, axis=1)
+
+
+    def setPretrainLayer(self, layerNumber, batch_size, train_set_x):
+        
+        self._pretrainModel =  rbm.getPretrainFunction(
+                                       self.mlpOutputs[layerNumber-1], # the input variable is the previous layer's output 
+                                       self._x, 
+                                       self.wVariables[layerNumber], 
+                                       self.bVariables[layerNumber], 
+                                       batch_size, 
+                                       train_set_x)
 

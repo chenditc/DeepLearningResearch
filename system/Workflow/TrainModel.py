@@ -13,6 +13,8 @@ import EarlyStopTrainer
 import TestModel
 import DataLoader
 
+
+
 class TrainModel:
 
     def __init__(self, data_id):

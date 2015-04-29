@@ -21,7 +21,8 @@ class EarlyStopTrainer:
         # Building training model
         print "#####################################"
         print "Building model: ", self._model.__class__.__name__
-        self._model.buildTrainingModel(self._train_set_x, self._train_set_y, learning_rate = startLearningRate, batch_size = batch_size) 
+        self._model.buildTrainingModel(self._train_set_x, self._train_set_y, learning_rate = startLearningRate, batch_size = batch_size, parameterToTrain = ['logisticRegression-b', 'logisticRegression-W']) 
+        self._model.setPretrainLayer(layerNumber = 1, batch_size = batch_size, train_set_x = self._train_set_x)
         print "#####################################"
 
     def trainModel(self):
@@ -43,6 +44,7 @@ class EarlyStopTrainer:
         for epoch in range(self._maxEpoch):
             # update the data we use, and then train one epoch
             self._dataLoader.updateTrainingSet()
+            self._model.pretrainModel()
             self._model.trainModel()
 
             # compute zero-one loss on validation set
@@ -55,7 +57,7 @@ class EarlyStopTrainer:
                 patience +=  patience_increase
                 best_validation_loss = this_validation_loss
                 # store the model
-#                self._model.uploadModel(self._dataLoader, best_validation_loss) 
+                self._model.uploadModel(self._dataLoader, best_validation_loss) 
                 print "Get new best validation loss: %f", best_validation_loss * 100
 
             # if we think the performance is saturated
