@@ -168,7 +168,7 @@ class MultilayerPerceptron(Classifier.Classifier):
         self.y_pred = T.argmax(self.p_y_given_x, axis=1)
 
 
-    def setPretrainLayer(self, layerNumber, batch_size, train_set_x):
+    def setPretrainLayer(self, layerNumber, batch_size, train_set_x, learning_rate = 0.1):
         
         self._pretrainModel =  rbm.getPretrainFunction(
                                        self.mlpOutputs[layerNumber-1], # the input variable is the previous layer's output 
@@ -176,5 +176,8 @@ class MultilayerPerceptron(Classifier.Classifier):
                                        self.wVariables[layerNumber], 
                                        self.bVariables[layerNumber], 
                                        batch_size, 
-                                       train_set_x)
+                                       train_set_x,
+                                       learning_rate = learning_rate)
 
+    def saveParameterAsImage(self, name):
+        ModelUtility.saveMatrixAsImage(self.wVariables[1].get_value(), name)

@@ -1,5 +1,6 @@
 import numpy
 import time
+import theano
 
 
 
@@ -7,7 +8,7 @@ class EarlyStopTrainer:
     def __init__(self, model, 
                  dataLoader,
                  batch_size = 20,
-                 startLearningRate = 0.01, maxEpoch = 10000):
+                 startLearningRate = 0.1, maxEpoch = 10000):
         self._startLearningRate = startLearningRate
         self._maxEpoch = maxEpoch
 
@@ -18,12 +19,16 @@ class EarlyStopTrainer:
         self._valid_set_x, self._valid_set_y = dataLoader.getValidationSet() 
         self._test_set_x, self._test_set_y = dataLoader.getTestSet() 
 
+        self._learningRate = theano.shared(numpy.float(startLearningRate))
+
+
         # Building training model
         print "#####################################"
         print "Building model: ", self._model.__class__.__name__
-        self._model.buildTrainingModel(self._train_set_x, self._train_set_y, learning_rate = startLearningRate, batch_size = batch_size, parameterToTrain = ['logisticRegression-b', 'logisticRegression-W']) 
-        self._model.setPretrainLayer(layerNumber = 1, batch_size = batch_size, train_set_x = self._train_set_x)
+        self._model.buildTrainingModel(self._train_set_x, self._train_set_y, learning_rate = self._learningRate, batch_size = batch_size, parameterToTrain = []) 
+        self._model.setPretrainLayer(layerNumber = 1, batch_size = batch_size, train_set_x = self._train_set_x, learning_rate = self._learningRate)
         print "#####################################"
+
 
     def trainModel(self):
         print "#####################################"
@@ -38,6 +43,7 @@ class EarlyStopTrainer:
                               # found
 
         best_validation_loss = numpy.inf
+        self._lastBestEpoch = 0
         start_time = time.clock()
 
         # loop until finish the epoch or explicitly end it by setting variable
@@ -50,15 +56,23 @@ class EarlyStopTrainer:
             # compute zero-one loss on validation set
             this_validation_loss = self._model.getTestError(self._valid_set_x, self._valid_set_y)
 
-            print 'epoch %i, validation error %f %%' % (epoch, this_validation_loss * 100. )
+            print 'Learning rate: %f, epoch %i, validation error %f %%' % (self._learningRate.get_value(), epoch, this_validation_loss * 100. )
 
             # if we got the best validation score until now
             if this_validation_loss < best_validation_loss:
+                self._lastBestEpoch = epoch
                 patience +=  patience_increase
                 best_validation_loss = this_validation_loss
                 # store the model
                 self._model.uploadModel(self._dataLoader, best_validation_loss) 
-                print "Get new best validation loss: %f", best_validation_loss * 100
+                print "Learning rate: %f, Get new best validation loss: %f" % (self._learningRate.get_value(), best_validation_loss * 100)
+
+                self._model.saveParameterAsImage("image at %d.png" % epoch)
+            else:
+                # if no new best for too long, lower the learning rate
+                if epoch - self._lastBestEpoch > 3:
+                    self._learningRate.set_value(self._learningRate * 0.95)
+
 
             # if we think the performance is saturated
             # TODO: we should probably lower the training rate here
