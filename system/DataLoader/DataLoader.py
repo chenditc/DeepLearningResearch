@@ -28,7 +28,7 @@ class DataLoader:
 
 ####################### Utility functions ######################
 
-    def __init__(self, dataset, isClassifier = True, training_split = 0.6, validation_split = 0.2, test_split = 0.2):
+    def __init__(self, dataset, isClassifier = True, training_split = 0.6, validation_split = 0.2, test_split = 0.2, utility=False):
         # private variables:
         self._dbCursor = None
         self._dbConnector = None
@@ -36,19 +36,20 @@ class DataLoader:
         self._split_n = None
         self._trainSetIndex = 0
 
-        # TODO: automaticly figure out how much a batch should be
-        self._dataBatch = 2000
-        self._training_split = training_split
-        self. _validation_split = validation_split
-        self._test_split = test_split
-        self._data_id = dataset
-        self._isClassifier = isClassifier
+        if utility == False:
+            # TODO: automaticly figure out how much a batch should be
+            self._dataBatch = 2000
+            self._training_split = training_split
+            self. _validation_split = validation_split
+            self._test_split = test_split
+            self._data_id = dataset
+            self._isClassifier = isClassifier
 
-        # initialization functions
-        self.peekMaximumRowID()
-        self.peekDataDimension()
-        if (training_split + validation_split + test_split != 1):
-            raise test_split("The training_split + validation_split + test_split is not 1")
+            # initialization functions
+            self.peekMaximumRowID()
+            self.peekDataDimension()
+            if (training_split + validation_split + test_split != 1):
+                raise test_split("The training_split + validation_split + test_split is not 1")
 
     ##
     # @brief    Lazy initialization for database cursor    
@@ -490,14 +491,14 @@ if __name__ == "__main__":
 
     if (uploadFile != None):
         print "Start uploading", uploadFile
-        dataLoader = DataLoader()
+        dataLoader = DataLoader(uploadFile, utility=True)
         rcode = dataLoader.uploadDataFile(uploadFile)
         if 0 == rcode:
             print "Upload success"
         
 
     if (removeDataId != None):
-        dataLoader = DataLoader()
+        dataLoader = DataLoader(removeDataId, utility=True)
         rcode = dataLoader.removeDataSet(removeDataId)
         if 0 == rcode:
             print "Remove success"
