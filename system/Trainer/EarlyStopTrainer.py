@@ -27,7 +27,8 @@ class EarlyStopTrainer:
         print "#####################################"
         print "Building model: ", self._model.__class__.__name__
         self._model.buildTrainingModel(self._train_set_x, self._train_set_y, learning_rate = self._learningRate, batch_size = batch_size, parameterToTrain = []) 
-        self._model.setPretrainLayer(layerNumber = 1, batch_size = batch_size, train_set_x = self._train_set_x, learning_rate = self._learningRate)
+        # TODO: turn on properly
+#        self._model.setPretrainLayer(layerNumber = 1, batch_size = batch_size, train_set_x = self._train_set_x, learning_rate = self._learningRate)
         print "#####################################"
 
 
@@ -46,6 +47,8 @@ class EarlyStopTrainer:
         best_validation_loss = numpy.inf
         self._lastBestEpoch = 0
         start_time = time.clock()
+
+        saveImage = True
 
         # loop until finish the epoch or explicitly end it by setting variable
         for epoch in range(self._maxEpoch):
@@ -68,11 +71,17 @@ class EarlyStopTrainer:
                 self._model.uploadModel(self._dataLoader, best_validation_loss) 
                 print "Learning rate: %f, Get new best validation loss: %f" % (self._learningRate.get_value(), best_validation_loss * 100)
 
-                self._model.saveParameterAsImage("image at %d.png" % epoch)
+                # Try to save image, if failed, turn this feature off
+                if saveImage:
+                    try:
+                        self._model.saveParameterAsImage("image at %d.png" % epoch)
+                    except:
+                        saveImage = False
             else:
                 # if no new best for too long, lower the learning rate
                 if epoch - self._lastBestEpoch > 3:
                     self._learningRate.set_value(self._learningRate.get_value() * 0.95)
+                    self._lastBestEpoch = epoch
 
             sys.stdout.flush()
 

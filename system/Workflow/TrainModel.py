@@ -31,14 +31,14 @@ class TrainModel:
         print "#####################################\n"
         # Get required meta data from data set, eg. dimensionality
         inputDim, outputDim = dataLoader.getDataDimension() 
-        print inputDim, outputDim
+        print "Dimensions:" , inputDim, outputDim
 
         # Create training model
         print "#####################################"
-#        print "Initializing model: ", LogisticRegression.LogisticRegression.__name__
-#        classifier = LogisticRegression.LogisticRegression(n_in = inputDim, n_out = outputDim)
-        print "Initializing model: ", MultilayerPerceptron.MultilayerPerceptron.__name__
-        classifier = MultilayerPerceptron.MultilayerPerceptron(n_in = inputDim, n_out = outputDim)
+        print "Initializing model: ", LogisticRegression.LogisticRegression.__name__
+        classifier = LogisticRegression.LogisticRegression(n_in = inputDim, n_out = outputDim)
+#        print "Initializing model: ", MultilayerPerceptron.MultilayerPerceptron.__name__
+#        classifier = MultilayerPerceptron.MultilayerPerceptron(n_in = inputDim, n_out = outputDim)
 
         
         # Initialize trainer, here we use Early stopping 
@@ -56,7 +56,7 @@ if __name__ == "__main__" :
     import sys
 
     parser = argparse.ArgumentParser(description='Training Entrance.')
-    parser.add_argument('--data_id', dest='data_id', help='the data used to train')
+    parser.add_argument('-d', '--data_id', dest='data_id', help='the data used to train')
     args = parser.parse_args()
 
     if (args.data_id == None):
