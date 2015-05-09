@@ -9,7 +9,7 @@ class EarlyStopTrainer:
     def __init__(self, model, 
                  dataLoader,
                  batch_size = 20,
-                 startLearningRate = 0.1, maxEpoch = 10000):
+                 startLearningRate = 0.1, maxEpoch = 50000):
         self._startLearningRate = startLearningRate
         self._maxEpoch = maxEpoch
 
@@ -40,7 +40,7 @@ class EarlyStopTrainer:
         # TRAIN MODEL #
         ###############
         # early-stopping parameters
-        patience = 1000  # look as this many examples regardless
+        patience = 5000  # look as this many examples regardless
         patience_increase = 2  # wait this much longer when a new best is
                               # found
 
@@ -79,7 +79,7 @@ class EarlyStopTrainer:
                         saveImage = False
             else:
                 # if no new best for too long, lower the learning rate
-                if epoch - self._lastBestEpoch > 3:
+                if epoch - self._lastBestEpoch > 30:
                     self._learningRate.set_value(self._learningRate.get_value() * 0.95)
                     self._lastBestEpoch = epoch
 

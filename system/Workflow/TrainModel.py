@@ -45,7 +45,7 @@ class TrainModel:
 
         
         # Initialize trainer, here we use Early stopping 
-        trainer = EarlyStopTrainer.EarlyStopTrainer(classifier, dataLoader) 
+        trainer = EarlyStopTrainer.EarlyStopTrainer(classifier, dataLoader, batch_size = 50) 
 
         # Use trainer to train model
         trainer.trainModel()
