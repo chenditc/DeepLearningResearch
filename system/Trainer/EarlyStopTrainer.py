@@ -1,6 +1,7 @@
 import numpy
 import time
 import theano
+import sys
 
 
 
@@ -71,8 +72,9 @@ class EarlyStopTrainer:
             else:
                 # if no new best for too long, lower the learning rate
                 if epoch - self._lastBestEpoch > 3:
-                    self._learningRate.set_value(self._learningRate * 0.95)
+                    self._learningRate.set_value(self._learningRate.get_value() * 0.95)
 
+            sys.stdout.flush()
 
             # if we think the performance is saturated
             # TODO: we should probably lower the training rate here
