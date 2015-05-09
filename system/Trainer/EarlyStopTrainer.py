@@ -40,7 +40,7 @@ class EarlyStopTrainer:
         # TRAIN MODEL #
         ###############
         # early-stopping parameters
-        patience = 500  # look as this many examples regardless
+        patience = 1000  # look as this many examples regardless
         patience_increase = 2  # wait this much longer when a new best is
                               # found
 

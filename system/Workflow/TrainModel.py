@@ -8,6 +8,7 @@ import theano.tensor as T
 
 import LogisticRegression
 import MultilayerPerceptron
+import RecurrentNN
 import LossFunctions
 import EarlyStopTrainer
 import TestModel
@@ -35,10 +36,12 @@ class TrainModel:
 
         # Create training model
         print "#####################################"
-        print "Initializing model: ", LogisticRegression.LogisticRegression.__name__
-        classifier = LogisticRegression.LogisticRegression(n_in = inputDim, n_out = outputDim)
+#        print "Initializing model: ", LogisticRegression.LogisticRegression.__name__
+#        classifier = LogisticRegression.LogisticRegression(n_in = inputDim, n_out = outputDim)
 #        print "Initializing model: ", MultilayerPerceptron.MultilayerPerceptron.__name__
 #        classifier = MultilayerPerceptron.MultilayerPerceptron(n_in = inputDim, n_out = outputDim)
+        print "Initializing model: ", RecurrentNN.RecurrentNN.__name__
+        classifier = RecurrentNN.RecurrentNN(n_in = inputDim, n_out = outputDim)
 
         
         # Initialize trainer, here we use Early stopping 
