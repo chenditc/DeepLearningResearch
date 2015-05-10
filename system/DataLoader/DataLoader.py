@@ -4,8 +4,9 @@
 
 import MySQLdb 
 import json
-import numpy
 import os.path
+
+import numpy
 import theano
 import theano.tensor as T
 
@@ -28,28 +29,31 @@ class DataLoader:
 
 ####################### Utility functions ######################
 
-    def __init__(self, dataset, isClassifier = True, training_split = 0.6, validation_split = 0.2, test_split = 0.2, utility=False):
+    def __init__(self, dataset, config=None):
         # private variables:
         self._dbCursor = None
         self._dbConnector = None
-        self._dataMatrix = None
-        self._split_n = None
-        self._trainSetIndex = 0
 
-        if utility == False:
+        self._data_id = dataset
+
+        if config != None:
+            # initialize counter and storage
+            self._dataMatrix = None
+            self._split_n = None
+            self._trainSetIndex = 0
+
             # TODO: automaticly figure out how much a batch should be
-            self._dataBatch = 2000
-            self._training_split = training_split
-            self. _validation_split = validation_split
-            self._test_split = test_split
-            self._data_id = dataset
-            self._isClassifier = isClassifier
+            self._dataBatch = config['data_download_batch']
+            self._training_split = config['training_split']
+            self._validation_split = config['validation_split']
+            self._test_split = config['test_split']
+            self._isClassifier =config['isClassifier']
 
             # initialization functions
             self.peekMaximumRowID()
             self.peekDataDimension()
-            if (training_split + validation_split + test_split != 1):
-                raise test_split("The training_split + validation_split + test_split is not 1")
+            if (self._training_split + self._validation_split + self._test_split != 1):
+                assert("The training_split + validation_split + test_split is not 1")
 
     ##
     # @brief    Lazy initialization for database cursor    
@@ -491,14 +495,14 @@ if __name__ == "__main__":
 
     if (uploadFile != None):
         print "Start uploading", uploadFile
-        dataLoader = DataLoader(uploadFile, utility=True)
+        dataLoader = DataLoader(uploadFile)
         rcode = dataLoader.uploadDataFile(uploadFile)
         if 0 == rcode:
             print "Upload success"
         
 
     if (removeDataId != None):
-        dataLoader = DataLoader(removeDataId, utility=True)
+        dataLoader = DataLoader(removeDataId)
         rcode = dataLoader.removeDataSet(removeDataId)
         if 0 == rcode:
             print "Remove success"
@@ -507,7 +511,7 @@ if __name__ == "__main__":
     if (True == test_mode):
         print "===================="
         print "Test db connect"
-        dataLoader = DataLoader()
+        dataLoader = DataLoader('mnist_data_set')
         cursor = dataLoader.getDatabaseCursor()
         print "Connect success!"
         print "====================\n"

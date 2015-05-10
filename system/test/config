@@ -1,0 +1,12 @@
+{
+    "batch_size": 50,
+    "data_download_batch": 2000,
+    "maxTrainingEpoch": 2000,
+    "startLearningRate": 0.1,
+
+    "isClassifier": true,
+
+    "training_split": 0.6, 
+    "validation_split": 0.2, 
+    "test_split": 0.2
+}

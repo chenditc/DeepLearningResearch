@@ -1,6 +1,10 @@
 #!/usr/bin/python
 
 # This module include the process of training a deep learning model
+import argparse
+import sys
+import json
+import pprint
 
 import numpy
 import theano
@@ -18,17 +22,18 @@ import DataLoader
 
 class TrainModel:
 
-    def __init__(self, data_id, model_id):
+    def __init__(self, data_id, model_id, config):
         # private variables:
         self._data_id = data_id
-        self.model_id = model_id
+        self._model_id = model_id
+        self._config = config
 
 
     def startTraining(self, isClassifier = True):
         # Use Dataloader class to load data set.
         print "#####################################"
         print "Loading data: ", self._data_id
-        dataLoader = DataLoader.DataLoader(dataset=self._data_id)
+        dataLoader = DataLoader.DataLoader(dataset = self._data_id, config = self._config)
 
         print "#####################################\n"
         # Get required meta data from data set, eg. dimensionality
@@ -37,18 +42,16 @@ class TrainModel:
 
         # Create training model
         print "#####################################"
-#        print "Initializing model: ", RecurrentNN.RecurrentNN.__name__
-#        classifier = RecurrentNN.RecurrentNN(n_in = inputDim, n_out = outputDim)
 
-        print "Initializing model: ", self.model_id
-        classifierModule = __import__(self.model_id)
-        classifierClass = getattr(classifierModule, self.model_id)
+        print "Initializing model: ", self._model_id
+        classifierModule = __import__(self._model_id)
+        classifierClass = getattr(classifierModule, self._model_id)
         classifier = classifierClass(n_in = inputDim, n_out = outputDim)
 
 
         
         # Initialize trainer, here we use Early stopping 
-        trainer = EarlyStopTrainer.EarlyStopTrainer(classifier, dataLoader, batch_size = 50) 
+        trainer = EarlyStopTrainer.EarlyStopTrainer(classifier, dataLoader, config = self._config) 
 
         # Use trainer to train model
         trainer.trainModel()
@@ -58,12 +61,12 @@ class TrainModel:
         tester.testModel()
 
 if __name__ == "__main__" :
-    import argparse
-    import sys
 
     parser = argparse.ArgumentParser(description='Training Entrance.')
     parser.add_argument('-d', '--data_id', dest='data_id', help='the data used to train')
     parser.add_argument('-m', '--model_id', dest='model_id', help='the model used to train')
+    parser.add_argument('-c', '--config', dest='configFile', default = './config', help='config file defines few training parameters')
+
 
     args = parser.parse_args()
 
@@ -72,5 +75,11 @@ if __name__ == "__main__" :
         quit()
 
 
-    trainer = TrainModel(data_id = args.data_id, model_id = args.model_id)
+    # open onfig file and load to a map
+    configFile = open(args.configFile).read()
+    config = json.loads(configFile)
+    pprinter = pprint.PrettyPrinter(indent=4)
+    pprinter.pprint(config)
+
+    trainer = TrainModel(data_id = args.data_id, model_id = args.model_id, config = config)
     trainer.startTraining()

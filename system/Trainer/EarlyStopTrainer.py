@@ -8,10 +8,10 @@ import sys
 class EarlyStopTrainer:
     def __init__(self, model, 
                  dataLoader,
-                 batch_size = 20,
-                 startLearningRate = 0.1, maxEpoch = 50000):
-        self._startLearningRate = startLearningRate
-        self._maxEpoch = maxEpoch
+                 config):
+        self._startLearningRate = config['startLearningRate']
+        self._maxEpoch = config['maxTrainingEpoch']
+        self._batch_size = config['batch_size']
 
         # store model
         self._model = model
@@ -20,13 +20,17 @@ class EarlyStopTrainer:
         self._valid_set_x, self._valid_set_y = dataLoader.getValidationSet() 
         self._test_set_x, self._test_set_y = dataLoader.getTestSet() 
 
-        self._learningRate = theano.shared(numpy.float(startLearningRate))
+        self._learningRate = theano.shared(numpy.float(self._startLearningRate))
 
 
         # Building training model
         print "#####################################"
         print "Building model: ", self._model.__class__.__name__
-        self._model.buildTrainingModel(self._train_set_x, self._train_set_y, learning_rate = self._learningRate, batch_size = batch_size, parameterToTrain = []) 
+        self._model.buildTrainingModel(self._train_set_x, 
+                                       self._train_set_y, 
+                                       learning_rate = self._learningRate, 
+                                       batch_size = self._batch_size, 
+                                       parameterToTrain = []) 
         # TODO: turn on properly
 #        self._model.setPretrainLayer(layerNumber = 1, batch_size = batch_size, train_set_x = self._train_set_x, learning_rate = self._learningRate)
         print "#####################################"
