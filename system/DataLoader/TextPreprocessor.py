@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
 import json
+import re
+
+def preprocessText(text):
+    # add space to make it easier to split in the future
+    text = re.sub(r'([^a-z0-9A-Z ])([a-z0-9A-Z])', r'\1 \2', text) 
+    text = re.sub(r'([a-z0-9A-Z])([^a-z0-9A-Z ])', r'\1 \2', text)
+    return text
 
 def createWordDictionary(textFile):
     wordToIndex = {}
@@ -8,7 +15,10 @@ def createWordDictionary(textFile):
 
     outputFile = textFile + "_indexToWordDict.txt"
 
-    words = open(textFile).read().split(' ')
+    text = open(textFile).read()
+    text = preprocessText(text)
+    words = re.split('\ +', text)
+
     wordCount = 0
     for word in words:
         if word not in wordToIndex:
@@ -18,6 +28,23 @@ def createWordDictionary(textFile):
 
     output = open(outputFile, 'w')
     output.write(json.dumps(indexToWord))
+    return wordToIndex, indexToWord
+
+def splitTextIntoDataWindow(textFile, windowSize, wordToIndex, indexToWord):
+    outputFile = textFile + "_data.txt"
+    output = open(outputFile, 'w')
+
+    dataSet = []
+    text = open(textFile).read()
+    text = preprocessText(text)
+    words = re.split('\ +', text)
+
+    # construct text windows, iterate and discard last (windowSize+1) words,
+    for i in range(len(words) - windowSize):
+        line = words[i : i+windowSize + 1]     # last one is the label
+        line = [str(wordToIndex.get(word, '0')) for word in line]
+        print >>output, ','.join(line)
+
 
 class TextPreprocessor():
 
@@ -48,6 +75,9 @@ class TextPreprocessor():
     def decodeNumberArray(self, numberArrayString):
         wordArray = json.loads(numberArrayString)
         
+        #TODO
+        print wordArray
+
         # transform all word to int
         numberArray = [self.wordToIndex.get(word, 0) for word in wordArray]
 
@@ -64,11 +94,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='text data manipulator')
     parser.add_argument('-f', '--file', dest='textFile', help='the text file to analyze and prepare dictionary')
     parser.add_argument('-d', '--dict', dest='dictFile', help='the dictionary file map from index to word')
+    parser.add_argument('-w', '--windowSize', dest='windowSize', help='The window size of one set of text')
 
     args = parser.parse_args()
 
     if args.textFile != None:
-        createWordDictionary(args.textFile)    
+        wordToIndex, indexToWord = createWordDictionary(args.textFile)    
+
+        # if windows size specified, add split the data and put the data into a file
+        if args.windowSize != None:
+            splitTextIntoDataWindow(args.textFile, int(args.windowSize), wordToIndex, indexToWord)
+
 
     if args.dictFile != None:
         preprocessor = TextPreprocessor(args.dictFile)

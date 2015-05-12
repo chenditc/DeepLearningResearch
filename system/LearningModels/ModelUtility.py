@@ -8,8 +8,8 @@ import numpy
 number_random_generator = numpy.random.RandomState(123)
 def getRandomNumpyMatrix(row, column):
     matrix = number_random_generator.uniform(
-        low= - numpy.sqrt(6. / (row + column)),
-        high=  numpy.sqrt(6. / (row + column)),
+        low= - 0.2,
+        high=  0.2,
         size=(row, column)
     )
     return matrix

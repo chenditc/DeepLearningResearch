@@ -5,6 +5,8 @@
     "startLearningRate": 0.1,
 
     "isClassifier": true,
+    "preprocessor": "Preprocessor",
+    "textDict" : 
 
     "training_split": 0.6, 
     "validation_split": 0.2, 

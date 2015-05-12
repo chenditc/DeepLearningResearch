@@ -67,8 +67,9 @@ def getRecurrentLayer(inputVariable, inputNumber, outputNumber, layerName = "rnn
         return h_t
 
     output, updates = theano.scan(fn=recurrence,
-                                                 sequences=inputVariable,
-                                                 outputs_info=[h0])
+                                  sequences=inputVariable,
+                                  outputs_info=[h0],
+                                  n_steps=10)
 
     params[layerName + "input_hidden_W"] = W_ih
     params[layerName + "input_hidden_b"] = b_ih

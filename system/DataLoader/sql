@@ -9,3 +9,14 @@ CREATE TABLE `DeepLearningDB1`.`TrainingData1` (
 ALTER TABLE `DeepLearningDB1`.`TrainingData1` 
 ADD PRIMARY KEY (`data_id`, `row_id`);
 
+CREATE TABLE `DeepLearningDB1`.`TrainingDataMetaData1` (
+  `data_id` VARCHAR(45) NOT NULL,
+  `inputDimension` INT NULL,
+  `outputDimension` INT NULL,
+  `isClassifier` INT NULL,
+  PRIMARY KEY (`data_id`),
+  CONSTRAINT `data_id`
+    FOREIGN KEY (`data_id`)
+    REFERENCES `DeepLearningDB1`.`TrainingData1` (`data_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

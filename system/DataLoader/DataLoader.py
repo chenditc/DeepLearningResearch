@@ -10,6 +10,8 @@ import numpy
 import theano
 import theano.tensor as T
 
+import Preprocessor
+
 class formatError(Exception):
     def __init__(self, value):
         self.value = value
@@ -25,6 +27,11 @@ class orderError(Exception):
         return repr(self.value)
 
 
+def updateData(data_id):
+    # TODO:
+    return;
+
+
 class DataLoader:
 
 ####################### Utility functions ######################
@@ -36,11 +43,18 @@ class DataLoader:
 
         self._data_id = dataset
 
+        self.preprocessor = Preprocessor.Preprocessor()
+
         if config != None:
             # initialize counter and storage
             self._dataMatrix = None
             self._split_n = None
             self._trainSetIndex = 0
+
+            preprocessorModule = __import__(config['preprocessor'])
+            preprocessorClass = getattr(preprocessorModule, config['preprocessor'])
+
+            self.preprocessor = preprocessorClass()
 
             # TODO: automaticly figure out how much a batch should be
             self._dataBatch = config['data_download_batch']
@@ -93,7 +107,7 @@ class DataLoader:
     #
     # @return               a string represent the number 
     def encodeNumberArray(self, numberArray):
-        return json.dumps(numberArray)
+        return self.preprocessor.encodeNumberArray(numberArray)
 
 
     ##
@@ -103,7 +117,7 @@ class DataLoader:
     #
     # @return                   an array of float
     def decodeNumberArray(self, numberArrayString):
-        return json.loads(numberArrayString)
+        return self.preprocessor.decodeNumberArray(numberArrayString)
    
     ##
     # @brief            Insert one row into training data table
@@ -118,6 +132,7 @@ class DataLoader:
         cursor = self.getDatabaseCursor()
         cursor.execute('INSERT INTO TrainingData1 ( data_id, row_id, x, y ) VALUES (%s, %s, %s, %s)',
                         (data_id, row_id, x, y))
+        self.commitData();
 
 
     ##
@@ -145,6 +160,8 @@ class DataLoader:
 
             # insert one row into database
             self.insertOneRow(data_id, row_id, x, y)
+
+            print row_id
 
             row_id += 1
         
@@ -358,7 +375,7 @@ class DataLoader:
     def peekDataDimension(self):
         cursor = self.getDatabaseCursor()
         # query database:
-        cursor.execute('SELECT x, max(y) as max_y FROM TrainingData1 WHERE data_id = %s LIMIT 1', (self._data_id) )
+        cursor.execute('SELECT x, max(y) as max_y FROM TrainingData1 WHERE data_id = %s and length(y) = (SELECT max(length(y)) FROM TrainingData1 WHERE data_id = %s)LIMIT 1', (self._data_id, self._data_id) )
         dataRows = cursor.fetchall()
         if len(dataRows) == 0:
             print "No data available for: ", data_id
@@ -483,7 +500,18 @@ if __name__ == "__main__":
     parser.add_argument('-u', '--upload', dest='uploadFile', help='the data file to read and upload to database')
     parser.add_argument('-r', '--remove', dest='removeDataId', help='remove the data set with dataId')
     parser.add_argument('-t', '--test', dest='test_mode', action='store_true', help='the data file to read and upload to database')
+    parser.add_argument('-c', '--config', dest='configFile', help='the config file that define preprocessor')
+    parser.add_argument('--update', dest='updateData', help='the data id that need to update datas meta data')
     args = parser.parse_args()
+
+    if args.configFile != None:
+        # open onfig file and load to a map
+        configFile = open(args.configFile).read()
+        config = json.loads(configFile)
+        pprinter = pprint.PrettyPrinter(indent=4)
+        pprinter.pprint(config)
+    else:
+        config = None
 
     test_mode = args.test_mode
     uploadFile = args.uploadFile
@@ -495,18 +523,20 @@ if __name__ == "__main__":
 
     if (uploadFile != None):
         print "Start uploading", uploadFile
-        dataLoader = DataLoader(uploadFile)
+        dataLoader = DataLoader(uploadFile, config)
         rcode = dataLoader.uploadDataFile(uploadFile)
         if 0 == rcode:
             print "Upload success"
         
 
     if (removeDataId != None):
-        dataLoader = DataLoader(removeDataId)
+        dataLoader = DataLoader(removeDataId, config)
         rcode = dataLoader.removeDataSet(removeDataId)
         if 0 == rcode:
             print "Remove success"
-
+    if args.updateData is not None:
+        updateMetaData(args.updateData)
+   
 
     if (True == test_mode):
         print "===================="

@@ -72,7 +72,8 @@ class EarlyStopTrainer:
                 patience +=  patience_increase
                 best_validation_loss = this_validation_loss
                 # store the model
-                self._model.uploadModel(self._dataLoader, best_validation_loss) 
+                # TODO
+#                self._model.uploadModel(self._dataLoader, best_validation_loss) 
                 print "Learning rate: %f, Get new best validation loss: %f" % (self._learningRate.get_value(), best_validation_loss * 100)
 
                 # Try to save image, if failed, turn this feature off

@@ -34,8 +34,10 @@ class Classifier(Model.Model):
         error = 0.0
         prediction = self.testModel(testInput)
         testOutput = testOutput.eval()
-        for i in range(len(prediction)):
+        for i in range(len(testOutput)):
             if prediction[i] != testOutput[i]:
+                # TODO: add this to debug option
+                print "pred:", prediction[i], " real:", testOutput[i]
                 error += 1
 
         return error / len(prediction)
@@ -90,7 +92,7 @@ class Classifier(Model.Model):
             givens={
                 self._x: train_set_x[index * batch_size: (index + 1) * batch_size],
                 self._y: train_set_y[index * batch_size: (index + 1) * batch_size]
-            }
+            },
         )
 
         self._totalBatches = train_set_x.get_value(borrow=True).shape[0] / batch_size
