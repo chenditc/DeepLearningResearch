@@ -2,6 +2,7 @@ import theano
 import theano.tensor as T
 import json
 import numpy
+import redis
 
 import DataLoader
 
@@ -22,6 +23,7 @@ class Model(object):
 
     def __init__(self):
         self._pretrainModel = None
+        self.redisClient = redis.StrictRedis(host='deeplearning.qha7wz.ng.0001.usw2.cache.amazonaws.com', port=6379, db=0)
 
     @staticmethod
     def loadModelByName(name):
@@ -108,11 +110,13 @@ class Model(object):
     #
     # @return 
     def downloadModel(self, dataLoader):
-        cursor = dataLoader.getDatabaseCursor()
-        cursor.execute('SELECT parameters FROM DeepLearningDB1.Model1 WHERE data_id = %s AND model_name = %s ORDER BY error_rate ASC LIMIT 1',
-                        (dataLoader._data_id, self.__class__.__name__))
-        dataRows = cursor.fetchall()
-        jsonString = dataRows[0][0]
+#        cursor = dataLoader.getDatabaseCursor()
+#        cursor.execute('SELECT parameters FROM DeepLearningDB1.Model1 WHERE data_id = %s AND model_name = %s ORDER BY error_rate ASC LIMIT 1',
+#                        (dataLoader._data_id, self.__class__.__name__))
+#        dataRows = cursor.fetchall()
+#        jsonString = dataRows[0][0]
+        key = self.__class__.__name__ + ":" + dataLoader._data_id
+        jsonString = self.redisClient.get(key)
         self.loadModelFromJson(jsonString)
 
 
@@ -134,11 +138,14 @@ class Model(object):
     #
     # @return 
     def uploadModel(self ,dataLoader, errorRate):
-        cursor = dataLoader.getDatabaseCursor()
         parameters = self.storeModelToJson()
-        cursor.execute('INSERT INTO Model1 ( model_name, parameters, description, data_id, error_rate ) VALUES (%s, %s, %s, %s, %s)',
-                        (self.__class__.__name__, parameters, self.__class__.description, dataLoader._data_id, errorRate))
-        dataLoader.commitData()
+#        cursor = dataLoader.getDatabaseCursor()
+#        cursor.execute('INSERT INTO Model1 ( model_name, parameters, description, data_id, error_rate ) VALUES (%s, %s, %s, %s, %s)',
+#                        (self.__class__.__name__, parameters, self.__class__.description, dataLoader._data_id, errorRate))
+#        dataLoader.commitData()
+        key = self.__class__.__name__ + ":" + dataLoader._data_id
+        self.redisClient.set(key, parameters)
+
 
     ##
     # @brief                Get update array from learning rate, parameters and etc.
