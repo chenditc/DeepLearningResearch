@@ -1,0 +1,22 @@
+# Create Data Table:
+CREATE TABLE `DeepLearningDB1`.`TrainingData1` (
+  `data_id` VARCHAR(45) NOT NULL,
+  `row_id` INT NOT NULL,
+  `x` LONGTEXT NOT NULL,
+  `y` LONGTEXT NOT NULL,
+  INDEX `index1` (`data_id` ASC, `row_id` ASC));
+# Create primary key for Data Table
+ALTER TABLE `DeepLearningDB1`.`TrainingData1` 
+ADD PRIMARY KEY (`data_id`, `row_id`);
+
+CREATE TABLE `DeepLearningDB1`.`TrainingDataMetaData1` (
+  `data_id` VARCHAR(45) NOT NULL,
+  `inputDimension` INT NULL,
+  `outputDimension` INT NULL,
+  `isClassifier` INT NULL,
+  PRIMARY KEY (`data_id`),
+  CONSTRAINT `data_id`
+    FOREIGN KEY (`data_id`)
+    REFERENCES `DeepLearningDB1`.`TrainingData1` (`data_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

@@ -1,0 +1,12 @@
+
+# Table creation
+
+CREATE TABLE `DeepLearningDB1`.`Model1` (
+  `model_id` INT UNSIGNED NOT NULL,
+  `model_name` LONGTEXT NOT NULL,
+  `parameters` LONGTEXT NOT NULL,
+  `description` LONGTEXT NOT NULL,
+  `data_id` LONGTEXT NULL,
+  PRIMARY KEY (`model_id`),
+  INDEX `id` (`model_id` ASC));
+
