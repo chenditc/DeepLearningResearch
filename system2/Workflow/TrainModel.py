@@ -31,13 +31,8 @@ class TrainModel:
         classifierClass = getattr(classifierModule, model_id)
         self.model = classifierClass(n_in = inputDim, n_out = outputDim)
         
-
-        #TODO:
-#        dataLoader.updateTrainingSet()
-        classifier.trainModel()
-
-    def startTraining(x, y):
-        self.model.trainModel(x, y)
+    def startTraining(self, x, y):
+        gradientsName, gradients = self.model.trainModel(x, y)
         print gradientsName, gradients 
 
 
@@ -61,4 +56,4 @@ if __name__ == "__main__" :
     config = json.loads(configFile)
 
     trainer = TrainModel(data_id = args.data_id, model_id = args.model_id, config = config)
-    trainer.startTraining([2,2],[0])
+    trainer.startTraining([[2,2]],[0])

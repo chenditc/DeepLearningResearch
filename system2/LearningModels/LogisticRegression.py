@@ -123,4 +123,4 @@ class LogisticRegression(Classifier.Classifier):
         # probability is maximal
         self.y_pred = T.argmax(self.p_y_given_x, axis=1)
 
-        buildTrainingModel()
+        self.buildTrainingModel()
