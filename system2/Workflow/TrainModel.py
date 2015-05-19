@@ -21,7 +21,7 @@ import DataLoader
 
 class TrainModel:
 
-    def __init__(self, data_id, model_id, config):
+    def __init__(self, data_id, model_id):
         # Get required meta data from data set, eg. dimensionality
 #        inputDim, outputDim = dataLoader.getDataDimension() 
         inputDim = 2
@@ -41,7 +41,6 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description='Training Entrance.')
     parser.add_argument('-d', '--data_id', dest='data_id', help='the data used to train')
     parser.add_argument('-m', '--model_id', dest='model_id', help='the model used to train')
-    parser.add_argument('-c', '--config', dest='configFile', default = './config', help='config file defines few training parameters')
 
 
     args = parser.parse_args()
@@ -51,9 +50,5 @@ if __name__ == "__main__" :
         quit()
 
 
-    # open onfig file and load to a map
-    configFile = open(args.configFile).read()
-    config = json.loads(configFile)
-
-    trainer = TrainModel(data_id = args.data_id, model_id = args.model_id, config = config)
+    trainer = TrainModel(data_id = args.data_id, model_id = args.model_id)
     trainer.startTraining([[2,2]],[0])
