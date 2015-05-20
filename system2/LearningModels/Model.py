@@ -31,7 +31,7 @@ class Model(object):
 
 
     def trainModel(self, x, y):
-        downloadModel()
+        self.downloadModel()
         gradients = self._trainModel(x, y)
         return self.gradientsName, gradients
 
@@ -50,9 +50,14 @@ class Model(object):
     #
     # @return 
     def downloadModel(self):
+        oldParameters = self.storeModelToJson() 
         for key in self.params:
             jsonString = self.redisClient.get(key)
-            self.loadModelFromJson(key, jsonString)
+            if jsonString == None:
+                self.redisClient.set(key, oldParameters[key])
+                continue
+
+            self.loadParameterFromJson(key, jsonString)
 
     def loadParameterFromJson(self, jsonKey, jsonString):
         parameter = json.loads(jsonString)
