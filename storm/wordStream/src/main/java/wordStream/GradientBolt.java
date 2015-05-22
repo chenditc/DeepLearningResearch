@@ -27,12 +27,12 @@ import backtype.storm.tuple.Fields;
 public class GradientBolt extends ShellBolt implements IRichBolt {
 
     public GradientBolt() {
-      super("python", "splitsentence.py");
+      super("/bin/storm/GradientBolt");
     }   
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-      declarer.declare(new Fields("gradient"));
+      declarer.declare(new Fields("variable","gradient"));
     }   
     
 

@@ -45,30 +45,12 @@ import com.amazonaws.services.kinesis.model.Record;
 public class ProjectionLayerBolt extends BaseBasicBolt {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProjectionLayerBolt.class);
-    private static final CharsetDecoder decoder = Charset.forName("UTF-8").newDecoder();
-    private Jedis redisClient;
-    private int wordEmbeddingDimension = 50;
-    private String redisEndpoint;
-    
-    
-    public ProjectionLayerBolt(String redisEndpoint) {
-        this.redisEndpoint = redisEndpoint;
-    }
+    private static final CharsetDecoder decoder = Charset.forName("UTF-8").newDecoder();    
     
     @Override
     public void prepare(Map stormConf, TopologyContext context)
     {
-        // Initialize redis client
-        redisClient = new Jedis(this.redisEndpoint);
-    }
-    
-    public String getEmbeddingFromRedis(String key) {
-        String embeddingString = redisClient.get(key);
-        if (embeddingString == null) {
-            embeddingString = "[0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123, 0.9182987219387123]";
-            redisClient.set(key, embeddingString);
-        }
-        return embeddingString;
+
     }
 
     @Override
@@ -83,22 +65,10 @@ public class ProjectionLayerBolt extends BaseBasicBolt {
             
             JSONObject jsonObject = new JSONObject(data);
 
-            JSONArray indexOfXArray = jsonObject.getJSONArray("x");
             String indexOfX = jsonObject.getString("x");
             String indexOfY = jsonObject.getString("y");
-            HashMap<String, JSONArray> wordEmbedding = new HashMap<>();
-            
-            for (int i = 0; i < indexOfXArray.length(); i++) {
-                int index_x = (int) indexOfXArray.get(i);
-                String key = Integer.toString(index_x);
-                String embeddingString = getEmbeddingFromRedis(key);
-                wordEmbedding.put(key, new JSONArray(embeddingString));
-            }
-            JSONObject wordEmbeddingObject = new JSONObject(wordEmbedding);
-            
-            LOG.info(wordEmbeddingObject.toString());
 
-            collector.emit(new Values(indexOfX, indexOfY, wordEmbeddingObject));
+            collector.emit(new Values(indexOfX, indexOfY));
 
         } catch (CharacterCodingException|JSONException|IllegalStateException e) {
             LOG.error("Exception when decoding record ", e);
@@ -107,7 +77,7 @@ public class ProjectionLayerBolt extends BaseBasicBolt {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("vector_x", "vector_y", "wordEmbedding"));
+        declarer.declare(new Fields("x", "y"));
     }
 
 }
