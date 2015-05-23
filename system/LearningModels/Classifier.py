@@ -37,7 +37,7 @@ class Classifier(Model.Model):
         for i in range(len(testOutput)):
             if prediction[i] != testOutput[i]:
                 # TODO: add this to debug option
-                print "pred:", prediction[i], " real:", testOutput[i]
+#                print "pred:", prediction[i], " real:", testOutput[i]
                 error += 1
 
         return error / len(prediction)
