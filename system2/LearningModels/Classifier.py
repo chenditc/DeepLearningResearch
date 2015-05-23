@@ -72,5 +72,6 @@ class Classifier(Model.Model):
         self._trainModel = theano.function(
             inputs=[self._x, self._y],
             outputs=gradients,
+            allow_input_downcast=True
         )
 

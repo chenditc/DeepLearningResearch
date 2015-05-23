@@ -32,6 +32,9 @@ class UpdateGradient(storm.BasicBolt):
         
         # update it
         newValue = oldValue + gradient 
+
+        storm.log(variableName + " new value:" + json.dumps(newValue.tolist()))
+
         self.redisClient.set(variableName, json.dumps(newValue.tolist()))
 
         storm.log(json.dumps(newValue.tolist()))
