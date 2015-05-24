@@ -21,7 +21,7 @@ class UpdateGradient(storm.BasicBolt):
 
     def process(self, tup):
         values = tup.values
-        variableName = values[0]
+        variableName = json.loads(values[0])
         gradient = numpy.asarray(json.loads(values[1]))
 
         # load matrix from redis
@@ -31,7 +31,10 @@ class UpdateGradient(storm.BasicBolt):
             oldValue = numpy.asarray(0)
         
         # update it
-        newValue = oldValue + gradient 
+        newValue = oldValue - gradient 
+
+        storm.log(variableName + " new value:" + json.dumps(newValue.tolist()))
+
         self.redisClient.set(variableName, json.dumps(newValue.tolist()))
 
         storm.log(json.dumps(newValue.tolist()))

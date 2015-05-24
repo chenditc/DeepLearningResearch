@@ -32,7 +32,7 @@ class Classifier(Model.Model):
         # compare the prediction with the output
         error = 0.0
         prediction = self.testModel(testInput)
-        testOutput = testOutput.eval()
+#        testOutput = testOutput.eval()
         for i in range(len(testOutput)):
             if prediction[i] != testOutput[i]:
                 error += 1
@@ -72,5 +72,6 @@ class Classifier(Model.Model):
         self._trainModel = theano.function(
             inputs=[self._x, self._y],
             outputs=gradients,
+            allow_input_downcast=True
         )
 

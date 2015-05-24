@@ -22,11 +22,11 @@ class Model(object):
         self.redisClient = redis.StrictRedis(host='deeplearning.qha7wz.ng.0001.usw2.cache.amazonaws.com', port=6379, db=0)
 
     @staticmethod
-    def loadModelByName(name):
+    def loadModelByName(name, n_in, n_out):
         module = __import__(name)
         className = getattr(module, name)
         # The dimension here should be dummy, does not influence the model
-        classInstance = className(2,2)
+        classInstance = className(n_in, n_out)
         return classInstance
 
 
@@ -35,14 +35,6 @@ class Model(object):
         gradients = self._trainModel(x, y)
         return self.gradientsName, gradients
 
-    def pretrainModel(self):
-        # if the model is empty, build the trainModel
-        if self._pretrainModel == None:
-            print "You have not build any pre-training model yet."
-            return
-        # train the minibatchs
-        for minibatch_index in xrange(self._totalBatches):
-            minibatch_avg_cost = self._pretrainModel(minibatch_index)
     ##
     # @brief                Download the paramters from database and set them in shared variable 
     #
@@ -100,9 +92,6 @@ class Model(object):
         # compute the gradient of cost with respect to theta = (W,b)
         if len(onlyTrain) == 0:
             onlyTrain = parameters.keys()
-
-        print "Build training model to train:"
-        print onlyTrain
 
         updates = []
         gradients = {}
@@ -185,6 +174,8 @@ class Model(object):
     #
     # @return 
     def testModel(self, testInput):
+        self.downloadModel()
+
         # build test Model
         if (isinstance(testInput, theano.compile.sharedvalue.SharedVariable)):
             testInput = testInput.get_value()
@@ -192,7 +183,7 @@ class Model(object):
         if self._testModel == None:
             self._testModel = theano.function(
                 inputs=[self._x],
-                outputs=self.y_pred,
+                outputs = self.y_pred,
             )
 
         # loop through the input and compute prediction
