@@ -22,12 +22,17 @@ import backtype.storm.task.ShellBolt;
 import backtype.storm.topology.IRichBolt;
 
 import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.tuple.Fields;
 
 public class UpdateGradientBolt extends ShellBolt implements IRichBolt {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+
     public UpdateGradientBolt() {
-      super("/bin/storm/UpdateGradient");
+      super("python", "/bin/storm/UpdateGradient");
     }   
 
     @Override

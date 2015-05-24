@@ -19,21 +19,15 @@ import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.base.BaseBasicBolt;
 
 import com.amazonaws.services.kinesis.stormspout.DefaultKinesisRecordScheme;
-import com.amazonaws.util.json.JSONArray;
 import com.amazonaws.util.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import redis.clients.jedis.Jedis;
 
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Tuple;
@@ -44,24 +38,22 @@ import com.amazonaws.services.kinesis.model.Record;
 
 public class ProjectionLayerBolt extends BaseBasicBolt {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
     private static final Logger LOG = LoggerFactory.getLogger(ProjectionLayerBolt.class);
     private static final CharsetDecoder decoder = Charset.forName("UTF-8").newDecoder();    
-    
-    @Override
-    public void prepare(Map stormConf, TopologyContext context)
-    {
-
-    }
 
     @Override
     public void execute(Tuple input,  BasicOutputCollector collector) {
         Record record = (Record)input.getValueByField(DefaultKinesisRecordScheme.FIELD_RECORD);
         ByteBuffer buffer = record.getData();
+        
         String data = null; 
         try {
             data = decoder.decode(buffer).toString();
-            
-            LOG.info(data);
             
             JSONObject jsonObject = new JSONObject(data);
 
@@ -72,6 +64,7 @@ public class ProjectionLayerBolt extends BaseBasicBolt {
 
         } catch (CharacterCodingException|JSONException|IllegalStateException e) {
             LOG.error("Exception when decoding record ", e);
+            LOG.error(buffer.toString());
         }
     }
 

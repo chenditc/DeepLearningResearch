@@ -39,11 +39,13 @@ public class WordStreamTopology {
     private static final Logger LOG = LoggerFactory.getLogger(WordStreamTopology.class);
     private static String topologyName = "SampleTopology";
     private static String streamName;
-    private static InitialPositionInStream initialPositionInStream;
+    private static InitialPositionInStream initialPositionInStream = InitialPositionInStream.TRIM_HORIZON;
     private static String zookeeperEndpoint;
     private static String zookeeperPrefix;
     private static String elasticCacheRedisEndpoint;
     private static String regionName;
+    private static String dataId;
+    private static String modelId;
 
 
     public static void main(String[] args) throws IllegalArgumentException, KeeperException, InterruptedException, AlreadyAliveException, InvalidTopologyException, IOException {
@@ -60,7 +62,7 @@ public class WordStreamTopology {
         configure(propertiesFile);
 
         final KinesisSpoutConfig config =
-                new KinesisSpoutConfig(streamName, zookeeperEndpoint).withZookeeperPrefix(zookeeperPrefix)
+                new KinesisSpoutConfig(streamName, zookeeperEndpoint).withZookeeperPrefix(zookeeperPrefix + System.currentTimeMillis())
                         .withInitialPositionInStream(initialPositionInStream)
                         .withRegion(Regions.fromName(regionName));
 
@@ -70,10 +72,10 @@ public class WordStreamTopology {
 
 
         // Using number of shards as the parallelism hint for the spout.
-        builder.setSpout("Kinesis", spout, 2);
+        builder.setSpout("Kinesis", spout, 1);
         builder.setBolt("ProjectionLayer", new ProjectionLayerBolt(), 1).shuffleGrouping("Kinesis");
-        builder.setBolt("GradientLayer", new GradientBolt(), 1).shuffleGrouping("ProjectionLayer");
-        builder.setBolt("PrintLayer", new PrintBolt(), 1).fieldsGrouping("GradientLayer", new Fields("variable"));  
+        builder.setBolt("GradientLayer", new GradientBolt(dataId, modelId), 1).shuffleGrouping("ProjectionLayer");
+        builder.setBolt("TestingLayer", new TestBolt(dataId, modelId), 1).shuffleGrouping("ProjectionLayer");
         builder.setBolt("UpdateGradientLayer", new UpdateGradientBolt(), 1).fieldsGrouping("GradientLayer", new Fields("variable"));  
 
         Config topoConf = new Config();
@@ -144,6 +146,18 @@ public class WordStreamTopology {
             regionName = regionNameOverride;
         }
         LOG.info("Using Region " + regionName);
+        
+        String dataIdOverride = properties.getProperty(ConfigKeys.DATA_ID);
+        if (dataIdOverride != null) {
+            dataId = dataIdOverride;
+        }
+        LOG.info("Using data " + dataId);
+        
+        String modelIdOverride = properties.getProperty(ConfigKeys.REGION_NAME);
+        if (modelIdOverride != null) {
+            modelId = modelIdOverride;
+        }
+        LOG.info("Using model " + modelId);
 
     }
     
