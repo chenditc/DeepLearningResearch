@@ -27,6 +27,11 @@ import backtype.storm.tuple.Tuple;
 
 public class PrintBolt extends BaseBasicBolt {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
     private static final Logger LOG = LoggerFactory.getLogger(PrintBolt.class);
     
 

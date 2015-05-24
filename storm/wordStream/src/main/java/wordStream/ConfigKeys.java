@@ -33,6 +33,10 @@ public class ConfigKeys {
     public static final String REDIS_ENDPOINT_KEY = "redisEndpoint";
 
     public static final String REGION_NAME = "regionName";
+    
+    public static final String DATA_ID = "data_id";
+    
+    public static final String MODEL_ID = "model_id";
 
 
 }

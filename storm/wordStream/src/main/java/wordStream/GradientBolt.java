@@ -26,8 +26,14 @@ import backtype.storm.tuple.Fields;
 
 public class GradientBolt extends ShellBolt implements IRichBolt {
 
-    public GradientBolt() {
-      super("/bin/storm/GradientBolt");
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+
+    public GradientBolt(String data_id, String model_id) {
+      super("python", "/bin/storm/GradientBolt", "-b", "-d", data_id, "-m", model_id );
     }   
 
     @Override
