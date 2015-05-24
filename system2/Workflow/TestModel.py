@@ -5,6 +5,7 @@ import argparse
 import sys
 import json
 import pprint
+import Queue
 
 import numpy
 import theano
@@ -19,9 +20,19 @@ import DataLoader
 
 
 class TestBolt(storm.BasicBolt):
+    def __init__(self, data_id, model_id):
+        self.data_id = data_id
+        self.model_id = model_id
+
+        # Set default
+        if self.model_id == None:
+            self.model_id = "LogisticRegression" 
+        if self.data_id == None:
+            self.data_id = "sum_positive_1"
+
     def initialize(self, stormconf, context):
-        model_id = "LogisticRegression" 
-        self.tester = TestModel(data_id = "abc", model_id = model_id)
+        self.tester = TestModel(data_id = self.data_id, model_id = self.model_id)
+        self.testResult = []
 
     def getXYFromTuple(self, tup):
         x = tup.values[0]
@@ -35,7 +46,13 @@ class TestBolt(storm.BasicBolt):
         try:
             x, y = self.getXYFromTuple(tup)
             result = self.tester.startTesting(x, y)
-            storm.log("Testing Result:" + str(result))        
+
+            self.testResult.append(result)
+            if len(self.testResult) > 30:
+                self.testResult.pop(0)
+
+            storm.log("Testing Result:" + str( sum(self.testResult)/len(self.testResult) ))        
+
         except:
             storm.log("Unexpected error:" + str(sys.exc_info()[0]))
 
@@ -61,13 +78,17 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description='Testing Entrance.')
     parser.add_argument('-d', '--data_id', dest='data_id', help='the data used to train')
     parser.add_argument('-m', '--model_id', dest='model_id', help='the model used to train')
-
+    parser.add_argument('-b', '--bolt', dest='bolt', action="store_true", help='create a storm bolt')
 
     args = parser.parse_args()
 
     if (args.data_id == None or args.model_id == None ):
-        TestBolt().run()
+        parser.print_help()
         quit()
+
+    if (args.bolt):
+        testBolt = TestBolt(args.data_id, args.model_id)
+        testBolt.run()
 
 
     tester = TestModel(data_id = args.data_id, model_id = args.model_id)
