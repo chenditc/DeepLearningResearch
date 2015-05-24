@@ -32,7 +32,7 @@ class Classifier(Model.Model):
         # compare the prediction with the output
         error = 0.0
         prediction = self.testModel(testInput)
-        testOutput = testOutput.eval()
+#        testOutput = testOutput.eval()
         for i in range(len(testOutput)):
             if prediction[i] != testOutput[i]:
                 error += 1

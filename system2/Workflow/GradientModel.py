@@ -11,6 +11,7 @@ import theano
 import theano.tensor as T
 import storm
 
+import Model
 import LogisticRegression
 import MultilayerPerceptron
 import RecurrentNN
@@ -45,11 +46,6 @@ class GradientBolt(storm.BasicBolt):
             storm.log("Unexpected error:" + str(sys.exc_info()[0]))
 
 
-
-   
-
-
-
 class TrainModel:
 
     def __init__(self, data_id, model_id):
@@ -58,9 +54,8 @@ class TrainModel:
         inputDim = 2
         outputDim = 2
 
-        classifierModule = __import__(model_id)
-        classifierClass = getattr(classifierModule, model_id)
-        self.model = classifierClass(n_in = inputDim, n_out = outputDim)
+        self.model = Model.Model.loadModelByName(model_id, inputDim, outputDim)
+
         
     def startTraining(self, x, y):
         gradientsName, gradients = self.model.trainModel(x, y)
