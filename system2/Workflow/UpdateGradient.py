@@ -37,7 +37,5 @@ class UpdateGradient(storm.BasicBolt):
 
         self.redisClient.set(variableName, json.dumps(newValue.tolist()))
 
-        storm.log(json.dumps(newValue.tolist()))
-
 
 UpdateGradient().run()

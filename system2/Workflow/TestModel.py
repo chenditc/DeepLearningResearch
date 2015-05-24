@@ -28,8 +28,6 @@ class TestBolt(storm.BasicBolt):
         y = tup.values[1]
         x = numpy.asarray(json.loads(x))
         y = numpy.asarray(json.loads(y))
-        storm.log("x is:")
-        storm.log(str(x))
         return x, y
 
 
@@ -54,7 +52,7 @@ class TestModel:
         self.model = classifierClass(n_in = inputDim, n_out = outputDim)
         
     def startTesting(self, x, y):
-        testResult = self.model.testModel(x)
+        testResult = self.model.getTestError(x, y)
         return testResult 
 
 

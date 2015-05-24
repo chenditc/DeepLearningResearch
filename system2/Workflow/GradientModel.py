@@ -30,8 +30,6 @@ class GradientBolt(storm.BasicBolt):
         y = tup.values[1]
         x = numpy.asarray(json.loads(x))
         y = numpy.asarray(json.loads(y))
-        storm.log("x is:")
-        storm.log(str(x))
         return x, y
 
 
