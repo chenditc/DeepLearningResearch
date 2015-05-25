@@ -21,17 +21,24 @@ import DataLoader
 
 
 class GradientBolt(storm.BasicBolt):
+    def __init__(self, data_id, model_id):
+        self.data_id = data_id
+        self.model_id = model_id
+
+        # Set default
+        if self.model_id == None:
+            self.model_id = "LogisticRegression" 
+        if self.data_id == None:
+            self.data_id = "sum_positive_1"
+
     def initialize(self, stormconf, context):
-        model_id = "LogisticRegression" 
-        self.trainer = TrainModel(data_id = "abc", model_id = model_id)
+        self.trainer = TrainModel(data_id = self.data_id, model_id = self.model_id)
 
     def getXYFromTuple(self, tup):
         x = tup.values[0]
         y = tup.values[1]
         x = numpy.asarray(json.loads(x))
         y = numpy.asarray(json.loads(y))
-        storm.log("x is:")
-        storm.log(str(x))
         return x, y
 
 
@@ -67,14 +74,17 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description='Training Entrance.')
     parser.add_argument('-d', '--data_id', dest='data_id', help='the data used to train')
     parser.add_argument('-m', '--model_id', dest='model_id', help='the model used to train')
-
+    parser.add_argument('-b', '--bolt', dest='bolt', action="store_true", help='create a storm bolt')
 
     args = parser.parse_args()
 
     if (args.data_id == None or args.model_id == None ):
-        GradientBolt().run()
+        parser.print_help()
         quit()
 
+    if (args.bolt):
+        gradientBolt = GradientBolt(args.data_id, args.model_id)
+        gradientBolt.run()
 
     trainer = TrainModel(data_id = args.data_id, model_id = args.model_id)
     gradientsName, gradients = trainer.startTraining([[2,2]],[0])

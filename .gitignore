@@ -1,1 +1,4 @@
 *.pyc
+*.class
+*.jar
+storm/wordStream/target/*
