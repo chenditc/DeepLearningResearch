@@ -70,7 +70,6 @@ public class WordStreamTopology {
         TopologyBuilder builder = new TopologyBuilder();
         LOG.info("Using Kinesis stream: " + config.getStreamName());
 
-
         // Using number of shards as the parallelism hint for the spout.
         builder.setSpout("Kinesis", spout, 1);
         builder.setBolt("ProjectionLayer", new ProjectionLayerBolt(), 1).shuffleGrouping("Kinesis");
@@ -139,7 +138,7 @@ public class WordStreamTopology {
         if (elasticCacheRedisEndpointOverride != null) {
             elasticCacheRedisEndpoint = elasticCacheRedisEndpointOverride;
         }
-        LOG.info("Using zookeeper prefix " + elasticCacheRedisEndpoint);
+        LOG.info("Using redis prefix " + elasticCacheRedisEndpoint);
 
         String regionNameOverride = properties.getProperty(ConfigKeys.REGION_NAME);
         if (regionNameOverride != null) {
@@ -153,7 +152,7 @@ public class WordStreamTopology {
         }
         LOG.info("Using data " + dataId);
         
-        String modelIdOverride = properties.getProperty(ConfigKeys.REGION_NAME);
+        String modelIdOverride = properties.getProperty(ConfigKeys.MODEL_ID);
         if (modelIdOverride != null) {
             modelId = modelIdOverride;
         }
