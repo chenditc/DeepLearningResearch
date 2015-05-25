@@ -55,69 +55,11 @@ class Model(object):
         parameter = json.loads(jsonString)
         self.params[jsonKey].set_value(parameter)
 
-
-    ##
-    # @brief        store the parameters to a json string
-    #
-    # @return       json string that represent the parameter map
     def storeModelToJson(self):
         parameters = {}
         for key in self.params:
             parameters[key] = json.dumps(self.params[key].get_value().tolist())
         return parameters
-
-    ##
-    # @brief                Upload necessary data to the database
-    #
-    # @param dataLoader     the loader will be used to upload data
-    # @param errorRate      error rate of database
-    #
-    # @return 
-    def uploadModel(self ,dataLoader, errorRate):
-        parameters = self.storeModelToJson()
-        for key in parameters:
-            self.redisClient.set(key, parameters[key])
-
-
-    ##
-    # @brief                Get update array from learning rate, parameters and etc.
-    #
-    # @param cost           The cost function to minimize
-    # @param learningRate   
-    # @param parameters     The tensor variable of all parameters in the model
-    # @param onlyTrain      The parameters that will be trained. If the array is empty, update all
-    #
-    # @return               the array of update parameters 
-    def getUpdateForVariable(self, cost, learningRate, parameters, onlyTrain=[]):
-        # compute the gradient of cost with respect to theta = (W,b)
-        if len(onlyTrain) == 0:
-            onlyTrain = parameters.keys()
-
-        updates = []
-        gradients = {}
-        for key in onlyTrain:
-            gradient = T.grad(cost=cost, wrt=parameters[key])
-            gradients[key] = gradient
-
-        # Get the norm of the gradients
-        norm = T.sqrt(T.sum(
-            [T.sum(param_gradient ** 2) for param_gradient in gradients.values()]
-            ))
-        for key in onlyTrain:
-            gradients[key] = T.switch(
-                    T.ge(norm, 1),             # 1 is the clipping value
-                    gradients[key] / norm * 1,       # TODO: change it to a variable
-                    gradients[key]
-            )
-
-        for key in onlyTrain:
-            # specify how to update the parameters of the model as a list of
-            # (variable, update expression) pairs.
-            updates.append(
-                    (parameters[key], parameters[key] - learningRate * gradients[key])
-            )
-        return updates
-
 
     ##
     # @brief                Get update array from learning rate, parameters and etc.
