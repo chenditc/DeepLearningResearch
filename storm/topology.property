@@ -1,0 +1,11 @@
+topologyName = SampleTopology
+streamName = Words5
+# Use TRIM_HORIZON to start processing from the oldest available record in the shard (if checkpoint is not present)
+initialPositionInStream = LATEST
+zookeeperEndpoint = 52.11.185.213:2181
+# Prefix/path for storing spout state in Zookeeper
+zookeeperPrefix = kinesis_spout
+redisEndpoint = deeplearning-001.qha7wz.0001.usw2.cache.amazonaws.com 
+regionName = us-west-2
+dataId = sum_positive_1
+modelId = LogisticRegression

@@ -32,7 +32,10 @@ class GradientBolt(storm.BasicBolt):
             self.data_id = "sum_positive_1"
 
     def initialize(self, stormconf, context):
-        self.trainer = TrainModel(data_id = self.data_id, model_id = self.model_id)
+        try:
+            self.trainer = TrainModel(data_id = self.data_id, model_id = self.model_id)
+        except:
+            storm.log("Failed to initialize model")
 
     def getXYFromTuple(self, tup):
         x = tup.values[0]
