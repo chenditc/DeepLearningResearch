@@ -34,9 +34,9 @@ public class ConfigKeys {
 
     public static final String REGION_NAME = "regionName";
     
-    public static final String DATA_ID = "data_id";
+    public static final String DATA_ID = "dataId";
     
-    public static final String MODEL_ID = "model_id";
+    public static final String MODEL_ID = "modelId";
 
 
 }
