@@ -112,12 +112,12 @@ class LogisticRegression(Classifier.Classifier):
     # @param params     The parameters that can be used to initialize the model
     #
     # @return 
-    def __init__(self, n_in, n_out):
+    def __init__(self, n_in, n_out, taskName = "testTask"):
         # initialize classifier class
         super(LogisticRegression, self).__init__()
 
 
-        self.p_y_given_x, self.params= getLogisticRegressionLayer(self._x, n_in, n_out) 
+        self.p_y_given_x, self.params= getLogisticRegressionLayer(self._x, n_in, n_out, layerName = taskName + "-lgd") 
 
         # symbolic description of how to compute prediction as class whose
         # probability is maximal

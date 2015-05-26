@@ -8,4 +8,4 @@ zookeeperPrefix = kinesis_spout
 redisEndpoint = deeplearning-001.qha7wz.0001.usw2.cache.amazonaws.com 
 regionName = us-west-2
 dataId = sum_positive_1
-modelId = LogisticRegression
+modelId = MultilayerPerceptron

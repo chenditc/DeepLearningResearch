@@ -1,11 +1,13 @@
 #!/usr/bin/python -u
 
 # This module include the process of training a deep learning model
+import traceback
 import argparse
 import sys
 import json
 import pprint
 
+import MySQLdb
 import numpy
 import theano
 import theano.tensor as T
@@ -36,6 +38,9 @@ class GradientBolt(storm.BasicBolt):
             self.trainer = TrainModel(data_id = self.data_id, model_id = self.model_id)
         except:
             storm.log("Failed to initialize model")
+            storm.log("Unexpected error:" + str(sys.exc_info()[0]))
+            storm.log(traceback.format_exc())
+
 
     def getXYFromTuple(self, tup):
         x = tup.values[0]
@@ -54,15 +59,22 @@ class GradientBolt(storm.BasicBolt):
                 storm.emit([json.dumps(gradientsName[i]), json.dumps(gradients[i].tolist())])
         except:
             storm.log("Unexpected error:" + str(sys.exc_info()[0]))
+            storm.log(traceback.format_exc())
 
 
 class TrainModel:
 
     def __init__(self, data_id, model_id):
         # Get required meta data from data set, eg. dimensionality
-#        inputDim, outputDim = dataLoader.getDataDimension() 
-        inputDim = 2
-        outputDim = 2
+        dbConnector = MySQLdb.connect(host="deeplearningdb1.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
+                                      user="research", 
+                                      passwd="Research013001",
+                                      db="DeepLearningDB1")
+        dbCursor = dbConnector.cursor() 
+        dbCursor.execute('SELECT inputDimension, outputDimension FROM TrainingDataMetaData1 WHERE data_id = %s', (data_id) )
+        dataRows = dbCursor.fetchall()
+        inputDim = dataRows[0][0]
+        outputDim = dataRows[0][1]
 
         self.model = Model.Model.loadModelByName(model_id, inputDim, outputDim)
 

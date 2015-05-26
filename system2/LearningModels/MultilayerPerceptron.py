@@ -58,7 +58,7 @@ import rbm
 # @param layers
 #
 # @return 
-def getMultilayerPerceptron(inputVariable, n_in, layers):
+def getMultilayerPerceptron(inputVariable, n_in, layers, layerName = "mlp"):
     # parameters of the model, will be used later to update
     # This can be stored and reload to replicate the same result
     params = {}
@@ -97,8 +97,8 @@ def getMultilayerPerceptron(inputVariable, n_in, layers):
             ),
             borrow=True
         )
-        params["W" + str(i)] = W
-        params["b" + str(i)] = b
+        params[layerName + "-W-" + str(i)] = W
+        params[layerName + "-b-" + str(i)] = b
 
         # symbolic expression for computing the matrix of class-membership
         # probabilities
@@ -133,40 +133,7 @@ class MultilayerPerceptron(Classifier.Classifier):
     # must have property of learning model
     # this will used to upload to database
     description = "y_k = s(y_(k-1) * W + b), s is the activation function, repeat this process for k layers" 
-    
-    ##
-    # @brief            Initialize the parameters 
-    #
-    # @param n_in       number of input units, the dimension of the space in
-    #                       which the datapoints lie
-    # @param n_out      number of output units, the dimension of the space in
-    #                       which the labels lie
-    # @param layers     an array of number that represent the number of neural in each layer 
-    #
-    # @return 
-    def __init__(self, n_in, n_out, layers = [500]):
-        # initialize classifier class
-        super(MultilayerPerceptron, self).__init__()
-
-        # variables to store layer info
-        self.mlpOutputs, self.mlpParams, self.wVariables, self.bVariables = getMultilayerPerceptron(self._x, n_in, layers)
-
-
-        logisticRegressionInputNumber = layers[-1]
-        self.p_y_given_x, logisticRegressionParams= LogisticRegression.getLogisticRegressionLayer(self.mlpOutputs[len(layers)], logisticRegressionInputNumber, n_out) 
-
-        self.params = {}
-        for key in self.mlpParams:
-            newKey = "mlp-" + key
-            self.params[newKey] = self.mlpParams[key]
-        for key in logisticRegressionParams:
-            newKey = "logisticRegression-" + key
-            self.params[newKey] = logisticRegressionParams[key]
-
-        # symbolic description of how to compute prediction as class whose
-        # probability is maximal
-        self.y_pred = T.argmax(self.p_y_given_x, axis=1)
-
+ 
 
     def setPretrainLayer(self, layerNumber, batch_size, train_set_x, learning_rate = 0.1):
         
@@ -180,4 +147,33 @@ class MultilayerPerceptron(Classifier.Classifier):
                                        learning_rate = learning_rate)
 
     def saveParameterAsImage(self, name):
-        ModelUtility.saveMatrixAsImage(self.wVariables[1].get_value(), name)
+        ModelUtility.saveMatrixAsImage(self.wVariables[1].get_value(), name)   
+    ##
+    # @brief            Initialize the parameters 
+    #
+    # @param n_in       number of input units, the dimension of the space in
+    #                       which the datapoints lie
+    # @param n_out      number of output units, the dimension of the space in
+    #                       which the labels lie
+    # @param layers     an array of number that represent the number of neural in each layer 
+    #
+    # @return 
+    def __init__(self, n_in, n_out, layers = [500], taskName = 'testTask2'):
+        # initialize classifier class
+        super(MultilayerPerceptron, self).__init__()
+
+        # variables to store layer info
+        self.mlpOutputs, self.mlpParams, self.wVariables, self.bVariables = getMultilayerPerceptron(self._x, n_in, layers, layerName = taskName + '-mlp')
+
+        logisticRegressionInputNumber = layers[-1]
+        self.p_y_given_x, logisticRegressionParams= LogisticRegression.getLogisticRegressionLayer(self.mlpOutputs[len(layers)], logisticRegressionInputNumber, n_out, layerName = taskName + '-lgd') 
+
+        self.params = {}
+        self.params.update(self.mlpParams)
+        self.params.update(logisticRegressionParams)
+
+        # symbolic description of how to compute prediction as class whose
+        # probability is maximal
+        self.y_pred = T.argmax(self.p_y_given_x, axis=1)
+
+        self.buildTrainingModel()

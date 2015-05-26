@@ -5,7 +5,8 @@ import argparse
 import sys
 import json
 import pprint
-import Queue
+import traceback
+import MySQLdb
 
 import numpy
 import theano
@@ -17,6 +18,7 @@ import MultilayerPerceptron
 import RecurrentNN
 import LossFunctions
 import DataLoader
+import Model
 
 
 class TestBolt(storm.BasicBolt):
@@ -31,8 +33,13 @@ class TestBolt(storm.BasicBolt):
             self.data_id = "sum_positive_1"
 
     def initialize(self, stormconf, context):
-        self.tester = TestModel(data_id = self.data_id, model_id = self.model_id)
-        self.testResult = []
+        try:
+            self.tester = TestModel(data_id = self.data_id, model_id = self.model_id)
+            self.testResult = []
+        except:
+            storm.log("Unexpected error:" + str(sys.exc_info()[0]))
+            storm.log(traceback.format_exc())
+
 
     def getXYFromTuple(self, tup):
         x = tup.values[0]
@@ -55,19 +62,26 @@ class TestBolt(storm.BasicBolt):
 
         except:
             storm.log("Unexpected error:" + str(sys.exc_info()[0]))
+            storm.log(traceback.format_exc())
+
 
 class TestModel:
 
     def __init__(self, data_id, model_id):
         # Get required meta data from data set, eg. dimensionality
-#        inputDim, outputDim = dataLoader.getDataDimension() 
-        inputDim = 2
-        outputDim = 2
+        dbConnector = MySQLdb.connect(host="deeplearningdb1.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
+                                      user="research", 
+                                      passwd="Research013001",
+                                      db="DeepLearningDB1")
+        dbCursor = dbConnector.cursor() 
+        dbCursor.execute('SELECT inputDimension, outputDimension FROM TrainingDataMetaData1 WHERE data_id = %s', (data_id) )
+        dataRows = dbCursor.fetchall()
+        inputDim = dataRows[0][0]
+        outputDim = dataRows[0][1]
 
-        classifierModule = __import__(model_id)
-        classifierClass = getattr(classifierModule, model_id)
-        self.model = classifierClass(n_in = inputDim, n_out = outputDim)
-        
+
+        self.model = Model.Model.loadModelByName(model_id, inputDim, outputDim)
+
     def startTesting(self, x, y):
         testResult = self.model.getTestError(x, y)
         return testResult 
