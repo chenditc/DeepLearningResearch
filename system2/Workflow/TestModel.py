@@ -80,7 +80,7 @@ class TestModel:
         outputDim = dataRows[0][1]
 
 
-        self.model = Model.Model.loadModelByName(model_id, inputDim, outputDim)
+        self.model = Model.Model.loadModelByName(model_id, inputDim, outputDim, taskName = data_id + "-" + model_id)
 
     def startTesting(self, x, y):
         testResult = self.model.getTestError(x, y)

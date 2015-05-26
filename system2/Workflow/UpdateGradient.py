@@ -18,6 +18,7 @@ class UpdateGradient(storm.BasicBolt):
         except:
             self.redisClient = redis.StrictRedis(host='127.0.0.1', port=6379, db=0) 
 
+        self.lastGradient = None
 
     def process(self, tup):
         values = tup.values
@@ -31,7 +32,16 @@ class UpdateGradient(storm.BasicBolt):
             oldValue = numpy.asarray(0)
         
         # update it
-        newValue = oldValue - gradient 
+        newValue = oldValue - gradient * 0.03 
+
+        if self.lastGradient != None:
+            gradientDiff = (self.lastGradient - gradient) 
+            self.lastGradient = gradient
+            gradientDiffNorm = numpy.linalg.norm(gradientDiff)
+            gradientNorm = numpy.linalg.norm(gradient)
+            learningRate = gradientDiffNorm / gradientNorm
+            storm.log("Gradient diff norm:", gradientDiffNorm)
+            storm.log("Learning rate:", learningRate)
 
         self.redisClient.set(variableName, json.dumps(newValue.tolist()))
 

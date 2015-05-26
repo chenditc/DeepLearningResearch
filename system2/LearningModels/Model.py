@@ -22,11 +22,11 @@ class Model(object):
         self.redisClient = redis.StrictRedis(host='deeplearning.qha7wz.ng.0001.usw2.cache.amazonaws.com', port=6379, db=0)
 
     @staticmethod
-    def loadModelByName(name, n_in, n_out):
+    def loadModelByName(name, n_in, n_out, taskName):
         module = __import__(name)
         className = getattr(module, name)
         # The dimension here should be dummy, does not influence the model
-        classInstance = className(n_in, n_out)
+        classInstance = className(n_in, n_out, taskName = taskName)
         return classInstance
 
 
