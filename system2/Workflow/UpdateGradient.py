@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-import json
+import cPickle
+import time
 
 import storm
 import redis
@@ -21,14 +22,17 @@ class UpdateGradient(storm.BasicBolt):
         self.lastValue = {}
 
     def process(self, tup):
+        t1 = time.time()
+
         values = tup.values
-        variableName = json.loads(values[0])
-        gradient = numpy.asarray(json.loads(values[1]))
+        variableName = cPickle.loads(str(values[0]))
+        storm.log("storm variable name:" + variableName)
+        gradient = cPickle.loads(str(values[1]))
 
         if variableName not in self.lastValue:
             # load matrix from redis
             try:
-                oldValue = numpy.asarray(json.loads(self.redisClient.get(variableName)))
+                oldValue = numpy.asarray(cPickle.loads(self.redisClient.get(variableName)))
             except:
                 oldValue = numpy.asarray(0)
         else:
@@ -39,7 +43,11 @@ class UpdateGradient(storm.BasicBolt):
 
         self.lastValue[variableName] = newValue 
 
-        self.redisClient.set(variableName, json.dumps(newValue.tolist()))
+        self.redisClient.set(variableName, cPickle.dumps(newValue.tolist()))
+
+        t2 = time.time()
+        storm.log("Processing time in update bolt " + variableName + " : " + str(t2-t1))
+
 
 
 UpdateGradient().run()

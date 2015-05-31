@@ -37,7 +37,7 @@ def getProjectionLayer(inputVariable, maxIndex, projectDimension, layerName = 'P
     reshapredVector = vectors.reshape(newShape) 
 
     params = {
-        '-mapping' : Projection, 
+        layerName + '-mapping' : Projection, 
     }
 
     return reshapredVector, params

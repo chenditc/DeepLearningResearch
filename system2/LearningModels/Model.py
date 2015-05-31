@@ -1,6 +1,6 @@
 import theano
 import theano.tensor as T
-import json
+import cPickle
 import numpy
 import redis
 
@@ -12,7 +12,7 @@ class NoImplementationError(Exception):
         self.value = value
 
     def __str__(self):
-        return repr("No Implementation: " + json.dumps(self.value) )
+        return repr("No Implementation: " + cPickle.dumps(self.value) )
 
 
 
@@ -44,21 +44,21 @@ class Model(object):
     def downloadModel(self):
         oldParameters = self.storeModelToJson() 
         for key in self.params:
-            jsonString = self.redisClient.get(key)
-            if jsonString == None:
+            cPickleString = self.redisClient.get(key)
+            if cPickleString == None:
                 self.redisClient.set(key, oldParameters[key])
                 continue
 
-            self.loadParameterFromJson(key, jsonString)
+            self.loadParameterFromJson(key, cPickleString)
 
-    def loadParameterFromJson(self, jsonKey, jsonString):
-        parameter = json.loads(jsonString)
-        self.params[jsonKey].set_value(parameter)
+    def loadParameterFromJson(self, cPickleKey, cPickleString):
+        parameter = cPickle.loads(cPickleString)
+        self.params[cPickleKey].set_value(parameter)
 
     def storeModelToJson(self):
         parameters = {}
         for key in self.params:
-            parameters[key] = json.dumps(self.params[key].get_value().tolist())
+            parameters[key] = cPickle.dumps(self.params[key].get_value().tolist())
         return parameters
 
     ##

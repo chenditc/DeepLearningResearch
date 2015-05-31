@@ -4,8 +4,10 @@
 import traceback
 import argparse
 import sys
+import cPickle
 import json
 import pprint
+import time
 
 import MySQLdb
 import numpy
@@ -52,11 +54,14 @@ class GradientBolt(storm.BasicBolt):
 
     def process(self, tup):
         try:
+            t1 = time.time()
             x, y = self.getXYFromTuple(tup)
             gradientsName, gradients = self.trainer.startTraining(x, y)
 
             for i in range(len(gradientsName)):
-                storm.emit([json.dumps(gradientsName[i]), json.dumps(gradients[i].tolist())])
+                storm.emit([cPickle.dumps(gradientsName[i]), cPickle.dumps(gradients[i])])
+            t2 = time.time()
+            storm.log("Processing time in gradient:" + str(t2-t1))
         except:
             storm.log("Unexpected error:" + str(sys.exc_info()[0]))
             storm.log(traceback.format_exc())
@@ -100,12 +105,12 @@ if __name__ == "__main__" :
     if (args.bolt):
         gradientBolt = GradientBolt(args.data_id, args.model_id)
         gradientBolt.run()
-
-    trainer = TrainModel(data_id = args.data_id, model_id = args.model_id)
-    gradientsName, gradients = trainer.startTraining([[2,2]],[0])
-    print json.dumps(gradientsName)
-    print gradients
-    gradients = [numpy.asarray(x).tolist() for x in gradients]
-    print json.dumps(gradients)
+    else:
+        trainer = TrainModel(data_id = args.data_id, model_id = args.model_id)
+        gradientsName, gradients = trainer.startTraining([[2,2]],[0])
+        print json.dumps(gradientsName)
+        print gradients
+        gradients = [numpy.asarray(x).tolist() for x in gradients]
+        print json.dumps(gradients)
     
 
