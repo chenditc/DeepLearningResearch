@@ -21,7 +21,7 @@ import Classifier
 # @param projectDimension   target dimension projecting
 #
 # @return 
-def getProjectionLayer(inputVariable, maxIndex, projectDimension):
+def getProjectionLayer(inputVariable, maxIndex, projectDimension, layerName = 'Projection'):
     Projection = theano.shared(
         value=numpy.asarray(
             ModelUtility.getRandomNumpyMatrix(maxIndex + 1, projectDimension), # add one for padding
@@ -37,7 +37,7 @@ def getProjectionLayer(inputVariable, maxIndex, projectDimension):
     reshapredVector = vectors.reshape(newShape) 
 
     params = {
-        'Projection' : Projection, 
+        '-mapping' : Projection, 
     }
 
     return reshapredVector, params

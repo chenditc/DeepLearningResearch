@@ -18,30 +18,26 @@ class UpdateGradient(storm.BasicBolt):
         except:
             self.redisClient = redis.StrictRedis(host='127.0.0.1', port=6379, db=0) 
 
-        self.lastGradient = None
+        self.lastValue = {}
 
     def process(self, tup):
         values = tup.values
         variableName = json.loads(values[0])
         gradient = numpy.asarray(json.loads(values[1]))
 
-        # load matrix from redis
-        try:
-            oldValue = numpy.asarray(json.loads(self.redisClient.get(variableName)))
-        except:
-            oldValue = numpy.asarray(0)
+        if variableName not in self.lastValue:
+            # load matrix from redis
+            try:
+                oldValue = numpy.asarray(json.loads(self.redisClient.get(variableName)))
+            except:
+                oldValue = numpy.asarray(0)
+        else:
+            oldValue = self.lastValue[variableName]
         
         # update it
-        newValue = oldValue - gradient * 0.03 
+        newValue = oldValue - gradient * 0.01 
 
-        if self.lastGradient != None:
-            gradientDiff = (self.lastGradient - gradient) 
-            self.lastGradient = gradient
-            gradientDiffNorm = numpy.linalg.norm(gradientDiff)
-            gradientNorm = numpy.linalg.norm(gradient)
-            learningRate = gradientDiffNorm / gradientNorm
-            storm.log("Gradient diff norm:", gradientDiffNorm)
-            storm.log("Learning rate:", learningRate)
+        self.lastValue[variableName] = newValue 
 
         self.redisClient.set(variableName, json.dumps(newValue.tolist()))
 

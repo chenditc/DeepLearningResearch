@@ -73,9 +73,9 @@ public class WordStreamTopology {
         // Using number of shards as the parallelism hint for the spout.
         builder.setSpout("Kinesis", spout, 1);
         builder.setBolt("ProjectionLayer", new ProjectionLayerBolt(), 1).shuffleGrouping("Kinesis");
-        builder.setBolt("GradientLayer", new GradientBolt(dataId, modelId), 1).shuffleGrouping("ProjectionLayer");
-        builder.setBolt("TestingLayer", new TestBolt(dataId, modelId), 1).shuffleGrouping("ProjectionLayer");
-        builder.setBolt("UpdateGradientLayer", new UpdateGradientBolt(), 1).fieldsGrouping("GradientLayer", new Fields("variable"));  
+        builder.setBolt("GradientLayer", new GradientBolt(dataId, modelId), 7).shuffleGrouping("ProjectionLayer");
+        builder.setBolt("TestingLayer", new TestBolt(dataId, modelId), 2).shuffleGrouping("ProjectionLayer");
+        builder.setBolt("UpdateGradientLayer", new UpdateGradientBolt(), 6).fieldsGrouping("GradientLayer", new Fields("variable"));  
 
         Config topoConf = new Config();
         topoConf.setFallBackOnJavaSerialization(true);

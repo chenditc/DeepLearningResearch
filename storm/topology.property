@@ -7,5 +7,5 @@ zookeeperEndpoint = 52.11.185.213:2181
 zookeeperPrefix = kinesis_spout
 redisEndpoint = deeplearning-001.qha7wz.0001.usw2.cache.amazonaws.com 
 regionName = us-west-2
-dataId = mnist_data_set
-modelId = MultilayerPerceptron
+dataId = english_text_1
+modelId = ProjectionLogisticRegression

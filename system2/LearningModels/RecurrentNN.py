@@ -71,10 +71,10 @@ def getRecurrentLayer(inputVariable, inputNumber, outputNumber, layerName = "rnn
                                   outputs_info=[h0],
                                   n_steps=inputVariable.shape[0])
 
-    params[layerName + "input_hidden_W"] = W_ih
-    params[layerName + "input_hidden_b"] = b_ih
-    params[layerName + "hidden_output_W"] = W_ho
-    params[layerName + "hidden_output_b"] = b_ho
+    params[layerName + "-input_hidden_W"] = W_ih
+    params[layerName + "-input_hidden_b"] = b_ih
+    params[layerName + "-hidden_output_W"] = W_ho
+    params[layerName + "-hidden_output_b"] = b_ho
 
     return output, updates, params 
     

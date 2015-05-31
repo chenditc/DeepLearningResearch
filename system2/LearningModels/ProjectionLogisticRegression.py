@@ -28,14 +28,19 @@ class ProjectionLogisticRegression(Classifier.Classifier):
     # @param params     The parameters that can be used to initialize the model
     #
     # @return 
-    def __init__(self, n_in, n_out):
+    def __init__(self, n_in, n_out, taskName, maxIndex = None, projectionSize = 50):
         # initialize classifier class
         super(ProjectionLogisticRegression, self).__init__()
 
-        # Remove hard coded maxIndex
-        output, self.projParams = ProjectionLayer.getProjectionLayer(self._x, 253855, 50)
+        if maxIndex == None:
+            # if it's word embedding, maxIndex is n_out
+            maxIndex = n_out
 
-        self.p_y_given_x, self.params= LogisticRegression.getLogisticRegressionLayer(output, 50 * 5, 253855) 
+
+        # Remove hard coded maxIndex
+        output, self.projParams = ProjectionLayer.getProjectionLayer(self._x, maxIndex, projectionSize, layerName = taskName + "-Projection")
+
+        self.p_y_given_x, self.params= LogisticRegression.getLogisticRegressionLayer(output, projectionSize * n_in, maxIndex, layerName = taskName + "-lgd") 
 
         self.params.update(self.projParams)
 
@@ -43,3 +48,4 @@ class ProjectionLogisticRegression(Classifier.Classifier):
         # probability is maximal
         self.y_pred = T.argmax(self.p_y_given_x, axis=1)
 
+        self.buildTrainingModel()

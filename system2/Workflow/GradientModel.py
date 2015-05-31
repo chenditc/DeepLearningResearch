@@ -76,7 +76,7 @@ class TrainModel:
         inputDim = dataRows[0][0]
         outputDim = dataRows[0][1]
 
-        self.model = Model.Model.loadModelByName(model_id, inputDim, outputDim)
+        self.model = Model.Model.loadModelByName(model_id, inputDim, outputDim, taskName = data_id + "-" + model_id)
 
         
     def startTraining(self, x, y):

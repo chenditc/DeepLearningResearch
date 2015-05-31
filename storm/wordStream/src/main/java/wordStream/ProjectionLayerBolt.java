@@ -55,7 +55,7 @@ public class ProjectionLayerBolt extends BaseBasicBolt {
         try {
             data = decoder.decode(buffer).toString();
             
-            LOG.info("Data is:" + data);
+//            LOG.info("Data is:" + data);
             
             JSONObject jsonObject = new JSONObject(data);
 
