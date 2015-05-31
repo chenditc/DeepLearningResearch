@@ -56,12 +56,19 @@ class GradientBolt(storm.BasicBolt):
         try:
             t1 = time.time()
             x, y = self.getXYFromTuple(tup)
+
+            self.trainer.downloadModel()
+
+            t4 = time.time()
+
             gradientsName, gradients = self.trainer.startTraining(x, y)
+
+            t3 = time.time()
 
             for i in range(len(gradientsName)):
                 storm.emit([cPickle.dumps(gradientsName[i]), cPickle.dumps(gradients[i])])
             t2 = time.time()
-            storm.log("Processing time in gradient:" + str(t2-t1))
+            storm.log("Processing time in gradient:" + str(t3-t4) + "   emit time:" + str(t2-t3) + "    loading time:" + str(t4-t1))
         except:
             storm.log("Unexpected error:" + str(sys.exc_info()[0]))
             storm.log(traceback.format_exc())
@@ -82,6 +89,9 @@ class TrainModel:
         outputDim = dataRows[0][1]
 
         self.model = Model.Model.loadModelByName(model_id, inputDim, outputDim, taskName = data_id + "-" + model_id)
+        
+    def downloadModel(self):
+        self.model.downloadModel()
 
         
     def startTraining(self, x, y):

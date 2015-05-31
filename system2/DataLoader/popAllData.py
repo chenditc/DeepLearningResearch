@@ -19,7 +19,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     batchSize = int(args.batch)
 
-    redisClient = redis.StrictRedis(host='deeplearning-001.qha7wz.0001.usw2.cache.amazonaws.com', port=6379, db=0)
     dbConnector = MySQLdb.connect(host="deeplearningdb1.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
                                   user="research", 
                                   passwd="Research013001",

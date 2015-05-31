@@ -10,7 +10,7 @@ import numpy
 
 
 def updateToRedis(updateQueue):
-    redisClient = redis.StrictRedis(host='deeplearning-001.qha7wz.0001.usw2.cache.amazonaws.com', port=6379, db=0)
+    redisClient = redis.StrictRedis(host='deeplearning.qha7wz.ng.0001.usw2.cache.amazonaws.com', port=6379, db=0)
     while True:
         variableName, value = updateQueue.get()
         variableValueString = cPickle.dumps(value.tolist())
@@ -25,7 +25,7 @@ class UpdateGradient(storm.BasicBolt):
         # TODO: use more flexible config
         self.redisClient = None
         try:
-            self.redisClient = redis.StrictRedis(host='deeplearning-001.qha7wz.0001.usw2.cache.amazonaws.com', port=6379, db=0)
+            self.redisClient = redis.StrictRedis(host='deeplearning.qha7wz.ng.0001.usw2.cache.amazonaws.com', port=6379, db=0)
             self.redisClient.ping()
         except:
             self.redisClient = redis.StrictRedis(host='127.0.0.1', port=6379, db=0) 

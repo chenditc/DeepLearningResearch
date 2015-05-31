@@ -31,7 +31,6 @@ class Model(object):
 
 
     def trainModel(self, x, y):
-        self.downloadModel()
         gradients = self._trainModel(x, y)
         return self.gradientsName, gradients
 
