@@ -53,12 +53,12 @@ public class ProjectionLayerBolt extends BaseBasicBolt {
         
         String data = null; 
         try {
-            data = decoder.decode(buffer).toString();
-            
-//            LOG.info("Data is:" + data);
-            
+            data = decoder.decode(buffer).toString();        
+            if (data.length() == 0) 
+                return;
+           
             JSONObject jsonObject = new JSONObject(data);
-
+            
             String indexOfX = jsonObject.getString("x");
             String indexOfY = jsonObject.getString("y");
 
@@ -67,7 +67,8 @@ public class ProjectionLayerBolt extends BaseBasicBolt {
 
         } catch (CharacterCodingException|JSONException|IllegalStateException e) {
             LOG.error("Exception when decoding record ", e);
-            LOG.error(buffer.toString());
+            LOG.info("Data is:" + data);
+            LOG.info("Data length is:" + data.length());
         }
     }
 
