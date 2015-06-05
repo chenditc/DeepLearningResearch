@@ -32,11 +32,13 @@ class FictionSpider(scrapy.Spider):
 	# put more url in
 	intPartitionId = int(partitionId)
 	for i in range(intPartitionId, intPartitionId + 3):
-	    yield scrapy.Request(urlparse.urljoin(response.url, "/read/txt/" + fileId + "-" + str(i) + ".htm"))
+	    request = scrapy.Request(urlparse.urljoin(response.url, "/read/txt/" + fileId + "-" + str(i) + ".htm"))
+	    yield request 
 
 	if partitionId == '1':
 	    intFileId = int(fileId)
 	    for i in range(intFileId, intFileId + 100):
-		yield scrapy.Request(urlparse.urljoin(response.url, "/read/txt/" + str(i) + "-1.htm")) 
+		request = scrapy.Request(urlparse.urljoin(response.url, "/read/txt/" + str(i) + "-1.htm"))
+		yield request 
 
 
