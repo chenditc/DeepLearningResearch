@@ -12,6 +12,8 @@ BOT_NAME = 'fiction'
 
 SPIDER_MODULES = ['fiction.spiders']
 NEWSPIDER_MODULE = 'fiction.spiders'
+CONCURRENT_REQUESTS_PER_DOMAIN=16
+CONCURRENT_REQUESTS=16
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'fiction (+http://www.yourdomain.com)'
