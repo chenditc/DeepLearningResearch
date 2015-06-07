@@ -39,5 +39,5 @@ if __name__ == "__main__" :
     
     outputFile = open(args.output,'w')
     outputFile.write(cPickle.dumps(output))
-
+    print "dumps vector:", len(model.index2word)
 

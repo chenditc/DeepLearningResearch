@@ -32,7 +32,7 @@ def trainWord2Vec(inputDirectory, outputPath):
     model = None
     try:
         sentences = MySentences(inputDirectory) # a memory-friendly iterator
-        model = gensim.models.Word2Vec(None, size=100, window=5, min_count=5, workers=multiprocessing.cpu_count())
+        model = gensim.models.Word2Vec(None, sg=0, size=100, window=5, min_count=5, workers=multiprocessing.cpu_count())
         model.build_vocab(sentences)
         sentences = gensim.utils.RepeatCorpusNTimes(sentences, 1)  # set iteration
         model.train(sentences)
