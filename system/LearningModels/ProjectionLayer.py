@@ -21,7 +21,7 @@ import Classifier
 # @param projectDimension   target dimension projecting
 #
 # @return 
-def getProjectionLayer(inputVariable, maxIndex, projectDimension):
+def getProjectionLayer(inputVariable, maxIndex, projectDimension, initProjectionMatrix = None):
     Projection = theano.shared(
         value=numpy.asarray(
             ModelUtility.getRandomNumpyMatrix(maxIndex + 1, projectDimension), # add one for padding
@@ -29,6 +29,9 @@ def getProjectionLayer(inputVariable, maxIndex, projectDimension):
         ),
         borrow=True
     )
+
+    if initProjectionMatrix != None:
+        Projection.set_value(initProjectionMatrix)
 
     inputVariable = T.cast(inputVariable, 'int32')
 
