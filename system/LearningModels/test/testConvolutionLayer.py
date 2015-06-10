@@ -41,7 +41,7 @@ inputArray = numpy.asarray(
 output = f(inputArray)
 
 # condense each feature map to a vector, instead of matrix
-output = output.reshape((featureMap,windowHeight-1))
+output = output.reshape((inputVariable.shape[0],featureMap,windowHeight-1))
 
 # for each window, get all feature to a vector
 output = output.T

@@ -23,15 +23,16 @@ def getMultiWindowConvolutionLayer(inputVariable, windowHeight, windowWidth, fea
         tempOut, tempParams = ConvolutionLayer.getConvolutionLayer(inputVariable, i, windowWidth, featureMap, initFilterMatrixs[i-1], layerName = 'Conv-' + str(i))
 
         # condense each feature map to a vector, instead of matrix
-        tempOut = tempOut.reshape((featureMap, windowHeight + 1 - i))
+        tempOut = tempOut.reshape((inputVariable.shape[0], featureMap, windowHeight + 1 - i))
 
         # for each window, get all feature to a vector
-        tempOut = tempOut.T
+#        tempOut = tempOut.T
 
         outputs.append(tempOut)
         params.update(tempParams)
         
-    convOut = T.concatenate(outputs)
+    convOut = T.concatenate(outputs, axis=2)
+    convOut = convOut.dimshuffle((0,2,1))
 
     return convOut, params
 
