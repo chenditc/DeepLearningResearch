@@ -36,11 +36,11 @@ def getProjectionLayer(inputVariable, maxIndex, projectDimension, initProjection
     inputVariable = T.cast(inputVariable, 'int32')
 
     vectors = Projection[inputVariable]
-    newShape = (inputVariable.shape[0], inputVariable.shape[1] * Projection.shape[1])
-    reshapredVector = vectors.reshape(newShape) 
+#    newShape = (inputVariable.shape[0], inputVariable.shape[1] * Projection.shape[1])
+#    reshapredVector = vectors.reshape(newShape) 
 
     params = {
         'Projection' : Projection, 
     }
 
-    return reshapredVector, params
+    return vectors, params

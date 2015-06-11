@@ -27,8 +27,14 @@ f = theano.function(
 
 output = f([[1,3],
          [2,4]])
-standard = [[4,5,6,10,11,12],
-        [7,8,9,13,14,15]]
+
+print output
+standard = [
+            [[4,5,6],
+             [10,11,12]],
+
+            [[7,8,9],
+             [13,14,15]]]
 
 assert(numpy.array_equal(output,standard))
 
