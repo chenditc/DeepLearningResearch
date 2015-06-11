@@ -41,18 +41,16 @@ inputArray = numpy.asarray(
 output = f(inputArray)
 
 # condense each feature map to a vector, instead of matrix
-output = output.reshape((inputVariable.shape[0],featureMap,windowHeight-1))
+output = output.reshape((1, featureMap, 5 + 1 - windowHeight))
 
-# for each window, get all feature to a vector
-output = output.T
+
 
 print output
-print params['Filter'].get_value()
+print params['Conv-Filter'].get_value()
 
-standard = [[   0,   35,   70],
-            [   0,   45,   90],
-            [   0,   55,  110],
-            [   0,   65,  130]]
+standard = [[[   0,    0,    0,    0],
+             [  35,   45,   55,   65],
+             [  70,   90,  110,  130]]]
 
 assert(numpy.array_equal(output,standard))
 
