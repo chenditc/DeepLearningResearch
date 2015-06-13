@@ -27,7 +27,7 @@ import ConvWordVector
 
 
 class TextLoader():
-    def __init__(self, dataDir, warmupModel, windowSize = 5, batchSize = 20):
+    def __init__(self, dataDir, warmupModel, windowSize = 5, batchSize = 2000):
         self._dataDir = dataDir
 
         warmupModelString = open(warmupModel).read()
@@ -90,40 +90,40 @@ class TrainModel():
         train_set_y = None;
         learning_rate = None;
 
-        for newX, newY in self._textLoader:
-            if train_set_x == None:
-                train_set_x = theano.shared(
-                    value=numpy.asarray(
-                        newX,
-                        dtype=theano.config.floatX
-                    ),
-                    borrow=True
-                )
-                train_set_y = theano.shared(
-                    value=numpy.asarray(
-                        newY,
-                        dtype='int32'
-                    ),
-                    borrow=True
-                )
-                learning_rate = theano.shared(value=0.05, borrow=True)
-                classifier.buildTrainingModel(train_set_x, train_set_y)
-                classifier.params['Projection'].set_value(numpy.asarray(self._wordMatrix), borrow=True)
-            else:
-                train_set_x.set_value(newX)
-                train_set_y.set_value(newY)
+        try:
+            for newX, newY in self._textLoader:
+                if train_set_x == None:
+                    train_set_x = theano.shared(
+                        value=numpy.asarray(
+                            newX,
+                            dtype=theano.config.floatX
+                        ),
+                        borrow=True
+                    )
+                    train_set_y = theano.shared(
+                        value=numpy.asarray(
+                            newY,
+                            dtype='int32'
+                        ),
+                        borrow=True
+                    )
+                    learning_rate = theano.shared(value=0.05, borrow=True)
+                    classifier.buildTrainingModel(train_set_x, train_set_y)
+                    classifier.params['Projection'].set_value(numpy.asarray(self._wordMatrix), borrow=True)
+                else:
+                    train_set_x.set_value(newX)
+                    train_set_y.set_value(newY)
 
-            try:
                 classifier.trainModel()
                 if learning_rate.get_value() > 0.005:
                     learning_rate.set_value(learning_rate.get_value() * 0.99, borrow=True)
                 logging.info("Trained one chunk, learning rate:" + str(learning_rate.get_value()))
-            finally:
-                modelName = '/home/ubuntu/data/convWordVector.model'
-                modelString = classifier.storeModelToJson()
-                outputFile = open(modelName, 'w')
-                outputFile.write(modelString)
-                outputFile.close()
+        finally:
+            modelName = '/home/ubuntu/data/convWordVector.model'
+            modelString = classifier.storeModelToJson()
+            outputFile = open(modelName, 'w')
+            outputFile.write(modelString)
+            outputFile.close()
 
 
 if __name__ == "__main__" :
