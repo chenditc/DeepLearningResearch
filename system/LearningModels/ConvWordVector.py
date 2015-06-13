@@ -16,6 +16,7 @@ import ProjectionLayer
 import MultiWindowConvolutionLayer
 import PoolingLayer
 import ConvWordVectorLayer
+import LogisticRegression
 
  
 class ConvWordVector(Classifier.Classifier):
@@ -28,7 +29,7 @@ class ConvWordVector(Classifier.Classifier):
         # initialize classifier class
         super(ConvWordVector, self).__init__()
 
-        wordVector, wordVectorParams = ConvWordVectorLayer.getConvWordVectorLayer(self._x, classifier, wordScanWindow, projectDimension)
+        wordVector, wordVectorParams = ConvWordVectorLayer.getConvWordVectorLayer(self._x, maxWordCount, wordScanWindow, projectDimension)
 
         self.p_y_given_x, logisticRegressionParams= LogisticRegression.getLogisticRegressionLayer(wordVector, projectDimension, maxWordCount) 
 
