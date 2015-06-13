@@ -31,7 +31,9 @@ class ConvWordVector(Classifier.Classifier):
 
         wordVector, wordVectorParams = ConvWordVectorLayer.getConvWordVectorLayer(self._x, maxWordCount, wordScanWindow, projectDimension)
 
-        self.p_y_given_x, logisticRegressionParams= LogisticRegression.getLogisticRegressionLayer(wordVector, projectDimension, maxWordCount) 
+#        self.p_y_given_x, logisticRegressionParams= LogisticRegression.getLogisticRegressionLayer(wordVector, projectDimension * sum(range(1, wordScanWindow + 1)) , maxWordCount) 
+        self.p_y_given_x, logisticRegressionParams= LogisticRegression.getLogisticRegressionLayer(wordVector, projectDimension , maxWordCount) 
+
 
         self.params = {}
         self.params.update(wordVectorParams)

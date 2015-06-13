@@ -11,6 +11,7 @@ import pprint
 import codecs
 import cPickle
 import signal
+import time
 
 import numpy
 import theano
@@ -27,7 +28,7 @@ import ConvWordVector
 
 
 class TextLoader():
-    def __init__(self, dataDir, warmupModel, windowSize = 5, batchSize = 2000):
+    def __init__(self, dataDir, warmupModel, windowSize = 5, batchSize = 10000):
         self._dataDir = dataDir
 
         warmupModelString = open(warmupModel).read()
@@ -45,9 +46,10 @@ class TextLoader():
                 oneSentence = list(line)
                 for yIndex in range(self._windowSize + 1, len(oneSentence)):
                     try:
-                        # TODO: Use wordToIndex Contruct matrixes
-                        nextX.append([self._wordToIndex[oneSentence[xIndex]] for xIndex in range(yIndex - self._windowSize, yIndex)])
-                        nextY.append(self._wordToIndex[oneSentence[yIndex]])
+                        tempX = [self._wordToIndex[oneSentence[xIndex]] for xIndex in range(yIndex - self._windowSize, yIndex)]
+                        tempY = self._wordToIndex[oneSentence[yIndex]]
+                        nextX.append(tempX)
+                        nextY.append(tempY)
                         if len(nextX) >= self._batchSize:
                             yield nextX, nextY
                             nextX = []
@@ -91,6 +93,8 @@ class TrainModel():
         learning_rate = None;
 
         try:
+            t2 = 0
+            t1 = 0
             for newX, newY in self._textLoader:
                 if train_set_x == None:
                     train_set_x = theano.shared(
@@ -108,16 +112,20 @@ class TrainModel():
                         borrow=True
                     )
                     learning_rate = theano.shared(value=0.05, borrow=True)
-                    classifier.buildTrainingModel(train_set_x, train_set_y)
+                    classifier.buildTrainingModel(train_set_x, train_set_y, batch_size=400)
                     classifier.params['Projection'].set_value(numpy.asarray(self._wordMatrix), borrow=True)
+                    logging.info("Build model finished")
                 else:
                     train_set_x.set_value(newX)
                     train_set_y.set_value(newY)
-
+                
+                t1 = time.time() 
+                logging.info("Preprocessing time {0}".format(t1-t2))
                 classifier.trainModel()
-                if learning_rate.get_value() > 0.005:
-                    learning_rate.set_value(learning_rate.get_value() * 0.99, borrow=True)
-                logging.info("Trained one chunk, learning rate:" + str(learning_rate.get_value()))
+                t2 = time.time()
+                if learning_rate.get_value(borrow=True) > 0.005:
+                    learning_rate.set_value(learning_rate.get_value(borrow=True) * 0.99, borrow=True)
+                logging.info("Trained used time {0}, learning rate: {1}".format(t2-t1, learning_rate.get_value(borrow=True)))
         finally:
             modelName = '/home/ubuntu/data/convWordVector.model'
             modelString = classifier.storeModelToJson()

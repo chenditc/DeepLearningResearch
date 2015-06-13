@@ -78,7 +78,7 @@ class Classifier(Model.Model):
         L1_reg=0.00
         L1 = sum([abs(self.params[key]).sum() for key in self.params])
         L2 = sum([(self.params[key] ** 2).sum() for key in self.params])
-        cost = cost + L1_reg * L1 + L2_reg * L2 
+#        cost = cost + L1_reg * L1 + L2_reg * L2 
 
         updates = self.getUpdateForVariable(cost, learning_rate, self.params, onlyTrain=parameterToTrain)
 
@@ -96,4 +96,5 @@ class Classifier(Model.Model):
         )
 
         self._totalBatches = train_set_x.get_value(borrow=True).shape[0] / batch_size
+
 

@@ -31,7 +31,7 @@ def getProjectionLayer(inputVariable, maxIndex, projectDimension, initProjection
     )
 
     if initProjectionMatrix != None:
-        Projection.set_value(initProjectionMatrix)
+        Projection.set_value(initProjectionMatrix, borrow=True)
 
     inputVariable = T.cast(inputVariable, 'int32')
 

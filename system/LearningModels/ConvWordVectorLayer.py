@@ -37,6 +37,9 @@ def getConvWordVectorLayer(inputVariable, maxWordCount, wordScanWindow = 5, word
     # 2.1 add a feature map dimension
     convOut = convOut.dimshuffle(0, 'x', 1, 2)
 
+#    minibatch = inputVariable.shape[0]
+#    poolingOut = convOut.reshape( (minibatch, sum(range(1, wordScanWindow + 1)) * wordVectorLength))
+
     # 3. add a pooling layer:
     poolingLength = sum(range(1, wordScanWindow + 1)) 
     poolingOut, poolingParams = PoolingLayer.getPoolingLayer(convOut, poolingLength, mode='average_exc_pad')
