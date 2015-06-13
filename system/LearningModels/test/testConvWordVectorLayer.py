@@ -52,13 +52,8 @@ output = f([[1,3],
 
 print output
 print params
-standard = [[[  15,   45,   30],
-             [  33,   99,   66],
-             [  48,  144,   96]],
-             
-            [[  24,   72,   48],
-             [  42,  126,   84],
-             [  66,  198,  132]]]
+standard = [[  32,   96,   64],
+            [  44,  132,   88]]
 
 assert(numpy.array_equal(output,standard))
 

@@ -6,3 +6,4 @@ for testFile in $allTest; do
         exit $rc
     fi
 done
+echo "All test pasted"

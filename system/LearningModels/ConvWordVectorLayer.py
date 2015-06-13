@@ -2,6 +2,7 @@ __docformat__ = 'restructedtext en'
 
 import os
 import sys
+import math
 
 import numpy
 
@@ -13,6 +14,7 @@ import ModelUtility
 import Classifier
 import ProjectionLayer
 import MultiWindowConvolutionLayer
+import PoolingLayer
 
 def getConvWordVectorLayer(inputVariable, maxWordCount, wordScanWindow = 5, wordVectorLength = 100 ):
 
@@ -32,7 +34,17 @@ def getConvWordVectorLayer(inputVariable, maxWordCount, wordScanWindow = 5, word
     convOut, convParams = MultiWindowConvolutionLayer.getMultiWindowConvolutionLayer(wordVector, wordScanWindow, wordVectorLength, wordVectorLength)
     params.update(convParams)
 
-    outputs = convOut 
+    # 2.1 add a feature map dimension
+    convOut = convOut.dimshuffle(0, 'x', 1, 2)
+
+    # 3. add a pooling layer:
+    poolingLength = sum(range(1, wordScanWindow + 1)) 
+    poolingOut, poolingParams = PoolingLayer.getPoolingLayer(convOut, poolingLength, mode='average_exc_pad')
+    params.update(poolingParams)
+   
+
+    outputs = poolingOut 
     return outputs, params
+
 
 

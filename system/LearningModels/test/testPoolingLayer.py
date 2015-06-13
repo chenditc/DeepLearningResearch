@@ -37,7 +37,7 @@ output = f(inputArray)
 print output
 print params
 
-standard = numpy.reshape(numpy.max(inputArray, axis=2), (2))
+standard = numpy.reshape(numpy.max(inputArray, axis=2), (1,2))
 
 assert(numpy.array_equal(output,standard))
 assert(len(params) == 0)
