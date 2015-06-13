@@ -6,6 +6,7 @@ import argparse
 import sys
 import json
 import os
+import logging
 import pprint
 import codecs
 import cPickle
@@ -26,7 +27,7 @@ import ConvWordVector
 
 
 class TextLoader():
-    def __init__(self, dataDir, warmupModel, windowSize = 5, batchSize = 2000):
+    def __init__(self, dataDir, warmupModel, windowSize = 5, batchSize = 20):
         self._dataDir = dataDir
 
         warmupModelString = open(warmupModel).read()
@@ -52,7 +53,7 @@ class TextLoader():
                             nextX = []
                             nextY = []
                     except KeyError:
-                        print "Unknown word"
+                        logging.info("Unknown word")
                         continue
 
 class TrainModel():
@@ -60,8 +61,8 @@ class TrainModel():
     def __init__(self, data, warmupModel):
         # private variables:
         # Use Dataloader class to load data set.
-        print "#####################################"
-        print "Loading data: ", data
+        logging.info("#####################################")
+        logging.info("Loading data: " + data)
         self._textLoader = TextLoader(data, warmupModel)
         self._windowSize = self._textLoader._windowSize
 
@@ -79,14 +80,15 @@ class TrainModel():
 
     def startTraining(self):
         # Create training model
-        print "#####################################"
-        print "Initializing model: "
+        logging.info("#####################################")
+        logging.info("Initializing model ")
         classifier = ConvWordVector.ConvWordVector(maxWordCount = len(self._wordMatrix) , wordScanWindow = self._windowSize, projectDimension = len(self._wordMatrix[0]))
 
         
         # build model
         train_set_x = None;
         train_set_y = None;
+        learning_rate = None;
 
         for newX, newY in self._textLoader:
             if train_set_x == None:
@@ -104,6 +106,7 @@ class TrainModel():
                     ),
                     borrow=True
                 )
+                learning_rate = theano.shared(value=0.05, borrow=True)
                 classifier.buildTrainingModel(train_set_x, train_set_y)
                 classifier.params['Projection'].set_value(numpy.asarray(self._wordMatrix), borrow=True)
             else:
@@ -112,7 +115,9 @@ class TrainModel():
 
             try:
                 classifier.trainModel()
-                print "Trained one chunk"
+                if learning_rate.get_value() > 0.005:
+                    learning_rate.set_value(learning_rate.get_value() * 0.99, borrow=True)
+                logging.info("Trained one chunk, learning rate:" + str(learning_rate.get_value()))
             finally:
                 modelName = '/home/ubuntu/data/convWordVector.model'
                 modelString = classifier.storeModelToJson()
@@ -122,6 +127,9 @@ class TrainModel():
 
 
 if __name__ == "__main__" :
+
+    FORMAT = '%(asctime)s %(message)s'
+    logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 
     parser = argparse.ArgumentParser(description='Training Entrance.')
     parser.add_argument('-d', '--data', dest='data', help='the data used to train')
