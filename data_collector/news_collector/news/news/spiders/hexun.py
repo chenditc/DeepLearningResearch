@@ -11,11 +11,11 @@ class HexunSpider(scrapy.Spider):
         "http://m.hexun.com/index.html"
     ]
 
-    newsPatternUrl = re.compile(r'http://m.hexun.com/.*\d\d\d\d-\d\d-\d\d.*html')
+    newsPatternUrl = re.compile(r'http://m.hexun.com/stock.*\d\d\d\d-\d\d-\d\d.*html')
     def parse(self, response):
         urlList = response.xpath('//a/@href').re('.*html')
 
-        outputDir = '/home/ubuntu/news_data/news_data'
+        outputDir = '/home/ubuntu/news_data/finance_news_data'
 
         if (self.newsPatternUrl.match(response.url)):
             date = response.xpath('//time/text()').extract()[0].split(' ')[0]
@@ -26,7 +26,7 @@ class HexunSpider(scrapy.Spider):
             for line in articles:
 		line.replace('\r\n', ' ')
 		outputFile.write(line.encode('utf8'))
-
+            outputFile.write(u'\n')
             outputFile.close()
 
         for url in urlList:
