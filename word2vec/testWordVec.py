@@ -24,11 +24,13 @@ if __name__ == "__main__" :
 
 
     model = gensim.models.Word2Vec.load(args.model)
-    
+
     while True:
-        line = raw_input().decode(sys.stdin.encoding) 
-        words = list(line)
-        wordList =  model.most_similar(positive=words)
-        for pair in wordList:
-       	    print pair[0], pair[1]
-    
+        try:
+            line = raw_input().decode(sys.stdin.encoding) 
+            words = list(line)
+            wordList =  model.most_similar(positive=[line])
+            for pair in wordList:
+                print pair[0], pair[1]
+        except:
+            print "Failed to fetch:", line
