@@ -7,8 +7,8 @@ import re
 import os
 import sys
 import multiprocessing
-import codecs
 import signal
+import codecs
 import argparse
 
 import bigramerTraining
@@ -23,15 +23,23 @@ def trainWord2Vec(inputDirectory, outputPath):
     class MySentences(object):
         def __init__(self, dirname):
             self.dirname = dirname
-            self.spliter = re.compile(ur"[0-9]+|[a-z]+|.", re.UNICODE) 
-            self.bigramer1 = gensim.models.Phrases(bigramerTraining.MySentences(inputDirectory), min_count=10000, threshold=0.1, delimiter='')
+#            self.spliter = re.compile(ur"[0-9]+|[a-z]+|.", re.UNICODE) 
+#            print "Save bigram in: ", outputPath + "-bigramer"
+#            self.bigramer1 = gensim.models.Phrases(bigramerTraining.MySentences(inputDirectory), min_count=10000, threshold=0.1, delimiter='')
+#            self.bigramer1.save(outputPath + "-bigramer")
+
+            self.numberHolder = re.compile(ur"[0-9]+", re.UNICODE)
+            self.spliter = re.compile(r'\s+', re.UNICODE)
 
         def __iter__(self):
             for fname in os.listdir(self.dirname):
                 for line in codecs.open(os.path.join(self.dirname, fname), encoding='utf-8'): 
-                    yield LabeledSentence(words=self.bigramer1[self.spliter.findall(line)], labels=[fname])
- 
-
+                    line = re.sub(self.numberHolder, u' <num> ', line) # replace with space and <num> 
+                    # fetch ['2014', '05', '22']
+                    dateElements = list(re.search(r'([0-9][0-9][0-9][0-9])-([0-9][0-9])-([0-9][0-9])', fname).groups())
+                    # change '05' to '5'
+                    date = '/'.join([str(int(dateNumber)) for dateNumber in dateElements])
+                    yield LabeledSentence(words=self.spliter.split(line), labels=[date])
 
     # handle sigterm
     def sigterm_handler(_signo, _stack_frame):
@@ -42,11 +50,15 @@ def trainWord2Vec(inputDirectory, outputPath):
     model = None
     try:
         sentences = MySentences(inputDirectory) # a memory-friendly iterator
-        model = gensim.models.Doc2Vec(None, size=500, window=4, min_count=1, workers=multiprocessing.cpu_count())
+        model = gensim.models.Doc2Vec(None, size=500, window=4, min_count=5, workers=multiprocessing.cpu_count())
         model.build_vocab(sentences)
         sentences = gensim.utils.RepeatCorpusNTimes(sentences, 10)  # set iteration
         model.train(sentences)
-        print model.most_similar('sohu-2015-06-14-10:47')
+#        for i in range(10):
+#            model.train(sentences)
+#            model.alpha -= 0.002
+#            model.min_alpha = model.alpha
+        print model.most_similar('2015/6/14')
     finally:
         try:
             model.save(outputPath)

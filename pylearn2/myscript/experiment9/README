@@ -1,0 +1,2 @@
+1. Use SHCOMP 10 day's data for each stock, concatenate with index feature, seperate between stock, use data before 2012 for training and after 2012 for testing. Then  use mlp to train to predict raise percent
+#### Did not change yaml, failed ###

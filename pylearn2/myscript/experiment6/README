@@ -1,0 +1,1 @@
+1. Use SHCOMP 10 day's data, concatenate with news vector from yesterday (one news one vector) use mlp to train to predict raise percent

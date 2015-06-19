@@ -16,6 +16,18 @@ import bigramerTraining
 def trainWord2Vec(inputDirectory, outputPath):
     
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+
+    class MySentences(object):
+       def __init__(self, dirname):
+           self.dirname = dirname
+           self.numberHolder = re.compile(ur"[0-9]+", re.UNICODE)
+           self.spliter = re.compile('\s+', re.UNICODE)
+
+       def __iter__(self):
+           for fname in os.listdir(self.dirname):
+               for line in codecs.open(os.path.join(self.dirname, fname), encoding='utf-8'): 
+                   line = re.sub(self.numberHolder, u' <num> ', line) # replace with space and <num> 
+                   yield self.spliter.split(line)
     
     # handle sigterm
     def sigterm_handler(_signo, _stack_frame):
@@ -25,8 +37,10 @@ def trainWord2Vec(inputDirectory, outputPath):
     
     model = None
     try:
-        bigramer1 = gensim.models.Phrases(bigramerTraining.MySentences(inputDirectory), min_count=10000, threshold=0.1, delimiter='')
-        sentences = bigramer1[bigramerTraining.MySentences(inputDirectory)] # a memory-friendly iterator
+#        bigramer1 = gensim.models.Phrases(bigramerTraining.MySentences(inputDirectory), min_count=10000, threshold=0.1, delimiter='')
+#        bigramer1.save(outputPath + "-bigramer")
+#        sentences = bigramer1[bigramerTraining.MySentences(inputDirectory)] # a memory-friendly iterator
+        sentences = MySentences(inputDirectory)
         model = gensim.models.Word2Vec(None, sg=1, size=200, window=10, min_count=10, workers=multiprocessing.cpu_count())
         model.build_vocab(sentences)
         sentences = gensim.utils.RepeatCorpusNTimes(sentences, 1)  # set iteration

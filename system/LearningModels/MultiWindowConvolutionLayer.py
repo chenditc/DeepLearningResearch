@@ -15,12 +15,12 @@ import Classifier
 import ConvolutionLayer
 
 
-def getMultiWindowConvolutionLayer(inputVariable, windowHeight, windowWidth, featureMap, initFilterMatrixs = None):
+def getMultiWindowConvolutionLayer(inputVariable, windowHeight, windowWidth, featureMap, initFilterMatrixs = None, maximumWindowNumber = 2):
 
     outputs = []
     params = {}
 
-    for i in range(1, windowHeight+1): 
+    for i in range(1, min(windowHeight+1, maximumWindowNumber + 1)): 
         initFilterMatrixs_i = None
         if initFilterMatrixs != None:
             initFilterMatrixs_i = initFilterMatrixs[i-1]

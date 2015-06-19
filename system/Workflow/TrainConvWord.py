@@ -28,7 +28,7 @@ import ConvWordVector
 
 
 class TextLoader():
-    def __init__(self, dataDir, warmupModel, windowSize = 5, batchSize = 10000):
+    def __init__(self, dataDir, warmupModel, windowSize = 10, batchSize = 10000):
         self._dataDir = dataDir
 
         warmupModelString = open(warmupModel).read()
@@ -60,7 +60,7 @@ class TextLoader():
 
 class TrainModel():
 
-    def __init__(self, data, warmupModel):
+    def __init__(self, data, warmupModel, outputModel):
         # private variables:
         # Use Dataloader class to load data set.
         logging.info("#####################################")
@@ -78,7 +78,7 @@ class TrainModel():
             sys.exit(0)
         signal.signal(signal.SIGTERM, sigterm_handler)
 
-
+        self.outputModel = outputModel
 
     def startTraining(self):
         # Create training model
@@ -86,6 +86,12 @@ class TrainModel():
         logging.info("Initializing model ")
         classifier = ConvWordVector.ConvWordVector(maxWordCount = len(self._wordMatrix) , wordScanWindow = self._windowSize, projectDimension = len(self._wordMatrix[0]))
 
+        if self.outputModel != None:
+            try:
+                classifier.loadModelFromJson(open(self.outputModel).read())
+                logging.info("Load model from" + self.outputModel)
+            except:
+                logging.info("Not using model from" + self.outputModel)
         
         # build model
         train_set_x = None;
@@ -123,11 +129,11 @@ class TrainModel():
                 logging.info("Preprocessing time {0}".format(t1-t2))
                 classifier.trainModel()
                 t2 = time.time()
-                if learning_rate.get_value(borrow=True) > 0.005:
-                    learning_rate.set_value(learning_rate.get_value(borrow=True) * 0.99, borrow=True)
+                if learning_rate.get_value(borrow=True) > 0.0001:
+                    learning_rate.set_value(learning_rate.get_value(borrow=True) * 0.999, borrow=True)
                 logging.info("Trained used time {0}, learning rate: {1}".format(t2-t1, learning_rate.get_value(borrow=True)))
         finally:
-            modelName = '/home/ubuntu/data/convWordVector.model'
+            modelName = self.outputModel
             modelString = classifier.storeModelToJson()
             outputFile = open(modelName, 'w')
             outputFile.write(modelString)
@@ -142,14 +148,16 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description='Training Entrance.')
     parser.add_argument('-d', '--data', dest='data', help='the data used to train')
     parser.add_argument('-i', '--indexToWord', dest='indexToWord', help='the indexToWord cPickle file')
+    parser.add_argument('-o', '--outputModel', dest='outputModel', help='the output model path')
+
 
     args = parser.parse_args()
 
-    if (args.data == None or args.indexToWord == None):
+    if (args.data == None or args.indexToWord == None or args.outputModel == None):
         parser.print_help()
         quit()
 
 
-    trainer = TrainModel(data = args.data, warmupModel = args.indexToWord)
+    trainer = TrainModel(data = args.data, warmupModel = args.indexToWord, outputModel = args.outputModel)
     trainer.startTraining()
 
