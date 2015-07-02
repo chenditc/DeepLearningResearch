@@ -54,11 +54,12 @@ FROM ch_day_tech.data as original,
     and stock.date > news.news_date
     and stock.date > '{1}'
     {3}
-    and stock.PX_LAST > stock.PX_OPEN * {2}) as important
+    and (stock.PX_LAST > stock.PX_OPEN * {2}
+        or stock.PX_LAST < stock.PX_OPEN * {4}) ) as important
 WHERE original.Ticker = important.Ticker 
 and original.Date = important.Date;
     '''
-    cursor.execute(sql.format(maxDate, minDate, str(1.0 + threshold / 100.0), securityFilter))
+    cursor.execute(sql.format(maxDate, minDate, str(1.0 + threshold / 100.0), securityFilter, str(1.0 - threshold / 100.0) ))
     importantDates = cursor.fetchall()
     return importantDates
 
@@ -91,14 +92,14 @@ def appendNewsData(stockVector, date):
         resultMatrix.append(newsVector + stockVector)
     return resultMatrix
     
-def load_security(security = 'all', startDate = '1970-01-01', stopDate = '2070-01-01', days = 5):
+def load_security(security = 'all', startDate = '1970-01-01', stopDate = '2070-01-01', days = 5, threshold = 5):
     print "loading data:", security, startDate, stopDate, days
     sys.stdout.flush()
 
     x = []
     y = []
 
-    importantDates = getImportantDates(security = security, minDate = startDate, maxDate = stopDate, threshold = 5)
+    importantDates = getImportantDates(security = security, minDate = startDate, maxDate = stopDate, threshold = threshold)
     stockData = []
     for i in range(len(importantDates)):
         if i % 100 == 99:
