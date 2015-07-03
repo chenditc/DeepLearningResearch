@@ -1,0 +1,1970 @@
+modprobe: ERROR: could not insert 'nvidia_346': No such device
+WARNING (theano.sandbox.cuda): CUDA is installed, but device gpu is not available  (error: Unable to get the number of gpus available: no CUDA-capable device is detected)
+loading data: all 1970-01-01 2014-01-01 5
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+loading stock data: 899
+loading stock data: 999
+loading stock data: 1099
+loading stock data: 1199
+loading stock data: 1299
+loading stock data: 1399
+loading stock data: 1499
+loading stock data: 1599
+loading stock data: 1699
+loading stock data: 1799
+loading stock data: 1899
+loading stock data: 1999
+loading stock data: 2099
+loading stock data: 2199
+loading stock data: 2299
+loading stock data: 2399
+loading stock data: 2499
+loading stock data: 2599
+loading stock data: 2699
+loading stock data: 2799
+loading stock data: 2899
+loading stock data: 2999
+loading stock data: 3099
+loading stock data: 3199
+loading stock data: 3299
+loading stock data: 3399
+loading stock data: 3499
+loading stock data: 3599
+loading stock data: 3699
+loading stock data: 3799
+loading stock data: 3899
+loading stock data: 3999
+loading stock data: 4099
+loading stock data: 4199
+loading stock data: 4299
+loading stock data: 4399
+loading stock data: 4499
+loading stock data: 4599
+loading stock data: 4699
+loading stock data: 4799
+loading stock data: 4899
+loading stock data: 4999
+loading stock data: 5099
+loading stock data: 5199
+loading stock data: 5299
+loading stock data: 5399
+loading stock data: 5499
+loading stock data: 5599
+loading stock data: 5699
+loading stock data: 5799
+loading stock data: 5899
+loading stock data: 5999
+loading stock data: 6099
+loading stock data: 6199
+loading stock data: 6299
+loading stock data: 6399
+loading stock data: 6499
+loading stock data: 6599
+loading stock data: 6699
+loading stock data: 6799
+loading stock data: 6899
+loading stock data: 6999
+loading stock data: 7099
+loading stock data: 7199
+loading stock data: 7299
+loading stock data: 7399
+loading stock data: 7499
+loading stock data: 7599
+loading stock data: 7699
+loading stock data: 7799
+loading stock data: 7899
+loading stock data: 7999
+loading stock data: 8099
+loading stock data: 8199
+loading stock data: 8299
+loading stock data: 8399
+loading stock data: 8499
+loading stock data: 8599
+loading stock data: 8699
+loading stock data: 8799
+loading stock data: 8899
+loading stock data: 8999
+loading stock data: 9099
+loading stock data: 9199
+loading stock data: 9299
+loading stock data: 9399
+loading stock data: 9499
+loading stock data: 9599
+loading stock data: 9699
+loading stock data: 9799
+loading stock data: 9899
+loading stock data: 9999
+loading stock data: 10099
+loading stock data: 10199
+loading stock data: 10299
+loading stock data: 10399
+loading stock data: 10499
+loading stock data: 10599
+loading stock data: 10699
+loading stock data: 10799
+loading stock data: 10899
+loading stock data: 10999
+loading stock data: 11099
+loading stock data: 11199
+loading stock data: 11299
+loading stock data: 11399
+loading stock data: 11499
+loading stock data: 11599
+loading stock data: 11699
+loading stock data: 11799
+loading stock data: 11899
+loading stock data: 11999
+loading stock data: 12099
+loading stock data: 12199
+loading stock data: 12299
+loading stock data: 12399
+loading stock data: 12499
+loading stock data: 12599
+loading stock data: 12699
+loading stock data: 12799
+loading stock data: 12899
+loading stock data: 12999
+loading stock data: 13099
+loading stock data: 13199
+loading stock data: 13299
+loading stock data: 13399
+loading stock data: 13499
+loading stock data: 13599
+loading stock data: 13699
+loading stock data: 13799
+loading stock data: 13899
+loading stock data: 13999
+loading stock data: 14099
+loading stock data: 14199
+loading stock data: 14299
+loading stock data: 14399
+loading stock data: 14499
+loading stock data: 14599
+loading stock data: 14699
+loading stock data: 14799
+loading stock data: 14899
+loading stock data: 14999
+loading stock data: 15099
+loading stock data: 15199
+loading stock data: 15299
+loading stock data: 15399
+loading stock data: 15499
+loading stock data: 15599
+loading stock data: 15699
+loading stock data: 15799
+loading stock data: 15899
+loading stock data: 15999
+loading stock data: 16099
+loading stock data: 16199
+loading stock data: 16299
+loading stock data: 16399
+loading stock data: 16499
+loading stock data: 16599
+loading stock data: 16699
+loading stock data: 16799
+loading stock data: 16899
+loading stock data: 16999
+loading stock data: 17099
+loading stock data: 17199
+loading stock data: 17299
+loading stock data: 17399
+loading stock data: 17499
+loading stock data: 17599
+loading stock data: 17699
+loading stock data: 17799
+loading stock data: 17899
+loading stock data: 17999
+loading stock data: 18099
+loading stock data: 18199
+loading stock data: 18299
+loading stock data: 18399
+loading stock data: 18499
+loading stock data: 18599
+loading stock data: 18699
+loading stock data: 18799
+loading stock data: 18899
+loading stock data: 18999
+loading stock data: 19099
+loading stock data: 19199
+loading stock data: 19299
+loading stock data: 19399
+loading stock data: 19499
+loading stock data: 19599
+loading stock data: 19699
+loading stock data: 19799
+loading stock data: 19899
+loading stock data: 19999
+loading stock data: 20099
+loading stock data: 20199
+loading stock data: 20299
+loading stock data: 20399
+loading stock data: 20499
+loading stock data: 20599
+loading stock data: 20699
+loading stock data: 20799
+loading stock data: 20899
+loading stock data: 20999
+loading stock data: 21099
+loading stock data: 21199
+loading stock data: 21299
+loading stock data: 21399
+loading stock data: 21499
+loading stock data: 21599
+loading stock data: 21699
+loading stock data: 21799
+loading stock data: 21899
+loading stock data: 21999
+loading stock data: 22099
+loading stock data: 22199
+loading stock data: 22299
+loading stock data: 22399
+loading stock data: 22499
+loading stock data: 22599
+loading stock data: 22699
+loading stock data: 22799
+loading stock data: 22899
+loading stock data: 22999
+loading stock data: 23099
+loading stock data: 23199
+loading stock data: 23299
+loading stock data: 23399
+loading stock data: 23499
+loading stock data: 23599
+loading stock data: 23699
+loading stock data: 23799
+loading stock data: 23899
+loading stock data: 23999
+loading stock data: 24099
+loading stock data: 24199
+loading stock data: 24299
+loading stock data: 24399
+loading stock data: 24499
+loading stock data: 24599
+loading stock data: 24699
+loading stock data: 24799
+loading stock data: 24899
+loading stock data: 24999
+loading stock data: 25099
+loading stock data: 25199
+loading stock data: 25299
+loading stock data: 25399
+loading stock data: 25499
+loading stock data: 25599
+loading stock data: 25699
+loading stock data: 25799
+loading stock data: 25899
+loading stock data: 25999
+loading stock data: 26099
+loading stock data: 26199
+loading stock data: 26299
+loading stock data: 26399
+loading stock data: 26499
+loading stock data: 26599
+loading stock data: 26699
+loading stock data: 26799
+loading stock data: 26899
+loading stock data: 26999
+loading stock data: 27099
+loading stock data: 27199
+loading stock data: 27299
+loading stock data: 27399
+loading stock data: 27499
+loading stock data: 27599
+loading stock data: 27699
+loading stock data: 27799
+loading stock data: 27899
+loading stock data: 27999
+loading stock data: 28099
+loading stock data: 28199
+loading stock data: 28299
+loading stock data: 28399
+loading stock data: 28499
+loading stock data: 28599
+loading stock data: 28699
+loading stock data: 28799
+loading stock data: 28899
+loading stock data: 28999
+loading stock data: 29099
+loading stock data: 29199
+loading stock data: 29299
+loading stock data: 29399
+loading stock data: 29499
+loading stock data: 29599
+loading stock data: 29699
+loading stock data: 29799
+loading stock data: 29899
+loading stock data: 29999
+loading stock data: 30099
+loading stock data: 30199
+loading stock data: 30299
+loading stock data: 30399
+loading stock data: 30499
+loading stock data: 30599
+loading stock data: 30699
+loading stock data: 30799
+loading stock data: 30899
+loading stock data: 30999
+loading stock data: 31099
+loading stock data: 31199
+loading stock data: 31299
+loading stock data: 31399
+loading stock data: 31499
+loading stock data: 31599
+loading stock data: 31699
+loading stock data: 31799
+loading stock data: 31899
+loading stock data: 31999
+loading stock data: 32099
+loading stock data: 32199
+loading stock data: 32299
+loading stock data: 32399
+loading stock data: 32499
+loading stock data: 32599
+loading stock data: 32699
+loading stock data: 32799
+loading stock data: 32899
+loading stock data: 32999
+loading stock data: 33099
+loading stock data: 33199
+loading stock data: 33299
+loading stock data: 33399
+loading stock data: 33499
+loading stock data: 33599
+loading stock data: 33699
+loading stock data: 33799
+loading stock data: 33899
+loading stock data: 33999
+loading stock data: 34099
+loading stock data: 34199
+loading stock data: 34299
+loading stock data: 34399
+loading stock data: 34499
+loading stock data: 34599
+loading stock data: 34699
+loading stock data: 34799
+loading stock data: 34899
+loading stock data: 34999
+loading stock data: 35099
+loading stock data: 35199
+loading stock data: 35299
+loading stock data: 35399
+loading stock data: 35499
+loading stock data: 35599
+loading stock data: 35699
+loading stock data: 35799
+loading stock data: 35899
+loading stock data: 35999
+loading stock data: 36099
+loading stock data: 36199
+loading stock data: 36299
+loading stock data: 36399
+loading stock data: 36499
+loading stock data: 36599
+loading stock data: 36699
+loading stock data: 36799
+loading stock data: 36899
+loading stock data: 36999
+loading stock data: 37099
+loading stock data: 37199
+loading stock data: 37299
+loading stock data: 37399
+loading stock data: 37499
+loading stock data: 37599
+loading stock data: 37699
+loading stock data: 37799
+loading stock data: 37899
+loading stock data: 37999
+skipping stock data: 601010 CH Equity 2011-08-07
+skipping stock data: 601010 CH Equity 2011-08-10
+loading stock data: 38099
+skipping stock data: 601028 CH Equity 2012-01-08
+skipping stock data: 601028 CH Equity 2012-01-09
+loading stock data: 38199
+skipping stock data: 601100 CH Equity 2012-01-04
+loading stock data: 38299
+loading stock data: 38399
+skipping stock data: 601113 CH Equity 2011-07-13
+loading stock data: 38499
+loading stock data: 38599
+loading stock data: 38699
+loading stock data: 38799
+loading stock data: 38899
+loading stock data: 38999
+skipping stock data: 601199 CH Equity 2011-05-23
+skipping stock data: 601208 CH Equity 2011-07-26
+loading stock data: 39099
+loading stock data: 39199
+loading stock data: 39299
+loading stock data: 39399
+skipping stock data: 601268 CH Equity 2010-04-12
+loading stock data: 39499
+loading stock data: 39599
+skipping stock data: 601311 CH Equity 2011-08-07
+loading stock data: 39699
+loading stock data: 39799
+skipping stock data: 601388 CH Equity 2012-06-27
+skipping stock data: 601388 CH Equity 2012-06-28
+loading stock data: 39899
+loading stock data: 39999
+skipping stock data: 601555 CH Equity 2012-02-21
+loading stock data: 40099
+loading stock data: 40199
+loading stock data: 40299
+skipping stock data: 601636 CH Equity 2011-10-23
+loading stock data: 40399
+loading stock data: 40499
+loading stock data: 40599
+loading stock data: 40699
+skipping stock data: 601718 CH Equity 2010-10-13
+skipping stock data: 601718 CH Equity 2010-10-17
+loading stock data: 40799
+loading stock data: 40899
+loading stock data: 40999
+skipping stock data: 601818 CH Equity 2010-11-02
+loading stock data: 41099
+loading stock data: 41199
+loading stock data: 41299
+loading stock data: 41399
+skipping stock data: 601901 CH Equity 2011-10-17
+loading stock data: 41499
+loading stock data: 41599
+skipping stock data: 601933 CH Equity 2011-02-21
+loading stock data: 41699
+loading stock data: 41799
+loading stock data: 41899
+loading stock data: 41999
+loading stock data: 42099
+loading stock data: 42199
+loading stock data: 42299
+loading stock data: 42399
+loading stock data: 42499
+loading stock data: 42599
+loading stock data: 42699
+loading stock data: 42799
+loading stock data: 42899
+loading stock data: 42999
+loading stock data: 43099
+loading stock data: 43199
+loading stock data: 43299
+loading stock data: 43399
+loading stock data: 43499
+loading stock data: 43599
+loading stock data: 43699
+loading stock data: 43799
+loading stock data: 43899
+loading stock data: 43999
+loading stock data: 44099
+loading stock data: 44199
+loading stock data: 44299
+loading stock data: 44399
+loading stock data: 44499
+loading stock data: 44599
+loading stock data: 44699
+loading stock data: 44799
+loading stock data: 44899
+loading stock data: 44999
+loading stock data: 45099
+loading stock data: 45199
+loading stock data: 45299
+loading stock data: 45399
+loading stock data: 45499
+loading stock data: 45599
+loading stock data: 45699
+loading stock data: 45799
+loading stock data: 45899
+loading stock data: 45999
+loading stock data: 46099
+loading stock data: 46199
+loading stock data: 46299
+loading stock data: 46399
+loading stock data: 46499
+loading stock data: 46599
+loading stock data: 46699
+loading stock data: 46799
+loading stock data: 46899
+loading stock data: 46999
+loading stock data: 47099
+loading stock data: 47199
+loading stock data: 47299
+loading stock data: 47399
+loading stock data: 47499
+loading stock data: 47599
+loading stock data: 47699
+loading stock data: 47799
+loading stock data: 47899
+loading stock data: 47999
+loading stock data: 48099
+loading stock data: 48199
+loading stock data: 48299
+loading stock data: 48399
+loading stock data: 48499
+loading stock data: 48599
+loading stock data: 48699
+loading stock data: 48799
+loading stock data: 48899
+loading stock data: 48999
+loading stock data: 49099
+loading stock data: 49199
+loading stock data: 49299
+loading stock data: 49399
+loading stock data: 49499
+loading stock data: 49599
+loading stock data: 49699
+loading stock data: 49799
+loading stock data: 49899
+loading stock data: 49999
+loading stock data: 50099
+loading stock data: 50199
+loading stock data: 50299
+loading stock data: 50399
+loading stock data: 50499
+loading stock data: 50599
+loading stock data: 50699
+loading stock data: 50799
+loading stock data: 50899
+loading stock data: 50999
+loading stock data: 51099
+loading stock data: 51199
+loading stock data: 51299
+loading stock data: 51399
+loading stock data: 51499
+loading stock data: 51599
+loading stock data: 51699
+loading stock data: 51799
+loading stock data: 51899
+loading stock data: 51999
+loading stock data: 52099
+loading stock data: 52199
+loading stock data: 52299
+loading stock data: 52399
+loading stock data: 52499
+loading stock data: 52599
+loading stock data: 52699
+loading stock data: 52799
+loading stock data: 52899
+loading stock data: 52999
+loading stock data: 53099
+loading stock data: 53199
+loading stock data: 53299
+loading stock data: 53399
+loading stock data: 53499
+loading stock data: 53599
+loading stock data: 53699
+loading stock data: 53799
+loading stock data: 53899
+loading stock data: 53999
+loading stock data: 54099
+loading stock data: 54199
+loading stock data: 54299
+loading stock data: 54399
+loading stock data: 54499
+loading stock data: 54599
+loading stock data: 54699
+loading stock data: 54799
+loading stock data: 54899
+loading stock data: 54999
+loading stock data: 55099
+loading stock data: 55199
+loading stock data: 55299
+loading stock data: 55399
+loading stock data: 55499
+loading stock data: 55599
+loading stock data: 55699
+loading stock data: 55799
+loading stock data: 55899
+loading stock data: 55999
+loading stock data: 56099
+loading stock data: 56199
+loading stock data: 56299
+loading stock data: 56399
+loading stock data: 56499
+loading stock data: 56599
+loading stock data: 56699
+loading stock data: 56799
+loading stock data: 56899
+loading stock data: 56999
+loading stock data: 57099
+loading stock data: 57199
+loading stock data: 57299
+loading stock data: 57399
+loading stock data: 57499
+loading stock data: 57599
+loading stock data: 57699
+loading stock data: 57799
+loading stock data: 57899
+loading stock data: 57999
+loading stock data: 58099
+loading stock data: 58199
+loading stock data: 58299
+loading stock data: 58399
+loading stock data: 58499
+loading stock data: 58599
+loading stock data: 58699
+loading stock data: 58799
+loading stock data: 58899
+loading stock data: 58999
+loading stock data: 59099
+loading stock data: 59199
+loading stock data: 59299
+loading stock data: 59399
+loading stock data: 59499
+loading stock data: 59599
+loading stock data: 59699
+loading stock data: 59799
+loading stock data: 59899
+loading stock data: 59999
+loading stock data: 60099
+loading stock data: 60199
+loading stock data: 60299
+loading stock data: 60399
+loading stock data: 60499
+loading stock data: 60599
+loading stock data: 60699
+loading stock data: 60799
+loading stock data: 60899
+loading stock data: 60999
+loading stock data: 61099
+loading stock data: 61199
+loading stock data: 61299
+loading stock data: 61399
+loading stock data: 61499
+loading stock data: 61599
+loading stock data: 61699
+loading stock data: 61799
+loading stock data: 61899
+loading stock data: 61999
+loading stock data: 62099
+loading stock data: 62199
+loading stock data: 62299
+loading stock data: 62399
+loading stock data: 62499
+loading stock data: 62599
+loading stock data: 62699
+loading stock data: 62799
+loading stock data: 62899
+loading stock data: 62999
+loading stock data: 63099
+loading stock data: 63199
+loading stock data: 63299
+loading stock data: 63399
+loading stock data: 63499
+loading stock data: 63599
+loading stock data: 63699
+loading stock data: 63799
+loading stock data: 63899
+loading stock data: 63999
+loading stock data: 64099
+skipping stock data: 601010 CH Equity 2011-08-10
+loading stock data: 64199
+skipping stock data: 601028 CH Equity 2012-01-09
+loading stock data: 64299
+skipping stock data: 601113 CH Equity 2011-07-13
+loading stock data: 64399
+loading stock data: 64499
+loading stock data: 64599
+loading stock data: 64699
+skipping stock data: 601199 CH Equity 2011-05-23
+skipping stock data: 601208 CH Equity 2011-07-26
+loading stock data: 64799
+loading stock data: 64899
+skipping stock data: 601268 CH Equity 2010-04-12
+loading stock data: 64999
+loading stock data: 65099
+loading stock data: 65199
+loading stock data: 65299
+skipping stock data: 601555 CH Equity 2012-02-21
+loading stock data: 65399
+loading stock data: 65499
+loading stock data: 65599
+loading stock data: 65699
+skipping stock data: 601718 CH Equity 2010-10-17
+loading stock data: 65799
+skipping stock data: 601818 CH Equity 2010-11-02
+loading stock data: 65899
+loading stock data: 65999
+loading stock data: 66099
+skipping stock data: 601901 CH Equity 2011-10-17
+loading stock data: 66199
+loading stock data: 66299
+loading stock data: 66399
+loading stock data: 66499
+loading stock data: 66599
+loading stock data: 66699
+loading stock data: 66799
+loading stock data: 66899
+loading stock data: 66999
+loading stock data: 67099
+loading stock data: 67199
+loading stock data: 67299
+loading stock data: 67399
+loading stock data: 67499
+loading stock data: 67599
+loading stock data: 67699
+loading stock data: 67799
+loading stock data: 67899
+loading stock data: 67999
+loading stock data: 68099
+loading stock data: 68199
+loading stock data: 68299
+loading stock data: 68399
+loading stock data: 68499
+loading stock data: 68599
+loading stock data: 68699
+loading stock data: 68799
+loading stock data: 68899
+loading stock data: 68999
+loading stock data: 69099
+loading stock data: 69199
+loading stock data: 69299
+loading stock data: 69399
+loading stock data: 69499
+loading stock data: 69599
+loading stock data: 69699
+loading stock data: 69799
+loading stock data: 69899
+loading stock data: 69999
+loading stock data: 70099
+loading stock data: 70199
+loading stock data: 70299
+loading stock data: 70399
+loading stock data: 70499
+loading stock data: 70599
+loading stock data: 70699
+loading stock data: 70799
+loading stock data: 70899
+loading stock data: 70999
+loading stock data: 71099
+loading stock data: 71199
+loading stock data: 71299
+loading stock data: 71399
+loading stock data: 71499
+loading stock data: 71599
+loading stock data: 71699
+loading stock data: 71799
+loading stock data: 71899
+loading stock data: 71999
+loading stock data: 72099
+loading stock data: 72199
+loading stock data: 72299
+loading stock data: 72399
+loading stock data: 72499
+loading stock data: 72599
+loading stock data: 72699
+loading stock data: 72799
+loading stock data: 72899
+loading stock data: 72999
+loading stock data: 73099
+loading stock data: 73199
+loading stock data: 73299
+loading stock data: 73399
+loading stock data: 73499
+loading stock data: 73599
+loading stock data: 73699
+loading stock data: 73799
+loading stock data: 73899
+loading stock data: 73999
+loading stock data: 74099
+loading stock data: 74199
+loading stock data: 74299
+loading stock data: 74399
+loading stock data: 74499
+loading stock data: 74599
+loading stock data: 74699
+loading stock data: 74799
+loading stock data: 74899
+loading stock data: 74999
+loading stock data: 75099
+loading stock data: 75199
+loading stock data: 75299
+loading stock data: 75399
+loading stock data: 75499
+loading stock data: 75599
+loading stock data: 75699
+loading stock data: 75799
+loading stock data: 75899
+loading stock data: 75999
+loading stock data: 76099
+loading stock data: 76199
+loading stock data: 76299
+loading stock data: 76399
+loading stock data: 76499
+loading stock data: 76599
+loading stock data: 76699
+loading stock data: 76799
+loading stock data: 76899
+loading stock data: 76999
+loading stock data: 77099
+loading stock data: 77199
+loading stock data: 77299
+loading stock data: 77399
+loading stock data: 77499
+loading stock data: 77599
+loading stock data: 77699
+loading stock data: 77799
+loading stock data: 77899
+loading stock data: 77999
+loading stock data: 78099
+loading stock data: 78199
+loading stock data: 78299
+loading stock data: 78399
+loading stock data: 78499
+loading stock data: 78599
+loading stock data: 78699
+loading stock data: 78799
+loading stock data: 78899
+loading stock data: 78999
+loading stock data: 79099
+loading stock data: 79199
+loading stock data: 79299
+loading stock data: 79399
+loading stock data: 79499
+loading stock data: 79599
+loading stock data: 79699
+loading stock data: 79799
+loading stock data: 79899
+skipping stock data: 601010 CH Equity 2011-08-10
+skipping stock data: 601028 CH Equity 2012-01-09
+loading stock data: 79999
+skipping stock data: 601113 CH Equity 2011-07-13
+loading stock data: 80099
+loading stock data: 80199
+skipping stock data: 601199 CH Equity 2011-05-23
+skipping stock data: 601208 CH Equity 2011-07-26
+loading stock data: 80299
+loading stock data: 80399
+loading stock data: 80499
+skipping stock data: 601555 CH Equity 2012-02-21
+loading stock data: 80599
+loading stock data: 80699
+loading stock data: 80799
+skipping stock data: 601818 CH Equity 2010-11-02
+loading stock data: 80899
+loading stock data: 80999
+loading stock data: 81099
+loading stock data: 81199
+loading stock data: 81299
+loading stock data: 81399
+loading stock data: 81499
+loading stock data: 81599
+loading stock data: 81699
+loading stock data: 81799
+loading stock data: 81899
+loading stock data: 81999
+loading stock data: 82099
+loading stock data: 82199
+loading stock data: 82299
+loading stock data: 82399
+loading stock data: 82499
+loading stock data: 82599
+loading stock data: 82699
+loading stock data: 82799
+loading stock data: 82899
+loading stock data: 82999
+loading stock data: 83099
+loading stock data: 83199
+loading stock data: 83299
+loading stock data: 83399
+loading stock data: 83499
+loading stock data: 83599
+loading stock data: 83699
+loading stock data: 83799
+loading stock data: 83899
+loading stock data: 83999
+loading stock data: 84099
+loading stock data: 84199
+loading stock data: 84299
+loading stock data: 84399
+loading stock data: 84499
+loading stock data: 84599
+loading stock data: 84699
+loading stock data: 84799
+loading stock data: 84899
+loading stock data: 84999
+loading stock data: 85099
+loading stock data: 85199
+loading stock data: 85299
+loading stock data: 85399
+loading stock data: 85499
+loading stock data: 85599
+loading stock data: 85699
+loading stock data: 85799
+loading stock data: 85899
+loading stock data: 85999
+loading stock data: 86099
+loading stock data: 86199
+loading stock data: 86299
+loading stock data: 86399
+loading stock data: 86499
+loading stock data: 86599
+loading stock data: 86699
+loading stock data: 86799
+loading stock data: 86899
+loading stock data: 86999
+loading stock data: 87099
+loading stock data: 87199
+loading stock data: 87299
+loading stock data: 87399
+loading stock data: 87499
+loading stock data: 87599
+loading stock data: 87699
+loading stock data: 87799
+loading stock data: 87899
+loading stock data: 87999
+loading stock data: 88099
+loading stock data: 88199
+loading stock data: 88299
+loading stock data: 88399
+loading stock data: 88499
+loading stock data: 88599
+loading stock data: 88699
+loading stock data: 88799
+loading stock data: 88899
+loading stock data: 88999
+loading stock data: 89099
+loading stock data: 89199
+loading stock data: 89299
+loading stock data: 89399
+loading stock data: 89499
+loading stock data: 89599
+skipping stock data: 601028 CH Equity 2012-01-09
+loading stock data: 89699
+skipping stock data: 601113 CH Equity 2011-07-13
+loading stock data: 89799
+skipping stock data: 601199 CH Equity 2011-05-23
+skipping stock data: 601208 CH Equity 2011-07-26
+loading stock data: 89899
+loading stock data: 89999
+skipping stock data: 601555 CH Equity 2012-02-21
+loading stock data: 90099
+loading stock data: 90199
+skipping stock data: 601818 CH Equity 2010-11-02
+loading stock data: 90299
+loading stock data: 90399
+loading stock data: 90499
+loading stock data: 90599
+loading stock data: 90699
+loading stock data: 90799
+loading stock data: 90899
+loading stock data: 90999
+loading stock data: 91099
+loading stock data: 91199
+loading stock data: 91299
+loading stock data: 91399
+loading stock data: 91499
+loading stock data: 91599
+loading stock data: 91699
+loading stock data: 91799
+loading stock data: 91899
+loading stock data: 91999
+loading stock data: 92099
+loading stock data: 92199
+loading stock data: 92299
+loading stock data: 92399
+loading stock data: 92499
+loading stock data: 92599
+loading stock data: 92699
+loading stock data: 92799
+loading stock data: 92899
+loading stock data: 92999
+loading stock data: 93099
+loading stock data: 93199
+loading stock data: 93299
+loading stock data: 93399
+loading stock data: 93499
+loading stock data: 93599
+loading stock data: 93699
+loading stock data: 93799
+loading stock data: 93899
+loading stock data: 93999
+loading stock data: 94099
+loading stock data: 94199
+loading stock data: 94299
+loading stock data: 94399
+loading stock data: 94499
+loading stock data: 94599
+loading stock data: 94699
+loading stock data: 94799
+loading stock data: 94899
+loading stock data: 94999
+loading stock data: 95099
+loading stock data: 95199
+loading stock data: 95299
+loading stock data: 95399
+loading stock data: 95499
+loading stock data: 95599
+loading stock data: 95699
+skipping stock data: 601028 CH Equity 2012-01-09
+loading stock data: 95799
+skipping stock data: 601208 CH Equity 2011-07-26
+loading stock data: 95899
+skipping stock data: 601555 CH Equity 2012-02-21
+loading stock data: 95999
+skipping stock data: 601818 CH Equity 2010-11-02
+loading stock data: 96099
+loading stock data: 96199
+loading stock data: 96299
+loading stock data: 96399
+loading stock data: 96499
+loading stock data: 96599
+loading stock data: 96699
+loading stock data: 96799
+loading stock data: 96899
+loading stock data: 96999
+loading stock data: 97099
+loading stock data: 97199
+loading stock data: 97299
+loading stock data: 97399
+loading stock data: 97499
+loading stock data: 97599
+loading stock data: 97699
+loading stock data: 97799
+loading stock data: 97899
+loading stock data: 97999
+loading stock data: 98099
+loading stock data: 98199
+loading stock data: 98299
+loading stock data: 98399
+loading stock data: 98499
+loading stock data: 98599
+loading stock data: 98699
+skipping stock data: 601028 CH Equity 2012-01-09
+loading stock data: 98799
+skipping stock data: 601555 CH Equity 2012-02-21
+loading stock data: 98899
+skipping stock data: 601818 CH Equity 2010-11-02
+loading stock data: 98999
+loading stock data: 99099
+loading stock data: 99199
+loading stock data: 99299
+loading stock data: 99399
+loading stock data: 99499
+loading stock data: 99599
+loading stock data: 99699
+loading stock data: 99799
+loading stock data: 99899
+loading stock data: 99999
+loading stock data: 100099
+loading stock data: 100199
+loading stock data: 100299
+loading stock data: 100399
+loading stock data: 100499
+loading stock data: 100599
+loading stock data: 100699
+loading stock data: 100799
+loading stock data: 100899
+loading stock data: 100999
+loading stock data: 101099
+loading stock data: 101199
+loading stock data: 101299
+loading stock data: 101399
+loading stock data: 101499
+loading stock data: 101599
+loading stock data: 101699
+loading stock data: 101799
+loading stock data: 101899
+loading stock data: 101999
+loading stock data: 102099
+loading stock data: 102199
+loading stock data: 102299
+loading stock data: 102399
+loading stock data: 102499
+loading stock data: 102599
+loading stock data: 102699
+loading stock data: 102799
+loading stock data: 102899
+loading stock data: 102999
+loading stock data: 103099
+loading stock data: 103199
+loading stock data: 103299
+loading stock data: 103399
+loading stock data: 103499
+loading stock data: 103599
+loading stock data: 103699
+loading stock data: 103799
+loading stock data: 103899
+loading stock data: 103999
+loading stock data: 104099
+loading stock data: 104199
+loading stock data: 104299
+loading stock data: 104399
+loading stock data: 104499
+loading stock data: 104599
+loading stock data: 104699
+loading stock data: 104799
+loading stock data: 104899
+loading stock data: 104999
+loading stock data: 105099
+loading stock data: 105199
+loading stock data: 105299
+loading stock data: 105399
+loading stock data: 105499
+loading stock data: 105599
+loading stock data: 105699
+loading stock data: 105799
+loading stock data: 105899
+loading stock data: 105999
+loading stock data: 106099
+loading stock data: 106199
+loading stock data: 106299
+loading stock data: 106399
+loading stock data: 106499
+loading stock data: 106599
+loading stock data: 106699
+loading stock data: 106799
+loading stock data: 106899
+loading stock data: 106999
+loading stock data: 107099
+loading stock data: 107199
+loading stock data: 107299
+loading stock data: 107399
+loading stock data: 107499
+loading stock data: 107599
+loading stock data: 107699
+loading stock data: 107799
+loading stock data: 107899
+loading stock data: 107999
+loading stock data: 108099
+loading stock data: 108199
+loading stock data: 108299
+loading stock data: 108399
+loading stock data: 108499
+loading stock data: 108599
+loading stock data: 108699
+loading stock data: 108799
+loading stock data: 108899
+loading stock data: 108999
+loading stock data: 109099
+loading stock data: 109199
+loading stock data: 109299
+loading stock data: 109399
+loading stock data: 109499
+loading stock data: 109599
+loading stock data: 109699
+loading stock data: 109799
+loading stock data: 109899
+loading stock data: 109999
+loading stock data: 110099
+loading stock data: 110199
+loading stock data: 110299
+loading stock data: 110399
+loading stock data: 110499
+Length: 3048137 3048137
+Dimension: 940
+x shape:  (3048137, 940)
+y shape:  (3048137, 1)
+loading data: all 2014-06-01 2070-01-01 5
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+loading stock data: 899
+loading stock data: 999
+loading stock data: 1099
+loading stock data: 1199
+loading stock data: 1299
+loading stock data: 1399
+loading stock data: 1499
+skipping stock data: 603006 CH Equity 2014-08-27
+skipping stock data: 603168 CH Equity 2014-08-28
+loading stock data: 1599
+loading stock data: 1699
+loading stock data: 1799
+loading stock data: 1899
+loading stock data: 1999
+loading stock data: 2099
+loading stock data: 2199
+loading stock data: 2299
+loading stock data: 2399
+loading stock data: 2499
+loading stock data: 2599
+loading stock data: 2699
+loading stock data: 2799
+loading stock data: 2899
+loading stock data: 2999
+loading stock data: 3099
+loading stock data: 3199
+loading stock data: 3299
+loading stock data: 3399
+skipping stock data: 603806 CH Equity 2014-11-11
+loading stock data: 3499
+loading stock data: 3599
+loading stock data: 3699
+loading stock data: 3799
+loading stock data: 3899
+loading stock data: 3999
+loading stock data: 4099
+loading stock data: 4199
+skipping stock data: 600917 CH Equity 2014-12-04
+loading stock data: 4299
+loading stock data: 4399
+loading stock data: 4499
+loading stock data: 4599
+loading stock data: 4699
+loading stock data: 4799
+loading stock data: 4899
+loading stock data: 4999
+loading stock data: 5099
+loading stock data: 5199
+loading stock data: 5299
+skipping stock data: 603168 CH Equity 2014-08-28
+loading stock data: 5399
+loading stock data: 5499
+loading stock data: 5599
+loading stock data: 5699
+loading stock data: 5799
+loading stock data: 5899
+loading stock data: 5999
+loading stock data: 6099
+loading stock data: 6199
+loading stock data: 6299
+loading stock data: 6399
+skipping stock data: 603806 CH Equity 2014-11-11
+loading stock data: 6499
+loading stock data: 6599
+loading stock data: 6699
+loading stock data: 6799
+loading stock data: 6899
+loading stock data: 6999
+loading stock data: 7099
+loading stock data: 7199
+loading stock data: 7299
+loading stock data: 7399
+loading stock data: 7499
+loading stock data: 7599
+loading stock data: 7699
+skipping stock data: 603168 CH Equity 2014-08-28
+loading stock data: 7799
+loading stock data: 7899
+loading stock data: 7999
+loading stock data: 8099
+loading stock data: 8199
+loading stock data: 8299
+loading stock data: 8399
+skipping stock data: 603806 CH Equity 2014-11-11
+loading stock data: 8499
+loading stock data: 8599
+loading stock data: 8699
+loading stock data: 8799
+loading stock data: 8899
+loading stock data: 8999
+loading stock data: 9099
+loading stock data: 9199
+loading stock data: 9299
+loading stock data: 9399
+loading stock data: 9499
+loading stock data: 9599
+loading stock data: 9699
+loading stock data: 9799
+loading stock data: 9899
+loading stock data: 9999
+loading stock data: 10099
+loading stock data: 10199
+loading stock data: 10299
+loading stock data: 10399
+loading stock data: 10499
+loading stock data: 10599
+loading stock data: 10699
+loading stock data: 10799
+loading stock data: 10899
+loading stock data: 10999
+loading stock data: 11099
+loading stock data: 11199
+loading stock data: 11299
+loading stock data: 11399
+loading stock data: 11499
+loading stock data: 11599
+loading stock data: 11699
+loading stock data: 11799
+loading stock data: 11899
+loading stock data: 11999
+loading stock data: 12099
+loading stock data: 12199
+loading stock data: 12299
+loading stock data: 12399
+loading stock data: 12499
+loading stock data: 12599
+Length: 1494990 1494990
+Dimension: 940
+x shape:  (1494990, 940)
+y shape:  (1494990, 1)
+loading data: all 2014-01-01 2014-06-01 5
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+loading stock data: 899
+loading stock data: 999
+loading stock data: 1099
+loading stock data: 1199
+loading stock data: 1299
+loading stock data: 1399
+loading stock data: 1499
+loading stock data: 1599
+loading stock data: 1699
+loading stock data: 1799
+loading stock data: 1899
+loading stock data: 1999
+loading stock data: 2099
+loading stock data: 2199
+loading stock data: 2299
+loading stock data: 2399
+loading stock data: 2499
+loading stock data: 2599
+loading stock data: 2699
+loading stock data: 2799
+loading stock data: 2899
+loading stock data: 2999
+loading stock data: 3099
+loading stock data: 3199
+loading stock data: 3299
+loading stock data: 3399
+loading stock data: 3499
+loading stock data: 3599
+loading stock data: 3699
+loading stock data: 3799
+loading stock data: 3899
+loading stock data: 3999
+loading stock data: 4099
+loading stock data: 4199
+loading stock data: 4299
+loading stock data: 4399
+loading stock data: 4499
+loading stock data: 4599
+loading stock data: 4699
+loading stock data: 4799
+loading stock data: 4899
+loading stock data: 4999
+loading stock data: 5099
+loading stock data: 5199
+loading stock data: 5299
+loading stock data: 5399
+loading stock data: 5499
+loading stock data: 5599
+loading stock data: 5699
+loading stock data: 5799
+loading stock data: 5899
+loading stock data: 5999
+loading stock data: 6099
+loading stock data: 6199
+loading stock data: 6299
+loading stock data: 6399
+loading stock data: 6499
+loading stock data: 6599
+loading stock data: 6699
+loading stock data: 6799
+loading stock data: 6899
+loading stock data: 6999
+loading stock data: 7099
+loading stock data: 7199
+loading stock data: 7299
+loading stock data: 7399
+loading stock data: 7499
+loading stock data: 7599
+loading stock data: 7699
+loading stock data: 7799
+loading stock data: 7899
+loading stock data: 7999
+loading stock data: 8099
+loading stock data: 8199
+loading stock data: 8299
+loading stock data: 8399
+loading stock data: 8499
+loading stock data: 8599
+loading stock data: 8699
+loading stock data: 8799
+loading stock data: 8899
+loading stock data: 8999
+loading stock data: 9099
+loading stock data: 9199
+loading stock data: 9299
+loading stock data: 9399
+loading stock data: 9499
+loading stock data: 9599
+Length: 955230 955230
+Dimension: 940
+x shape:  (955230, 940)
+y shape:  (955230, 1)
+compiling begin_record_entry...
+compiling begin_record_entry done. Time elapsed: 0.449580 seconds
+Monitored channels: 
+	ave_grad_mult
+	ave_grad_size
+	ave_step_size
+	test_h0_col_norms_max
+	test_h0_col_norms_mean
+	test_h0_col_norms_min
+	test_h0_max_x_max_u
+	test_h0_max_x_mean_u
+	test_h0_max_x_min_u
+	test_h0_mean_x_max_u
+	test_h0_mean_x_mean_u
+	test_h0_mean_x_min_u
+	test_h0_min_x_max_u
+	test_h0_min_x_mean_u
+	test_h0_min_x_min_u
+	test_h0_range_x_max_u
+	test_h0_range_x_mean_u
+	test_h0_range_x_min_u
+	test_h0_row_norms_max
+	test_h0_row_norms_mean
+	test_h0_row_norms_min
+	test_h1_col_norms_max
+	test_h1_col_norms_mean
+	test_h1_col_norms_min
+	test_h1_max_x_max_u
+	test_h1_max_x_mean_u
+	test_h1_max_x_min_u
+	test_h1_mean_x_max_u
+	test_h1_mean_x_mean_u
+	test_h1_mean_x_min_u
+	test_h1_min_x_max_u
+	test_h1_min_x_mean_u
+	test_h1_min_x_min_u
+	test_h1_range_x_max_u
+	test_h1_range_x_mean_u
+	test_h1_range_x_min_u
+	test_h1_row_norms_max
+	test_h1_row_norms_mean
+	test_h1_row_norms_min
+	test_objective
+	test_y_beta_max
+	test_y_beta_mean
+	test_y_beta_min
+	test_y_col_norms_max
+	test_y_col_norms_mean
+	test_y_col_norms_min
+	test_y_max_x_max_u
+	test_y_max_x_mean_u
+	test_y_max_x_min_u
+	test_y_mean_x_max_u
+	test_y_mean_x_mean_u
+	test_y_mean_x_min_u
+	test_y_min_x_max_u
+	test_y_min_x_mean_u
+	test_y_min_x_min_u
+	test_y_mse
+	test_y_range_x_max_u
+	test_y_range_x_mean_u
+	test_y_range_x_min_u
+	test_y_row_norms_max
+	test_y_row_norms_mean
+	test_y_row_norms_min
+	total_seconds_last_epoch
+	train_h0_col_norms_max
+	train_h0_col_norms_mean
+	train_h0_col_norms_min
+	train_h0_max_x_max_u
+	train_h0_max_x_mean_u
+	train_h0_max_x_min_u
+	train_h0_mean_x_max_u
+	train_h0_mean_x_mean_u
+	train_h0_mean_x_min_u
+	train_h0_min_x_max_u
+	train_h0_min_x_mean_u
+	train_h0_min_x_min_u
+	train_h0_range_x_max_u
+	train_h0_range_x_mean_u
+	train_h0_range_x_min_u
+	train_h0_row_norms_max
+	train_h0_row_norms_mean
+	train_h0_row_norms_min
+	train_h1_col_norms_max
+	train_h1_col_norms_mean
+	train_h1_col_norms_min
+	train_h1_max_x_max_u
+	train_h1_max_x_mean_u
+	train_h1_max_x_min_u
+	train_h1_mean_x_max_u
+	train_h1_mean_x_mean_u
+	train_h1_mean_x_min_u
+	train_h1_min_x_max_u
+	train_h1_min_x_mean_u
+	train_h1_min_x_min_u
+	train_h1_range_x_max_u
+	train_h1_range_x_mean_u
+	train_h1_range_x_min_u
+	train_h1_row_norms_max
+	train_h1_row_norms_mean
+	train_h1_row_norms_min
+	train_objective
+	train_y_beta_max
+	train_y_beta_mean
+	train_y_beta_min
+	train_y_col_norms_max
+	train_y_col_norms_mean
+	train_y_col_norms_min
+	train_y_max_x_max_u
+	train_y_max_x_mean_u
+	train_y_max_x_min_u
+	train_y_mean_x_max_u
+	train_y_mean_x_mean_u
+	train_y_mean_x_min_u
+	train_y_min_x_max_u
+	train_y_min_x_mean_u
+	train_y_min_x_min_u
+	train_y_mse
+	train_y_range_x_max_u
+	train_y_range_x_mean_u
+	train_y_range_x_min_u
+	train_y_row_norms_max
+	train_y_row_norms_mean
+	train_y_row_norms_min
+	training_seconds_this_epoch
+	valid_h0_col_norms_max
+	valid_h0_col_norms_mean
+	valid_h0_col_norms_min
+	valid_h0_max_x_max_u
+	valid_h0_max_x_mean_u
+	valid_h0_max_x_min_u
+	valid_h0_mean_x_max_u
+	valid_h0_mean_x_mean_u
+	valid_h0_mean_x_min_u
+	valid_h0_min_x_max_u
+	valid_h0_min_x_mean_u
+	valid_h0_min_x_min_u
+	valid_h0_range_x_max_u
+	valid_h0_range_x_mean_u
+	valid_h0_range_x_min_u
+	valid_h0_row_norms_max
+	valid_h0_row_norms_mean
+	valid_h0_row_norms_min
+	valid_h1_col_norms_max
+	valid_h1_col_norms_mean
+	valid_h1_col_norms_min
+	valid_h1_max_x_max_u
+	valid_h1_max_x_mean_u
+	valid_h1_max_x_min_u
+	valid_h1_mean_x_max_u
+	valid_h1_mean_x_mean_u
+	valid_h1_mean_x_min_u
+	valid_h1_min_x_max_u
+	valid_h1_min_x_mean_u
+	valid_h1_min_x_min_u
+	valid_h1_range_x_max_u
+	valid_h1_range_x_mean_u
+	valid_h1_range_x_min_u
+	valid_h1_row_norms_max
+	valid_h1_row_norms_mean
+	valid_h1_row_norms_min
+	valid_objective
+	valid_y_beta_max
+	valid_y_beta_mean
+	valid_y_beta_min
+	valid_y_col_norms_max
+	valid_y_col_norms_mean
+	valid_y_col_norms_min
+	valid_y_max_x_max_u
+	valid_y_max_x_mean_u
+	valid_y_max_x_min_u
+	valid_y_mean_x_max_u
+	valid_y_mean_x_mean_u
+	valid_y_mean_x_min_u
+	valid_y_min_x_max_u
+	valid_y_min_x_mean_u
+	valid_y_min_x_min_u
+	valid_y_mse
+	valid_y_range_x_max_u
+	valid_y_range_x_mean_u
+	valid_y_range_x_min_u
+	valid_y_row_norms_max
+	valid_y_row_norms_mean
+	valid_y_row_norms_min
+Compiling accum...
+graph size: 213
+graph size: 208
+graph size: 208
+Compiling accum done. Time elapsed: 10.436341 seconds
+Monitoring step:
+	Epochs seen: 0
+	Batches seen: 0
+	Examples seen: 0
+	ave_grad_mult: 0.0
+	ave_grad_size: 0.0
+	ave_step_size: 0.0
+	test_h0_col_norms_max: 0.923977
+	test_h0_col_norms_mean: 0.88636
+	test_h0_col_norms_min: 0.838806
+	test_h0_max_x_max_u: 2458.44
+	test_h0_max_x_mean_u: 255.974
+	test_h0_max_x_min_u: 0.0
+	test_h0_mean_x_max_u: 2446.51
+	test_h0_mean_x_mean_u: 250.077
+	test_h0_mean_x_min_u: 0.0
+	test_h0_min_x_max_u: 2428.81
+	test_h0_min_x_mean_u: 243.739
+	test_h0_min_x_min_u: 0.0
+	test_h0_range_x_max_u: 69.1542
+	test_h0_range_x_mean_u: 12.2353
+	test_h0_range_x_min_u: 0.0
+	test_h0_row_norms_max: 1.03861
+	test_h0_row_norms_mean: 1.00145
+	test_h0_row_norms_min: 0.959286
+	test_h1_col_norms_max: 1.03956
+	test_h1_col_norms_mean: 0.999074
+	test_h1_col_norms_min: 0.954278
+	test_h1_max_x_max_u: 1574.39
+	test_h1_max_x_mean_u: 186.612
+	test_h1_max_x_min_u: 0.0
+	test_h1_mean_x_max_u: 1561.87
+	test_h1_mean_x_mean_u: 182.349
+	test_h1_mean_x_min_u: 0.0
+	test_h1_min_x_max_u: 1545.28
+	test_h1_min_x_mean_u: 177.833
+	test_h1_min_x_min_u: 0.0
+	test_h1_range_x_max_u: 54.0696
+	test_h1_range_x_mean_u: 8.77849
+	test_h1_range_x_min_u: 0.0
+	test_h1_row_norms_max: 1.04726
+	test_h1_row_norms_mean: 0.999074
+	test_h1_row_norms_min: 0.95444
+	test_objective: 24.7928
+	test_y_beta_max: 1.00001
+	test_y_beta_mean: 1.00001
+	test_y_beta_min: 1.00001
+	test_y_col_norms_max: 0.096998
+	test_y_col_norms_mean: 0.096998
+	test_y_col_norms_min: 0.096998
+	test_y_max_x_max_u: 8.39955
+	test_y_max_x_mean_u: 8.39955
+	test_y_max_x_min_u: 8.39955
+	test_y_mean_x_max_u: 7.83636
+	test_y_mean_x_mean_u: 7.83636
+	test_y_mean_x_min_u: 7.83636
+	test_y_min_x_max_u: 7.20766
+	test_y_min_x_mean_u: 7.20766
+	test_y_min_x_min_u: 7.20766
+	test_y_mse: 49.5856
+	test_y_range_x_max_u: 1.19188
+	test_y_range_x_mean_u: 1.19188
+	test_y_range_x_min_u: 1.19188
+	test_y_row_norms_max: 0.00499882
+	test_y_row_norms_mean: 0.00239271
+	test_y_row_norms_min: 3.24618e-06
+	total_seconds_last_epoch: 0.0
+	train_h0_col_norms_max: 0.923991
+	train_h0_col_norms_mean: 0.886368
+	train_h0_col_norms_min: 0.838825
+	train_h0_max_x_max_u: 2624.5
+	train_h0_max_x_mean_u: 274.082
+	train_h0_max_x_min_u: 0.0
+	train_h0_mean_x_max_u: 2318.94
+	train_h0_mean_x_mean_u: 237.391
+	train_h0_mean_x_min_u: 0.0
+	train_h0_min_x_max_u: 2171.96
+	train_h0_min_x_mean_u: 213.839
+	train_h0_min_x_min_u: 0.0
+	train_h0_range_x_max_u: 459.143
+	train_h0_range_x_mean_u: 60.2429
+	train_h0_range_x_min_u: 0.0
+	train_h0_row_norms_max: 1.03864
+	train_h0_row_norms_mean: 1.00143
+	train_h0_row_norms_min: 0.959299
+	train_h1_col_norms_max: 1.03955
+	train_h1_col_norms_mean: 0.999077
+	train_h1_col_norms_min: 0.954323
+	train_h1_max_x_max_u: 1657.99
+	train_h1_max_x_mean_u: 199.777
+	train_h1_max_x_min_u: 0.0
+	train_h1_mean_x_max_u: 1464.91
+	train_h1_mean_x_mean_u: 173.351
+	train_h1_mean_x_min_u: 0.0
+	train_h1_min_x_max_u: 1362.75
+	train_h1_min_x_mean_u: 156.58
+	train_h1_min_x_min_u: 0.0
+	train_h1_range_x_max_u: 306.884
+	train_h1_range_x_mean_u: 43.1974
+	train_h1_range_x_min_u: 0.0
+	train_h1_row_norms_max: 1.0472
+	train_h1_row_norms_mean: 0.999077
+	train_h1_row_norms_min: 0.954415
+	train_objective: 31.1033
+	train_y_beta_max: 0.999976
+	train_y_beta_mean: 0.999976
+	train_y_beta_min: 0.999976
+	train_y_col_norms_max: 0.0970014
+	train_y_col_norms_mean: 0.0970014
+	train_y_col_norms_min: 0.0970014
+	train_y_max_x_max_u: 9.11663
+	train_y_max_x_mean_u: 9.11663
+	train_y_max_x_min_u: 9.11663
+	train_y_mean_x_max_u: 7.62362
+	train_y_mean_x_mean_u: 7.62362
+	train_y_mean_x_min_u: 7.62362
+	train_y_min_x_max_u: 6.0771
+	train_y_min_x_mean_u: 6.0771
+	train_y_min_x_min_u: 6.0771
+	train_y_mse: 62.2066
+	train_y_range_x_max_u: 3.03952
+	train_y_range_x_mean_u: 3.03952
+	train_y_range_x_min_u: 3.03952
+	train_y_row_norms_max: 0.0049988
+	train_y_row_norms_mean: 0.00239269
+	train_y_row_norms_min: 3.24608e-06
+	training_seconds_this_epoch: 0.0
+	valid_h0_col_norms_max: 0.923978
+	valid_h0_col_norms_mean: 0.886346
+	valid_h0_col_norms_min: 0.83881
+	valid_h0_max_x_max_u: 2214.23
+	valid_h0_max_x_mean_u: 231.731
+	valid_h0_max_x_min_u: 0.0
+	valid_h0_mean_x_max_u: 2199.92
+	valid_h0_mean_x_mean_u: 225.142
+	valid_h0_mean_x_min_u: 0.0
+	valid_h0_min_x_max_u: 2190.49
+	valid_h0_min_x_mean_u: 219.031
+	valid_h0_min_x_min_u: 0.0
+	valid_h0_range_x_max_u: 69.9048
+	valid_h0_range_x_mean_u: 12.7003
+	valid_h0_range_x_min_u: 0.0
+	valid_h0_row_norms_max: 1.03863
+	valid_h0_row_norms_mean: 1.00146
+	valid_h0_row_norms_min: 0.959283
+	valid_h1_col_norms_max: 1.03957
+	valid_h1_col_norms_mean: 0.999055
+	valid_h1_col_norms_min: 0.954292
+	valid_h1_max_x_max_u: 1402.5
+	valid_h1_max_x_mean_u: 169.145
+	valid_h1_max_x_min_u: 0.0
+	valid_h1_mean_x_max_u: 1388.0
+	valid_h1_mean_x_mean_u: 164.417
+	valid_h1_mean_x_min_u: 0.0
+	valid_h1_min_x_max_u: 1375.86
+	valid_h1_min_x_mean_u: 160.038
+	valid_h1_min_x_min_u: 0.0
+	valid_h1_range_x_max_u: 54.9604
+	valid_h1_range_x_mean_u: 9.10677
+	valid_h1_range_x_min_u: 0.0
+	valid_h1_row_norms_max: 1.04725
+	valid_h1_row_norms_mean: 0.999055
+	valid_h1_row_norms_min: 0.954458
+	valid_objective: 32.9262
+	valid_y_beta_max: 0.999997
+	valid_y_beta_mean: 0.999997
+	valid_y_beta_min: 0.999997
+	valid_y_col_norms_max: 0.096999
+	valid_y_col_norms_mean: 0.096999
+	valid_y_col_norms_min: 0.096999
+	valid_y_max_x_max_u: 8.28521
+	valid_y_max_x_mean_u: 8.28521
+	valid_y_max_x_min_u: 8.28521
+	valid_y_mean_x_max_u: 7.58859
+	valid_y_mean_x_mean_u: 7.58859
+	valid_y_mean_x_min_u: 7.58859
+	valid_y_min_x_max_u: 6.86124
+	valid_y_min_x_mean_u: 6.86124
+	valid_y_min_x_min_u: 6.86124
+	valid_y_mse: 65.8525
+	valid_y_range_x_max_u: 1.42396
+	valid_y_range_x_mean_u: 1.42396
+	valid_y_range_x_min_u: 1.42396
+	valid_y_row_norms_max: 0.00499877
+	valid_y_row_norms_mean: 0.00239269
+	valid_y_row_norms_min: 3.24619e-06
+Saving to mlp_regression1_best.pkl...
+Saving to mlp_regression1_best.pkl done. Time elapsed: 1.029018 seconds
+Time this epoch: 6:56:59.557900
+Monitoring step:
+	Epochs seen: 1
+	Batches seen: 2977
+	Examples seen: 3048137
+	ave_grad_mult: 2.19086e-07
+	ave_grad_size: 1.644e+06
+	ave_step_size: 0.000173914
+	test_h0_col_norms_max: 0.923976
+	test_h0_col_norms_mean: 0.886386
+	test_h0_col_norms_min: 0.838806
+	test_h0_max_x_max_u: 2453.94
+	test_h0_max_x_mean_u: 256.044
+	test_h0_max_x_min_u: 0.0
+	test_h0_mean_x_max_u: 2442.06
+	test_h0_mean_x_mean_u: 250.161
+	test_h0_mean_x_min_u: 0.0
+	test_h0_min_x_max_u: 2424.39
+	test_h0_min_x_mean_u: 243.839
+	test_h0_min_x_min_u: 0.0
+	test_h0_range_x_max_u: 69.21
+	test_h0_range_x_mean_u: 12.2055
+	test_h0_range_x_min_u: 0.0
+	test_h0_row_norms_max: 1.03861
+	test_h0_row_norms_mean: 1.00151
+	test_h0_row_norms_min: 0.959286
+	test_h1_col_norms_max: 1.03956
+	test_h1_col_norms_mean: 0.999093
+	test_h1_col_norms_min: 0.954281
+	test_h1_max_x_max_u: 1577.99
+	test_h1_max_x_mean_u: 187.008
+	test_h1_max_x_min_u: 0.0
+	test_h1_mean_x_max_u: 1565.92
+	test_h1_mean_x_mean_u: 182.704
+	test_h1_mean_x_min_u: 0.0
+	test_h1_min_x_max_u: 1549.87
+	test_h1_min_x_mean_u: 178.136
+	test_h1_min_x_min_u: 0.0
+	test_h1_range_x_max_u: 53.2476
+	test_h1_range_x_mean_u: 8.87185
+	test_h1_range_x_min_u: 0.0
+	test_h1_row_norms_max: 1.04737
+	test_h1_row_norms_mean: 0.999093
+	test_h1_row_norms_min: 0.954586
+	test_objective: 26.2513
+	test_y_beta_max: 1.00001
+	test_y_beta_mean: 1.00001
+	test_y_beta_min: 1.00001
+	test_y_col_norms_max: 0.328295
+	test_y_col_norms_mean: 0.328295
+	test_y_col_norms_min: 0.328295
+	test_y_max_x_max_u: 5.94593
+	test_y_max_x_mean_u: 5.94593
+	test_y_max_x_min_u: 5.94593
+	test_y_mean_x_max_u: 3.97998
+	test_y_mean_x_mean_u: 3.97998
+	test_y_mean_x_min_u: 3.97998
+	test_y_min_x_max_u: 1.86112
+	test_y_min_x_mean_u: 1.86112
+	test_y_min_x_min_u: 1.86112
+	test_y_mse: 52.5026
+	test_y_range_x_max_u: 4.08481
+	test_y_range_x_mean_u: 4.08481
+	test_y_range_x_min_u: 4.08481
+	test_y_row_norms_max: 0.0507924
+	test_y_row_norms_mean: 0.00646102
+	test_y_row_norms_min: 3.24618e-06
+	total_seconds_last_epoch: 0.0
+	train_h0_col_norms_max: 0.923991
+	train_h0_col_norms_mean: 0.886405
+	train_h0_col_norms_min: 0.838825
+	train_h0_max_x_max_u: 2620.09
+	train_h0_max_x_mean_u: 274.217
+	train_h0_max_x_min_u: 0.0
+	train_h0_mean_x_max_u: 2315.02
+	train_h0_mean_x_mean_u: 237.501
+	train_h0_mean_x_min_u: 0.0
+	train_h0_min_x_max_u: 2168.4
+	train_h0_min_x_mean_u: 213.921
+	train_h0_min_x_min_u: 0.0
+	train_h0_range_x_max_u: 458.562
+	train_h0_range_x_mean_u: 60.296
+	train_h0_range_x_min_u: 0.0
+	train_h0_row_norms_max: 1.03864
+	train_h0_row_norms_mean: 1.00153
+	train_h0_row_norms_min: 0.959299
+	train_h1_col_norms_max: 1.03955
+	train_h1_col_norms_mean: 0.999088
+	train_h1_col_norms_min: 0.954324
+	train_h1_max_x_max_u: 1665.32
+	train_h1_max_x_mean_u: 200.263
+	train_h1_max_x_min_u: 0.0
+	train_h1_mean_x_max_u: 1472.12
+	train_h1_mean_x_mean_u: 173.722
+	train_h1_mean_x_min_u: 0.0
+	train_h1_min_x_max_u: 1370.09
+	train_h1_min_x_mean_u: 156.804
+	train_h1_min_x_min_u: 0.0
+	train_h1_range_x_max_u: 305.638
+	train_h1_range_x_mean_u: 43.4589
+	train_h1_range_x_min_u: 0.0
+	train_h1_row_norms_max: 1.04736
+	train_h1_row_norms_mean: 0.999088
+	train_h1_row_norms_min: 0.954555
+	train_objective: 19.5583
+	train_y_beta_max: 0.999976
+	train_y_beta_mean: 0.999976
+	train_y_beta_min: 0.999976
+	train_y_col_norms_max: 0.328298
+	train_y_col_norms_mean: 0.328298
+	train_y_col_norms_min: 0.328298
+	train_y_max_x_max_u: 8.18628
+	train_y_max_x_mean_u: 8.18628
+	train_y_max_x_min_u: 8.18628
+	train_y_mean_x_max_u: 3.72002
+	train_y_mean_x_mean_u: 3.72002
+	train_y_mean_x_min_u: 3.72002
+	train_y_min_x_max_u: -2.75198
+	train_y_min_x_mean_u: -2.75198
+	train_y_min_x_min_u: -2.75198
+	train_y_mse: 39.1166
+	train_y_range_x_max_u: 10.9383
+	train_y_range_x_mean_u: 10.9383
+	train_y_range_x_min_u: 10.9383
+	train_y_row_norms_max: 0.0507911
+	train_y_row_norms_mean: 0.00646079
+	train_y_row_norms_min: 3.24608e-06
+	training_seconds_this_epoch: 2.502e+04
+	valid_h0_col_norms_max: 0.923977
+	valid_h0_col_norms_mean: 0.886398
+	valid_h0_col_norms_min: 0.83881
+	valid_h0_max_x_max_u: 2210.49
+	valid_h0_max_x_mean_u: 231.82
+	valid_h0_max_x_min_u: 0.0
+	valid_h0_mean_x_max_u: 2196.22
+	valid_h0_mean_x_mean_u: 225.244
+	valid_h0_mean_x_min_u: 0.0
+	valid_h0_min_x_max_u: 2186.85
+	valid_h0_min_x_mean_u: 219.137
+	valid_h0_min_x_min_u: 0.0
+	valid_h0_range_x_max_u: 69.9502
+	valid_h0_range_x_mean_u: 12.684
+	valid_h0_range_x_min_u: 0.0
+	valid_h0_row_norms_max: 1.03863
+	valid_h0_row_norms_mean: 1.00151
+	valid_h0_row_norms_min: 0.959282
+	valid_h1_col_norms_max: 1.03957
+	valid_h1_col_norms_mean: 0.999107
+	valid_h1_col_norms_min: 0.954292
+	valid_h1_max_x_max_u: 1409.11
+	valid_h1_max_x_mean_u: 169.553
+	valid_h1_max_x_min_u: 0.0
+	valid_h1_mean_x_max_u: 1395.17
+	valid_h1_mean_x_mean_u: 164.777
+	valid_h1_mean_x_min_u: 0.0
+	valid_h1_min_x_max_u: 1383.76
+	valid_h1_min_x_mean_u: 160.343
+	valid_h1_min_x_min_u: 0.0
+	valid_h1_range_x_max_u: 54.534
+	valid_h1_range_x_mean_u: 9.20983
+	valid_h1_range_x_min_u: 0.0
+	valid_h1_row_norms_max: 1.04737
+	valid_h1_row_norms_mean: 0.999107
+	valid_h1_row_norms_min: 0.95457
+	valid_objective: 29.466
+	valid_y_beta_max: 0.999997
+	valid_y_beta_mean: 0.999997
+	valid_y_beta_min: 0.999997
+	valid_y_col_norms_max: 0.328298
+	valid_y_col_norms_mean: 0.328298
+	valid_y_col_norms_min: 0.328298
+	valid_y_max_x_max_u: 5.66613
+	valid_y_max_x_mean_u: 5.66613
+	valid_y_max_x_min_u: 5.66613
+	valid_y_mean_x_max_u: 3.96029
+	valid_y_mean_x_mean_u: 3.96029
+	valid_y_mean_x_min_u: 3.96029
+	valid_y_min_x_max_u: 2.11785
+	valid_y_min_x_mean_u: 2.11785
+	valid_y_min_x_min_u: 2.11785
+	valid_y_mse: 58.932
+	valid_y_range_x_max_u: 3.54828
+	valid_y_range_x_mean_u: 3.54828
+	valid_y_range_x_min_u: 3.54828
+	valid_y_row_norms_max: 0.0507922
+	valid_y_row_norms_mean: 0.00646097
+	valid_y_row_norms_min: 3.24619e-06
+Saving to mlp_regression1_best.pkl...
+Saving to mlp_regression1_best.pkl done. Time elapsed: 1.028169 seconds
+Saving to mlp_regression1.pkl...
+Saving to mlp_regression1.pkl done. Time elapsed: 1.018945 seconds
