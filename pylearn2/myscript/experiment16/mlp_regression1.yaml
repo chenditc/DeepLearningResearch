@@ -1,0 +1,68 @@
+!obj:pylearn2.train.Train {
+    dataset: &train !obj:myscript.experiment16.load_security.load_security {
+        security: &ticker 'all', 
+        stopDate: &train_stop '2014-01-01',
+        days: &security_days 5
+    },
+    model: !obj:pylearn2.models.mlp.MLP {
+        layers: [
+                 !obj:pylearn2.models.mlp.RectifiedLinear {
+                     layer_name: 'h0',
+                     dim: 1200,
+                     irange: .05,
+                 },
+                 !obj:pylearn2.models.mlp.RectifiedLinear {
+                     layer_name: 'h1',
+                     dim: 1200,
+                     irange: .05
+                 },
+                 !obj:pylearn2.models.mlp.LinearGaussian {
+                     init_bias: !obj:pylearn2.models.mlp.mean_of_targets { 
+                       dataset: *train },
+                     init_beta: !obj:pylearn2.models.mlp.beta_from_targets { 
+                       dataset: *train },
+                     beta_lr_scale: 1.,
+                     dim: 1,
+                     # max_col_norm: 1.9365,
+                     layer_name: 'y',
+                     irange: .05
+                 }
+                ],
+        nvis: 940,   # input dimension
+    },
+    algorithm: !obj:pylearn2.training_algorithms.bgd.BGD {
+        line_search_mode: 'exhaustive',
+        batch_size: 1024,
+        conjugate: 1,
+        reset_conjugate: 0,
+        reset_alpha: 0,
+        updates_per_batch: 1000,
+        monitoring_dataset:
+            {
+                'train' : *train,
+                'valid' : !obj:myscript.experiment16.load_security.load_security {
+                            security: *ticker, 
+                            startDate: *train_stop,
+                            stopDate: &valid_stop '2014-06-01',
+                            days: *security_days
+                          },
+                'test'  : !obj:myscript.experiment16.load_security.load_security {
+                            security: *ticker, 
+                            startDate: *valid_stop,
+                            days: *security_days
+                          }
+            },
+        termination_criterion: !obj:pylearn2.termination_criteria.MonitorBased {
+            channel_name: "valid_y_mse",
+            prop_decrease: 0.,
+            N: 100
+        },
+    },
+    extensions: [
+        !obj:pylearn2.train_extensions.best_params.MonitorBasedSaveBest {
+             channel_name: 'valid_y_mse',
+             save_path: "${PYLEARN2_TRAIN_FILE_FULL_STEM}_best.pkl"
+        },
+    ],
+    save_freq: 1
+}

@@ -1,0 +1,59 @@
+modprobe: ERROR: could not insert 'nvidia_346': No such device
+WARNING (theano.sandbox.cuda): CUDA is installed, but device gpu is not available  (error: Unable to get the number of gpus available: no CUDA-capable device is detected)
+loading data: all 14-03-04 14-03-06 5
+get dates: 859
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 152043 152043
+Dimension: 940
+x shape:  (152043, 940)
+y shape:  (152043, 1)
+For  ('601918 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 13.15026855]  actual: [ 0.63492063]  P&L: [ 0.63492063]
+For  ('600523 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 7.78045654]  actual: [-2.97188755]  P&L: [-2.97188755]
+For  ('601252 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 7.16137123]  actual: [-0.30627871]  P&L: [-0.30627871]
+For  ('600787 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 6.99843216]  actual: [-5.46875]  P&L: [-5.46875]
+For  ('600234 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 6.92352676]  actual: [-2.32172471]  P&L: [-2.32172471]
+For  ('601918 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 13.15026855]  actual: [ 0.63492063]  P&L: [-0.63492063]
+For  ('SHCOMP Index', datetime.date(2014, 3, 4))  predicti: [-6.2681427]  actual: [-0.9748251]  P&L: [ 0.9748251]
+For  ('600680 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 0.26142478]  actual: [ 4.682869]  P&L: [-4.682869]
+For  ('600884 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 0.42142081]  actual: [ 0.4127967]  P&L: [-0.4127967]
+For  ('600699 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 0.83860564]  actual: [ 0.31380753]  P&L: [-0.31380753]
+/usr/lib/python2.7/dist-packages/numpy/core/_methods.py:55: RuntimeWarning: Mean of empty slice.
+  warnings.warn("Mean of empty slice.", RuntimeWarning)
+loading data: all 14-03-05 14-03-07 5
+get dates: 858
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 173316 173316
+Dimension: 940
+x shape:  (173316, 940)
+y shape:  (173316, 1)
+For  ('600429 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 8.60033035]  actual: [ 3.09155767]  P&L: [ 3.09155767]
+For  ('600249 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 7.26358032]  actual: [-0.38240918]  P&L: [-0.38240918]
+For  ('600523 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 6.1346817]  actual: [-1.32231405]  P&L: [-1.32231405]
+For  ('600704 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 5.5612812]  actual: [ 7.32421875]  P&L: [ 7.32421875]
+For  ('601252 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 5.32082367]  actual: [ 2.15384615]  P&L: [ 2.15384615]
+For  ('600429 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 8.60033035]  actual: [ 3.09155767]  P&L: [-3.09155767]
+For  ('SHCOMP Index', datetime.date(2014, 3, 5))  predicti: [-7.52560425]  actual: [ 0.46565127]  P&L: [-0.46565127]
+For  ('600734 CH Equity', datetime.date(2014, 3, 5))  predicti: [-4.3732338]  actual: [ 0.93023256]  P&L: [-0.93023256]
+For  ('600680 CH Equity', datetime.date(2014, 3, 5))  predicti: [-2.20808244]  actual: [ 2.31700895]  P&L: [-2.31700895]
+For  ('600714 CH Equity', datetime.date(2014, 3, 5))  predicti: [-1.86575341]  actual: [-0.19436346]  P&L: [ 0.19436346]
+loading data: all 14-03-06 14-03-08 5
+get dates: 861
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
