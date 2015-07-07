@@ -1,0 +1,603 @@
+modprobe: ERROR: could not insert 'nvidia_346': No such device
+WARNING (theano.sandbox.cuda): CUDA is installed, but device gpu is not available  (error: Unable to get the number of gpus available: no CUDA-capable device is detected)
+loading data: all 14-03-04 14-03-06 5
+get dates: 859
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 152043 152043
+Dimension: 940
+x shape:  (152043, 940)
+y shape:  (152043, 1)
+For  ('600429 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 89.31716919]  actual: [-9.72222222]  P&L: [-9.72222222]
+For  ('601636 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 86.16738129]  actual: [-0.23923445]  P&L: [-0.23923445]
+For  ('600714 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 85.85063171]  actual: [ 6.97435897]  P&L: [ 6.97435897]
+For  ('600884 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 85.68470764]  actual: [ 0.4127967]  P&L: [ 0.4127967]
+For  ('601179 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 85.30614471]  actual: [-2.68817204]  P&L: [-2.68817204]
+For  ('SHCOMP Index', datetime.date(2014, 3, 4))  predicti: [ 13.95938683]  actual: [-0.9748251]  P&L: [ 0.9748251]
+For  ('600551 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 65.57110596]  actual: [-2.42424242]  P&L: [ 2.42424242]
+For  ('601633 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 65.71004486]  actual: [ 0.44067797]  P&L: [-0.44067797]
+For  ('603000 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 65.81578064]  actual: [ 1.07329843]  P&L: [-1.07329843]
+For  ('600436 CH Equity', datetime.date(2014, 3, 4))  predicti: [ 66.15776062]  actual: [-1.17403315]  P&L: [ 1.17403315]
+My money: 99.7796651232
+loading data: all 14-03-05 14-03-07 5
+get dates: 858
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 173316 173316
+Dimension: 940
+x shape:  (173316, 940)
+y shape:  (173316, 1)
+For  ('600429 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 87.0229187]  actual: [ 3.09155767]  P&L: [ 3.09155767]
+For  ('600260 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 86.06545258]  actual: [-0.52356021]  P&L: [-0.52356021]
+For  ('600578 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 84.78771973]  actual: [-0.47505938]  P&L: [-0.47505938]
+For  ('600714 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 84.73927307]  actual: [-0.19436346]  P&L: [-0.19436346]
+For  ('600463 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 84.37817383]  actual: [ 3.25581395]  P&L: [ 3.25581395]
+For  ('SHCOMP Index', datetime.date(2014, 3, 5))  predicti: [ 14.00104713]  actual: [ 0.46565127]  P&L: [-0.46565127]
+For  ('601252 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 64.78688049]  actual: [ 2.15384615]  P&L: [-2.15384615]
+For  ('600551 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 65.49295807]  actual: [ 3.02166477]  P&L: [-3.02166477]
+For  ('601633 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 65.72540283]  actual: [-1.88870152]  P&L: [ 1.88870152]
+For  ('600872 CH Equity', datetime.date(2014, 3, 5))  predicti: [ 66.40752411]  actual: [-3.9]  P&L: [ 3.9]
+My money: 100.308689714
+loading data: all 14-03-06 14-03-08 5
+get dates: 861
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 207501 207501
+Dimension: 940
+x shape:  (207501, 940)
+y shape:  (207501, 1)
+For  ('600429 CH Equity', datetime.date(2014, 3, 6))  predicti: [ 87.58100891]  actual: [-0.46511628]  P&L: [-0.46511628]
+For  ('600960 CH Equity', datetime.date(2014, 3, 6))  predicti: [ 86.85928345]  actual: [-0.24301337]  P&L: [-0.24301337]
+For  ('600819 CH Equity', datetime.date(2014, 3, 6))  predicti: [ 86.66287994]  actual: [ 0.28129395]  P&L: [ 0.28129395]
+For  ('603002 CH Equity', datetime.date(2014, 3, 6))  predicti: [ 85.53805542]  actual: [ 1.89959294]  P&L: [ 1.89959294]
+For  ('600371 CH Equity', datetime.date(2014, 3, 6))  predicti: [ 85.48509216]  actual: [-2.01280878]  P&L: [-2.01280878]
+For  ('SHCOMP Index', datetime.date(2014, 3, 6))  predicti: [ 14.71668053]  actual: [-0.0226878]  P&L: [ 0.0226878]
+For  ('601918 CH Equity', datetime.date(2014, 3, 6))  predicti: [ 64.20497894]  actual: [-1.26984127]  P&L: [ 1.26984127]
+For  ('601633 CH Equity', datetime.date(2014, 3, 6))  predicti: [ 66.85892487]  actual: [ 5.22540984]  P&L: [-5.22540984]
+For  ('600551 CH Equity', datetime.date(2014, 3, 6))  predicti: [ 67.44164276]  actual: [-0.61763054]  P&L: [ 0.61763054]
+For  ('600557 CH Equity', datetime.date(2014, 3, 6))  predicti: [ 67.58070374]  actual: [ 0.97777778]  P&L: [-0.97777778]
+My money: 99.8238898387
+loading data: all 14-03-09 14-03-11 5
+get dates: 896
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 56448 56448
+Dimension: 940
+x shape:  (56448, 940)
+y shape:  (56448, 1)
+For  ('600732 CH Equity', datetime.date(2014, 3, 9))  predicti: [ 95.59777832]  actual: [-1.87110187]  P&L: [-1.87110187]
+For  ('600392 CH Equity', datetime.date(2014, 3, 9))  predicti: [ 88.93375397]  actual: [-8.71194379]  P&L: [-8.71194379]
+For  ('600375 CH Equity', datetime.date(2014, 3, 9))  predicti: [ 86.77754211]  actual: [ 2.87769784]  P&L: [ 2.87769784]
+For  ('600966 CH Equity', datetime.date(2014, 3, 9))  predicti: [ 85.63734436]  actual: [-2.11538462]  P&L: [-2.11538462]
+For  ('600846 CH Equity', datetime.date(2014, 3, 9))  predicti: [ 84.86975098]  actual: [ 1.38150903]  P&L: [ 1.38150903]
+For  ('SHCOMP Index', datetime.date(2014, 3, 9))  predicti: [ 14.45806313]  actual: [-2.11946814]  P&L: [ 2.11946814]
+For  ('601633 CH Equity', datetime.date(2014, 3, 9))  predicti: [ 66.69837189]  actual: [ 4.39344262]  P&L: [-4.39344262]
+For  ('600557 CH Equity', datetime.date(2014, 3, 9))  predicti: [ 67.06445312]  actual: [ 1.72357855]  P&L: [-1.72357855]
+For  ('600551 CH Equity', datetime.date(2014, 3, 9))  predicti: [ 67.18922424]  actual: [-4.56383593]  P&L: [ 4.56383593]
+For  ('600734 CH Equity', datetime.date(2014, 3, 9))  predicti: [ 67.72389221]  actual: [-4.69483568]  P&L: [ 4.69483568]
+My money: 99.5066390525
+loading data: all 14-03-10 14-03-12 5
+get dates: 864
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 120960 120960
+Dimension: 940
+x shape:  (120960, 940)
+y shape:  (120960, 1)
+For  ('600732 CH Equity', datetime.date(2014, 3, 10))  predicti: [ 93.2191391]  actual: [-0.43668122]  P&L: [-0.43668122]
+For  ('600966 CH Equity', datetime.date(2014, 3, 10))  predicti: [ 89.14319611]  actual: [-0.98039216]  P&L: [-0.98039216]
+For  ('600846 CH Equity', datetime.date(2014, 3, 10))  predicti: [ 88.44821167]  actual: [-7.32714138]  P&L: [-7.32714138]
+For  ('600375 CH Equity', datetime.date(2014, 3, 10))  predicti: [ 88.4391098]  actual: [ 5.03496503]  P&L: [ 5.03496503]
+For  ('600081 CH Equity', datetime.date(2014, 3, 10))  predicti: [ 87.84806061]  actual: [-2.22222222]  P&L: [-2.22222222]
+For  ('SHCOMP Index', datetime.date(2014, 3, 10))  predicti: [ 14.05103493]  actual: [ 0.33804399]  P&L: [-0.33804399]
+For  ('600551 CH Equity', datetime.date(2014, 3, 10))  predicti: [ 69.97516632]  actual: [ 1.08564536]  P&L: [-1.08564536]
+For  ('600557 CH Equity', datetime.date(2014, 3, 10))  predicti: [ 70.08708191]  actual: [ 4.668]  P&L: [-4.668]
+For  ('601633 CH Equity', datetime.date(2014, 3, 10))  predicti: [ 70.22755432]  actual: [ 3.20452403]  P&L: [-3.20452403]
+For  ('603000 CH Equity', datetime.date(2014, 3, 10))  predicti: [ 71.00252533]  actual: [ 0.70452912]  P&L: [-0.70452912]
+My money: 97.9212779406
+loading data: all 14-03-11 14-03-13 5
+get dates: 861
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 129150 129150
+Dimension: 940
+x shape:  (129150, 940)
+y shape:  (129150, 1)
+For  ('600961 CH Equity', datetime.date(2014, 3, 11))  predicti: [ 88.65921783]  actual: [ 2.10696921]  P&L: [ 2.10696921]
+For  ('600358 CH Equity', datetime.date(2014, 3, 11))  predicti: [ 86.64295959]  actual: [ 2.02247191]  P&L: [ 2.02247191]
+For  ('600753 CH Equity', datetime.date(2014, 3, 11))  predicti: [ 85.7035675]  actual: [-1.35849057]  P&L: [-1.35849057]
+For  ('600966 CH Equity', datetime.date(2014, 3, 11))  predicti: [ 85.54424286]  actual: [ 0.6012024]  P&L: [ 0.6012024]
+For  ('600220 CH Equity', datetime.date(2014, 3, 11))  predicti: [ 85.41487122]  actual: [-2.39726027]  P&L: [-2.39726027]
+For  ('SHCOMP Index', datetime.date(2014, 3, 11))  predicti: [ 12.76843071]  actual: [ 0.07283701]  P&L: [-0.07283701]
+For  ('600305 CH Equity', datetime.date(2014, 3, 11))  predicti: [ 68.44509888]  actual: [-0.46756283]  P&L: [ 0.46756283]
+For  ('601222 CH Equity', datetime.date(2014, 3, 11))  predicti: [ 68.49199677]  actual: [ 0.34802784]  P&L: [-0.34802784]
+For  ('600551 CH Equity', datetime.date(2014, 3, 11))  predicti: [ 68.80096436]  actual: [ 2.86567164]  P&L: [-2.86567164]
+For  ('603000 CH Equity', datetime.date(2014, 3, 11))  predicti: [ 69.33850098]  actual: [ 0.92857143]  P&L: [-0.92857143]
+My money: 97.6497762734
+loading data: all 14-03-12 14-03-14 5
+get dates: 865
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 105530 105530
+Dimension: 940
+x shape:  (105530, 940)
+y shape:  (105530, 1)
+For  ('600753 CH Equity', datetime.date(2014, 3, 12))  predicti: [ 84.81365204]  actual: [ 2.2745098]  P&L: [ 2.2745098]
+For  ('600857 CH Equity', datetime.date(2014, 3, 12))  predicti: [ 84.3105011]  actual: [-6.69172932]  P&L: [-6.69172932]
+For  ('600358 CH Equity', datetime.date(2014, 3, 12))  predicti: [ 84.03623199]  actual: [ 1.54185022]  P&L: [ 1.54185022]
+For  ('600760 CH Equity', datetime.date(2014, 3, 12))  predicti: [ 83.84096527]  actual: [-4.42622951]  P&L: [-4.42622951]
+For  ('601727 CH Equity', datetime.date(2014, 3, 12))  predicti: [ 83.53586578]  actual: [ 0.51546392]  P&L: [ 0.51546392]
+For  ('SHCOMP Index', datetime.date(2014, 3, 12))  predicti: [ 7.7140975]  actual: [ 0.92048013]  P&L: [-0.92048013]
+For  ('601222 CH Equity', datetime.date(2014, 3, 12))  predicti: [ 65.93027496]  actual: [ 1.72910663]  P&L: [-1.72910663]
+For  ('600072 CH Equity', datetime.date(2014, 3, 12))  predicti: [ 66.46612549]  actual: [ 1.27388535]  P&L: [-1.27388535]
+For  ('603000 CH Equity', datetime.date(2014, 3, 12))  predicti: [ 67.00629425]  actual: [ 1.35881104]  P&L: [-1.35881104]
+For  ('600551 CH Equity', datetime.date(2014, 3, 12))  predicti: [ 67.04574585]  actual: [ 0.98837209]  P&L: [-0.98837209]
+My money: 96.3747836379
+loading data: all 14-03-13 14-03-15 5
+get dates: 853
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 145010 145010
+Dimension: 940
+x shape:  (145010, 940)
+y shape:  (145010, 1)
+For  ('600753 CH Equity', datetime.date(2014, 3, 13))  predicti: [ 83.67907715]  actual: [ 1.70542636]  P&L: [ 1.70542636]
+For  ('600857 CH Equity', datetime.date(2014, 3, 13))  predicti: [ 83.16537476]  actual: [-1.95280716]  P&L: [-1.95280716]
+For  ('600618 CH Equity', datetime.date(2014, 3, 13))  predicti: [ 83.06661987]  actual: [ 0.14044944]  P&L: [ 0.14044944]
+For  ('600155 CH Equity', datetime.date(2014, 3, 13))  predicti: [ 81.9203949]  actual: [ 13.14814815]  P&L: [ 13.14814815]
+For  ('600575 CH Equity', datetime.date(2014, 3, 13))  predicti: [ 81.76538086]  actual: [ 0.86455331]  P&L: [ 0.86455331]
+For  ('SHCOMP Index', datetime.date(2014, 3, 13))  predicti: [ 6.48433065]  actual: [-0.22326496]  P&L: [ 0.22326496]
+For  ('600072 CH Equity', datetime.date(2014, 3, 13))  predicti: [ 62.69200134]  actual: [-1.7721519]  P&L: [ 1.7721519]
+For  ('600150 CH Equity', datetime.date(2014, 3, 13))  predicti: [ 63.68112183]  actual: [-3.04461942]  P&L: [ 3.04461942]
+For  ('601009 CH Equity', datetime.date(2014, 3, 13))  predicti: [ 63.79611588]  actual: [-0.39946738]  P&L: [ 0.39946738]
+For  ('600372 CH Equity', datetime.date(2014, 3, 13))  predicti: [ 64.09596252]  actual: [-0.42654028]  P&L: [ 0.42654028]
+My money: 98.2802879376
+loading data: all 14-03-16 14-03-18 5
+get dates: 884
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 15912 15912
+Dimension: 940
+x shape:  (15912, 940)
+y shape:  (15912, 1)
+For  ('600753 CH Equity', datetime.date(2014, 3, 16))  predicti: [ 89.28742981]  actual: [ 0.38167939]  P&L: [ 0.38167939]
+For  ('600258 CH Equity', datetime.date(2014, 3, 16))  predicti: [ 88.89477539]  actual: [ 3.0075188]  P&L: [ 3.0075188]
+For  ('600746 CH Equity', datetime.date(2014, 3, 16))  predicti: [ 88.07287598]  actual: [ 7.5177305]  P&L: [ 7.5177305]
+For  ('600155 CH Equity', datetime.date(2014, 3, 16))  predicti: [ 87.63899231]  actual: [ 5.78512397]  P&L: [ 5.78512397]
+For  ('600857 CH Equity', datetime.date(2014, 3, 16))  predicti: [ 87.51091003]  actual: [ 7.22591362]  P&L: [ 7.22591362]
+For  ('SHCOMP Index', datetime.date(2014, 3, 16))  predicti: [ 13.72338295]  actual: [ 0.68610993]  P&L: [-0.68610993]
+For  ('600999 CH Equity', datetime.date(2014, 3, 16))  predicti: [ 67.48680878]  actual: [-0.39761431]  P&L: [ 0.39761431]
+For  ('600648 CH Equity', datetime.date(2014, 3, 16))  predicti: [ 67.51230621]  actual: [ 2.1299639]  P&L: [-2.1299639]
+For  ('600502 CH Equity', datetime.date(2014, 3, 16))  predicti: [ 67.73477173]  actual: [ 2.4602026]  P&L: [-2.4602026]
+For  ('600119 CH Equity', datetime.date(2014, 3, 16))  predicti: [ 67.7830658]  actual: [ 4.19753086]  P&L: [-4.19753086]
+My money: 99.7389416897
+loading data: all 14-03-17 14-03-19 5
+get dates: 826
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 108206 108206
+Dimension: 940
+x shape:  (108206, 940)
+y shape:  (108206, 1)
+For  ('600155 CH Equity', datetime.date(2014, 3, 17))  predicti: [ 92.32756805]  actual: [ 2.88]  P&L: [ 2.88]
+For  ('600135 CH Equity', datetime.date(2014, 3, 17))  predicti: [ 92.194664]  actual: [-1.09452736]  P&L: [-1.09452736]
+For  ('600579 CH Equity', datetime.date(2014, 3, 17))  predicti: [ 91.85993195]  actual: [ 1.41065831]  P&L: [ 1.41065831]
+For  ('600358 CH Equity', datetime.date(2014, 3, 17))  predicti: [ 91.4136734]  actual: [ 1.45530146]  P&L: [ 1.45530146]
+For  ('601218 CH Equity', datetime.date(2014, 3, 17))  predicti: [ 91.24401855]  actual: [-0.43010753]  P&L: [-0.43010753]
+For  ('SHCOMP Index', datetime.date(2014, 3, 17))  predicti: [ 19.14478493]  actual: [-0.05073477]  P&L: [ 0.05073477]
+For  ('600745 CH Equity', datetime.date(2014, 3, 17))  predicti: [ 70.25636292]  actual: [-0.25316456]  P&L: [ 0.25316456]
+For  ('600999 CH Equity', datetime.date(2014, 3, 17))  predicti: [ 71.23101807]  actual: [-1.19165839]  P&L: [ 1.19165839]
+For  ('600502 CH Equity', datetime.date(2014, 3, 17))  predicti: [ 72.01628876]  actual: [ 6.22347949]  P&L: [-6.22347949]
+For  ('600550 CH Equity', datetime.date(2014, 3, 17))  predicti: [ 72.13122559]  actual: [-1.27877238]  P&L: [ 1.27877238]
+My money: 99.8159576542
+loading data: all 14-03-18 14-03-20 5
+get dates: 849
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 122256 122256
+Dimension: 940
+x shape:  (122256, 940)
+y shape:  (122256, 1)
+For  ('601218 CH Equity', datetime.date(2014, 3, 18))  predicti: [ 92.84629059]  actual: [ 9.17030568]  P&L: [ 9.17030568]
+For  ('600155 CH Equity', datetime.date(2014, 3, 18))  predicti: [ 92.79414368]  actual: [ 12.22222222]  P&L: [ 12.22222222]
+For  ('600869 CH Equity', datetime.date(2014, 3, 18))  predicti: [ 92.40710449]  actual: [-3.09072782]  P&L: [-3.09072782]
+For  ('600358 CH Equity', datetime.date(2014, 3, 18))  predicti: [ 92.34106445]  actual: [-0.6147541]  P&L: [-0.6147541]
+For  ('600135 CH Equity', datetime.date(2014, 3, 18))  predicti: [ 92.00493622]  actual: [ 11.30346232]  P&L: [ 11.30346232]
+For  ('SHCOMP Index', datetime.date(2014, 3, 18))  predicti: [ 16.596838]  actual: [ 0.08683254]  P&L: [-0.08683254]
+For  ('600745 CH Equity', datetime.date(2014, 3, 18))  predicti: [ 73.00944519]  actual: [ 9.51979781]  P&L: [-9.51979781]
+For  ('600648 CH Equity', datetime.date(2014, 3, 18))  predicti: [ 73.78834534]  actual: [ 0.46296296]  P&L: [-0.46296296]
+For  ('600704 CH Equity', datetime.date(2014, 3, 18))  predicti: [ 74.34065247]  actual: [-1.75824176]  P&L: [ 1.75824176]
+For  ('600640 CH Equity', datetime.date(2014, 3, 18))  predicti: [ 74.67085266]  actual: [ 2.63852243]  P&L: [-2.63852243]
+My money: 101.616700846
+loading data: all 14-03-19 14-03-21 5
+get dates: 879
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 118665 118665
+Dimension: 940
+x shape:  (118665, 940)
+y shape:  (118665, 1)
+For  ('600818 CH Equity', datetime.date(2014, 3, 19))  predicti: [ 96.23012543]  actual: [-4.33333333]  P&L: [-4.33333333]
+For  ('600869 CH Equity', datetime.date(2014, 3, 19))  predicti: [ 95.51451874]  actual: [-1.017294]  P&L: [-1.017294]
+For  ('600146 CH Equity', datetime.date(2014, 3, 19))  predicti: [ 94.64850616]  actual: [ 3.94144144]  P&L: [ 3.94144144]
+For  ('600135 CH Equity', datetime.date(2014, 3, 19))  predicti: [ 94.55263519]  actual: [ 2.0952381]  P&L: [ 2.0952381]
+For  ('600735 CH Equity', datetime.date(2014, 3, 19))  predicti: [ 94.47364044]  actual: [-4.03587444]  P&L: [-4.03587444]
+For  ('SHCOMP Index', datetime.date(2014, 3, 19))  predicti: [ 17.52721214]  actual: [-1.17686776]  P&L: [ 1.17686776]
+For  ('600335 CH Equity', datetime.date(2014, 3, 19))  predicti: [ 67.95008087]  actual: [ 3.8961039]  P&L: [-3.8961039]
+For  ('600256 CH Equity', datetime.date(2014, 3, 19))  predicti: [ 74.52703094]  actual: [-0.70721358]  P&L: [ 0.70721358]
+For  ('601257 CH Equity', datetime.date(2014, 3, 19))  predicti: [ 75.58581543]  actual: [ 11.7816092]  P&L: [-11.7816092]
+For  ('600557 CH Equity', datetime.date(2014, 3, 19))  predicti: [ 76.46109772]  actual: [ 0.07022472]  P&L: [-0.07022472]
+My money: 99.8675036059
+loading data: all 14-03-20 14-03-22 5
+get dates: 896
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 129024 129024
+Dimension: 940
+x shape:  (129024, 940)
+y shape:  (129024, 1)
+For  ('600515 CH Equity', datetime.date(2014, 3, 20))  predicti: [ 99.02368164]  actual: [ 2.672148]  P&L: [ 2.672148]
+For  ('600818 CH Equity', datetime.date(2014, 3, 20))  predicti: [ 98.45487976]  actual: [ 1.69491525]  P&L: [ 1.69491525]
+For  ('600802 CH Equity', datetime.date(2014, 3, 20))  predicti: [ 98.25450134]  actual: [ 6.97986577]  P&L: [ 6.97986577]
+For  ('600358 CH Equity', datetime.date(2014, 3, 20))  predicti: [ 97.60852814]  actual: [ 3.58565737]  P&L: [ 3.58565737]
+For  ('600371 CH Equity', datetime.date(2014, 3, 20))  predicti: [ 97.38360596]  actual: [ 1.87940486]  P&L: [ 1.87940486]
+For  ('SHCOMP Index', datetime.date(2014, 3, 20))  predicti: [ 22.26759529]  actual: [ 3.01557746]  P&L: [-3.01557746]
+For  ('600335 CH Equity', datetime.date(2014, 3, 20))  predicti: [ 66.81159973]  actual: [ 1.52851264]  P&L: [-1.52851264]
+For  ('600243 CH Equity', datetime.date(2014, 3, 20))  predicti: [ 73.67590332]  actual: [ 2.23367698]  P&L: [-2.23367698]
+For  ('600549 CH Equity', datetime.date(2014, 3, 20))  predicti: [ 74.77269745]  actual: [ 4.18708241]  P&L: [-4.18708241]
+For  ('600598 CH Equity', datetime.date(2014, 3, 20))  predicti: [ 79.09810638]  actual: [ 0.93457944]  P&L: [-0.93457944]
+My money: 100.358108941
+loading data: all 14-03-23 14-03-25 5
+get dates: 878
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+Length: 35998 35998
+Dimension: 940
+x shape:  (35998, 940)
+y shape:  (35998, 1)
+For  ('600515 CH Equity', datetime.date(2014, 3, 23))  predicti: [ 99.4656601]  actual: [ 2.19560878]  P&L: [ 2.19560878]
+For  ('600668 CH Equity', datetime.date(2014, 3, 23))  predicti: [ 97.16963959]  actual: [-0.89047195]  P&L: [-0.89047195]
+For  ('600556 CH Equity', datetime.date(2014, 3, 23))  predicti: [ 96.53822327]  actual: [ 0.71090047]  P&L: [ 0.71090047]
+For  ('600820 CH Equity', datetime.date(2014, 3, 23))  predicti: [ 96.52282715]  actual: [ 0.09823183]  P&L: [ 0.09823183]
+For  ('601766 CH Equity', datetime.date(2014, 3, 23))  predicti: [ 96.46841431]  actual: [ 1.7699115]  P&L: [ 1.7699115]
+For  ('SHCOMP Index', datetime.date(2014, 3, 23))  predicti: [ 22.58882332]  actual: [ 0.75345214]  P&L: [-0.75345214]
+For  ('600243 CH Equity', datetime.date(2014, 3, 23))  predicti: [ 71.10849762]  actual: [ 1.01522843]  P&L: [-1.01522843]
+For  ('603077 CH Equity', datetime.date(2014, 3, 23))  predicti: [ 72.85622406]  actual: [ 3.5]  P&L: [-3.5]
+For  ('600335 CH Equity', datetime.date(2014, 3, 23))  predicti: [ 73.07320404]  actual: [ 1.17508813]  P&L: [-1.17508813]
+For  ('600430 CH Equity', datetime.date(2014, 3, 23))  predicti: [ 73.84299469]  actual: [ 6.01626016]  P&L: [-6.01626016]
+My money: 99.4974530307
+loading data: all 14-03-24 14-03-26 5
+get dates: 852
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+skipping stock data: 603699 CH Equity 2014-03-24
+Length: 131054 131054
+Dimension: 940
+x shape:  (131054, 940)
+y shape:  (131054, 1)
+For  ('600480 CH Equity', datetime.date(2014, 3, 24))  predicti: [ 98.90692139]  actual: [-3.50515464]  P&L: [-3.50515464]
+For  ('600230 CH Equity', datetime.date(2014, 3, 24))  predicti: [ 97.67889404]  actual: [-0.16129032]  P&L: [-0.16129032]
+For  ('600515 CH Equity', datetime.date(2014, 3, 24))  predicti: [ 96.58135986]  actual: [ 2.17821782]  P&L: [ 2.17821782]
+For  ('600297 CH Equity', datetime.date(2014, 3, 24))  predicti: [ 96.49681091]  actual: [-2.72189349]  P&L: [-2.72189349]
+For  ('600539 CH Equity', datetime.date(2014, 3, 24))  predicti: [ 96.25934601]  actual: [-1.11642743]  P&L: [-1.11642743]
+For  ('SHCOMP Index', datetime.date(2014, 3, 24))  predicti: [ 22.16179085]  actual: [ 0.19328045]  P&L: [-0.19328045]
+For  ('603077 CH Equity', datetime.date(2014, 3, 24))  predicti: [ 72.79957581]  actual: [ 0.91420534]  P&L: [-0.91420534]
+For  ('600436 CH Equity', datetime.date(2014, 3, 24))  predicti: [ 74.32241821]  actual: [-1.12973309]  P&L: [ 1.12973309]
+For  ('600267 CH Equity', datetime.date(2014, 3, 24))  predicti: [ 76.80656433]  actual: [ 1.31306151]  P&L: [-1.31306151]
+For  ('600066 CH Equity', datetime.date(2014, 3, 24))  predicti: [ 77.36522675]  actual: [ 0.89058524]  P&L: [-0.89058524]
+My money: 98.7504313748
+loading data: all 14-03-25 14-03-27 5
+get dates: 852
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+skipping stock data: 603699 CH Equity 2014-03-25
+Length: 120842 120842
+Dimension: 940
+x shape:  (120842, 940)
+y shape:  (120842, 1)
+For  ('600480 CH Equity', datetime.date(2014, 3, 25))  predicti: [ 100.86325836]  actual: [ 0.21786492]  P&L: [ 0.21786492]
+For  ('600817 CH Equity', datetime.date(2014, 3, 25))  predicti: [ 100.25008392]  actual: [-2.342918]  P&L: [-2.342918]
+For  ('600683 CH Equity', datetime.date(2014, 3, 25))  predicti: [ 100.01940918]  actual: [-2.25409836]  P&L: [-2.25409836]
+For  ('600383 CH Equity', datetime.date(2014, 3, 25))  predicti: [ 99.95420074]  actual: [ 1.02941176]  P&L: [ 1.02941176]
+For  ('600515 CH Equity', datetime.date(2014, 3, 25))  predicti: [ 99.58534241]  actual: [-1.45348837]  P&L: [-1.45348837]
+For  ('SHCOMP Index', datetime.date(2014, 3, 25))  predicti: [ 26.79876518]  actual: [-0.33343411]  P&L: [ 0.33343411]
+For  ('600436 CH Equity', datetime.date(2014, 3, 25))  predicti: [ 78.7844696]  actual: [ 0.55241682]  P&L: [-0.55241682]
+For  ('603077 CH Equity', datetime.date(2014, 3, 25))  predicti: [ 78.97525787]  actual: [ 1.53203343]  P&L: [-1.53203343]
+For  ('600880 CH Equity', datetime.date(2014, 3, 25))  predicti: [ 78.97943878]  actual: [ 2.2128101]  P&L: [-2.2128101]
+For  ('600430 CH Equity', datetime.date(2014, 3, 25))  predicti: [ 79.40423584]  actual: [-2.83018868]  P&L: [ 2.83018868]
+My money: 98.1641633359
+loading data: all 14-03-26 14-03-28 5
+get dates: 864
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+skipping stock data: 603699 CH Equity 2014-03-26
+Length: 114779 114779
+Dimension: 940
+x shape:  (114779, 940)
+y shape:  (114779, 1)
+For  ('600966 CH Equity', datetime.date(2014, 3, 26))  predicti: [ 103.49739838]  actual: [-0.35211268]  P&L: [-0.35211268]
+For  ('600747 CH Equity', datetime.date(2014, 3, 26))  predicti: [ 103.23861694]  actual: [ 2.27703985]  P&L: [ 2.27703985]
+For  ('600383 CH Equity', datetime.date(2014, 3, 26))  predicti: [ 102.77936554]  actual: [ 0.73637703]  P&L: [ 0.73637703]
+For  ('600095 CH Equity', datetime.date(2014, 3, 26))  predicti: [ 102.01416779]  actual: [-0.77220077]  P&L: [-0.77220077]
+For  ('600710 CH Equity', datetime.date(2014, 3, 26))  predicti: [ 101.49092102]  actual: [-3.125]  P&L: [-3.125]
+For  ('SHCOMP Index', datetime.date(2014, 3, 26))  predicti: [ 26.14463234]  actual: [-0.69021337]  P&L: [ 0.69021337]
+For  ('600436 CH Equity', datetime.date(2014, 3, 26))  predicti: [ 80.29484558]  actual: [-2.63453615]  P&L: [ 2.63453615]
+For  ('600894 CH Equity', datetime.date(2014, 3, 26))  predicti: [ 82.06198883]  actual: [-4.34456929]  P&L: [ 4.34456929]
+For  ('600990 CH Equity', datetime.date(2014, 3, 26))  predicti: [ 82.61672974]  actual: [-1.18156755]  P&L: [ 1.18156755]
+For  ('600323 CH Equity', datetime.date(2014, 3, 26))  predicti: [ 82.74152374]  actual: [ 1.68589175]  P&L: [-1.68589175]
+My money: 98.7461882835
+loading data: all 14-03-27 14-03-29 5
+get dates: 865
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+skipping stock data: 603308 CH Equity 2014-03-27
+skipping stock data: 603699 CH Equity 2014-03-27
+Length: 113916 113916
+Dimension: 940
+x shape:  (113916, 940)
+y shape:  (113916, 1)
+For  ('600331 CH Equity', datetime.date(2014, 3, 27))  predicti: [ 101.67803955]  actual: [ 0.21881838]  P&L: [ 0.21881838]
+For  ('600747 CH Equity', datetime.date(2014, 3, 27))  predicti: [ 101.18024445]  actual: [ 3.8961039]  P&L: [ 3.8961039]
+For  ('600743 CH Equity', datetime.date(2014, 3, 27))  predicti: [ 99.83963776]  actual: [ 8.65051903]  P&L: [ 8.65051903]
+For  ('600019 CH Equity', datetime.date(2014, 3, 27))  predicti: [ 99.77116394]  actual: [ 0.52770449]  P&L: [ 0.52770449]
+For  ('600569 CH Equity', datetime.date(2014, 3, 27))  predicti: [ 99.52157593]  actual: [ 0.57142857]  P&L: [ 0.57142857]
+For  ('SHCOMP Index', datetime.date(2014, 3, 27))  predicti: [ 23.36991692]  actual: [-0.25106859]  P&L: [ 0.25106859]
+For  ('600807 CH Equity', datetime.date(2014, 3, 27))  predicti: [ 75.08403015]  actual: [ 1.49439601]  P&L: [-1.49439601]
+For  ('600436 CH Equity', datetime.date(2014, 3, 27))  predicti: [ 80.01366425]  actual: [-2.07665684]  P&L: [ 2.07665684]
+For  ('600990 CH Equity', datetime.date(2014, 3, 27))  predicti: [ 81.45731354]  actual: [-0.51383399]  P&L: [ 0.51383399]
+For  ('600390 CH Equity', datetime.date(2014, 3, 27))  predicti: [ 82.02869415]  actual: [-3.66972477]  P&L: [ 3.66972477]
+My money: 100.610660739
+loading data: all 14-03-30 14-04-01 5
+get dates: 869
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+skipping stock data: 603308 CH Equity 2014-03-30
+skipping stock data: 603699 CH Equity 2014-03-30
+Length: 36414 36414
+Dimension: 940
+x shape:  (36414, 940)
+y shape:  (36414, 1)
+For  ('600743 CH Equity', datetime.date(2014, 3, 30))  predicti: [ 98.10325623]  actual: [-3.27868852]  P&L: [-3.27868852]
+For  ('600791 CH Equity', datetime.date(2014, 3, 30))  predicti: [ 98.04052734]  actual: [-2.23880597]  P&L: [-2.23880597]
+For  ('600352 CH Equity', datetime.date(2014, 3, 30))  predicti: [ 96.28942871]  actual: [ 2.91139241]  P&L: [ 2.91139241]
+For  ('600764 CH Equity', datetime.date(2014, 3, 30))  predicti: [ 95.74977112]  actual: [-0.68728522]  P&L: [-0.68728522]
+For  ('600079 CH Equity', datetime.date(2014, 3, 30))  predicti: [ 95.58972168]  actual: [-1.99857245]  P&L: [-1.99857245]
+For  ('SHCOMP Index', datetime.date(2014, 3, 30))  predicti: [ 22.55751228]  actual: [-0.47669043]  P&L: [ 0.47669043]
+For  ('600807 CH Equity', datetime.date(2014, 3, 30))  predicti: [ 74.10986328]  actual: [-1.11524164]  P&L: [ 1.11524164]
+For  ('600436 CH Equity', datetime.date(2014, 3, 30))  predicti: [ 77.37174225]  actual: [-1.84554974]  P&L: [ 1.84554974]
+For  ('600677 CH Equity', datetime.date(2014, 3, 30))  predicti: [ 78.07099915]  actual: [ 1.41776938]  P&L: [-1.41776938]
+For  ('600390 CH Equity', datetime.date(2014, 3, 30))  predicti: [ 78.68929291]  actual: [-0.17301038]  P&L: [ 0.17301038]
+My money: 100.298844461
+loading data: all 14-03-31 14-04-02 5
+get dates: 876
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+skipping stock data: 603308 CH Equity 2014-03-31
+skipping stock data: 603555 CH Equity 2014-03-31
+Length: 105754 105754
+Dimension: 940
+x shape:  (105754, 940)
+y shape:  (105754, 1)
+For  ('600079 CH Equity', datetime.date(2014, 3, 31))  predicti: [ 97.99307251]  actual: [ 1.49090909]  P&L: [ 1.49090909]
+For  ('600352 CH Equity', datetime.date(2014, 3, 31))  predicti: [ 96.52415466]  actual: [-1.24223602]  P&L: [-1.24223602]
+For  ('600149 CH Equity', datetime.date(2014, 3, 31))  predicti: [ 95.85251617]  actual: [ 5.82959641]  P&L: [ 5.82959641]
+For  ('600980 CH Equity', datetime.date(2014, 3, 31))  predicti: [ 94.93018341]  actual: [-2.58064516]  P&L: [-2.58064516]
+For  ('600532 CH Equity', datetime.date(2014, 3, 31))  predicti: [ 94.57798004]  actual: [ 1.20320856]  P&L: [ 1.20320856]
+For  ('SHCOMP Index', datetime.date(2014, 3, 31))  predicti: [ 24.68378639]  actual: [ 0.81019003]  P&L: [-0.81019003]
+For  ('600372 CH Equity', datetime.date(2014, 3, 31))  predicti: [ 74.87574005]  actual: [ 0.53447354]  P&L: [-0.53447354]
+For  ('600436 CH Equity', datetime.date(2014, 3, 31))  predicti: [ 76.14663696]  actual: [ 1.96]  P&L: [-1.96]
+For  ('600390 CH Equity', datetime.date(2014, 3, 31))  predicti: [ 76.56318665]  actual: [ 0.60553633]  P&L: [-0.60553633]
+For  ('600677 CH Equity', datetime.date(2014, 3, 31))  predicti: [ 77.29751587]  actual: [ 1.59027128]  P&L: [-1.59027128]
+My money: 100.218641663
+loading data: all 14-04-01 14-04-03 5
+get dates: 856
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+skipping stock data: 603308 CH Equity 2014-04-01
+skipping stock data: 603555 CH Equity 2014-04-01
+Length: 92232 92232
+Dimension: 940
+x shape:  (92232, 940)
+y shape:  (92232, 1)
+For  ('600352 CH Equity', datetime.date(2014, 4, 1))  predicti: [ 97.88178253]  actual: [ 3.45694532]  P&L: [ 3.45694532]
+For  ('600565 CH Equity', datetime.date(2014, 4, 1))  predicti: [ 93.84625244]  actual: [ 2.76243094]  P&L: [ 2.76243094]
+For  ('600684 CH Equity', datetime.date(2014, 4, 1))  predicti: [ 93.37197876]  actual: [ 2.65188997]  P&L: [ 2.65188997]
+For  ('600220 CH Equity', datetime.date(2014, 4, 1))  predicti: [ 93.33680725]  actual: [-1.94444444]  P&L: [-1.94444444]
+For  ('600807 CH Equity', datetime.date(2014, 4, 1))  predicti: [ 93.18600464]  actual: [ 2.41545894]  P&L: [ 2.41545894]
+For  ('SHCOMP Index', datetime.date(2014, 4, 1))  predicti: [ 25.44929695]  actual: [ 0.46671673]  P&L: [-0.46671673]
+For  ('600845 CH Equity', datetime.date(2014, 4, 1))  predicti: [ 73.46007538]  actual: [-2.8668942]  P&L: [ 2.8668942]
+For  ('600372 CH Equity', datetime.date(2014, 4, 1))  predicti: [ 73.90003204]  actual: [-1.64893617]  P&L: [ 1.64893617]
+For  ('600390 CH Equity', datetime.date(2014, 4, 1))  predicti: [ 74.30273438]  actual: [ 3.46320346]  P&L: [-3.46320346]
+For  ('600640 CH Equity', datetime.date(2014, 4, 1))  predicti: [ 74.7675705]  actual: [-1.03866128]  P&L: [ 1.03866128]
+My money: 101.317724691
+loading data: all 14-04-02 14-04-04 5
+get dates: 880
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+skipping stock data: 601225 CH Equity 2014-04-02
+loading stock data: 799
+skipping stock data: 603308 CH Equity 2014-04-02
+skipping stock data: 603555 CH Equity 2014-04-02
+Length: 115764 115764
+Dimension: 940
+x shape:  (115764, 940)
+y shape:  (115764, 1)
+For  ('601919 CH Equity', datetime.date(2014, 4, 2))  predicti: [ 98.72112274]  actual: [-4.46927374]  P&L: [-4.46927374]
+For  ('600807 CH Equity', datetime.date(2014, 4, 2))  predicti: [ 97.96643066]  actual: [ 0.5952381]  P&L: [ 0.5952381]
+For  ('600104 CH Equity', datetime.date(2014, 4, 2))  predicti: [ 94.08908081]  actual: [-1.48619958]  P&L: [-1.48619958]
+For  ('600738 CH Equity', datetime.date(2014, 4, 2))  predicti: [ 93.49637604]  actual: [-1.41732283]  P&L: [-1.41732283]
+For  ('600462 CH Equity', datetime.date(2014, 4, 2))  predicti: [ 93.47914124]  actual: [-1.31332083]  P&L: [-1.31332083]
+For  ('SHCOMP Index', datetime.date(2014, 4, 2))  predicti: [ 26.07698631]  actual: [-0.95929386]  P&L: [ 0.95929386]
+For  ('600184 CH Equity', datetime.date(2014, 4, 2))  predicti: [ 72.97856903]  actual: [-0.33222591]  P&L: [ 0.33222591]
+For  ('600436 CH Equity', datetime.date(2014, 4, 2))  predicti: [ 73.75543213]  actual: [ 1.65397742]  P&L: [-1.65397742]
+For  ('600640 CH Equity', datetime.date(2014, 4, 2))  predicti: [ 73.77209473]  actual: [ 3.32555426]  P&L: [-3.32555426]
+For  ('600633 CH Equity', datetime.date(2014, 4, 2))  predicti: [ 73.83354187]  actual: [ 0.74946467]  P&L: [-0.74946467]
+My money: 100.048380221
+loading data: all 14-04-03 14-04-05 5
+get dates: 874
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+skipping stock data: 601225 CH Equity 2014-04-03
+loading stock data: 799
+skipping stock data: 603555 CH Equity 2014-04-03
+Length: 138648 138648
+Dimension: 940
+x shape:  (138648, 940)
+y shape:  (138648, 1)
+For  ('600769 CH Equity', datetime.date(2014, 4, 3))  predicti: [ 97.62917328]  actual: [ 4.18943534]  P&L: [ 4.18943534]
+For  ('600396 CH Equity', datetime.date(2014, 4, 3))  predicti: [ 97.30081177]  actual: [ 0.94007051]  P&L: [ 0.94007051]
+For  ('600738 CH Equity', datetime.date(2014, 4, 3))  predicti: [ 96.32197571]  actual: [ 0.63897764]  P&L: [ 0.63897764]
+For  ('600449 CH Equity', datetime.date(2014, 4, 3))  predicti: [ 95.88735199]  actual: [ 0.76824584]  P&L: [ 0.76824584]
+For  ('600545 CH Equity', datetime.date(2014, 4, 3))  predicti: [ 95.21060181]  actual: [-0.81411126]  P&L: [-0.81411126]
+For  ('SHCOMP Index', datetime.date(2014, 4, 3))  predicti: [ 26.89370155]  actual: [ 1.04434145]  P&L: [-1.04434145]
+For  ('600860 CH Equity', datetime.date(2014, 4, 3))  predicti: [ 73.70751953]  actual: [ 0.57034221]  P&L: [-0.57034221]
+For  ('600072 CH Equity', datetime.date(2014, 4, 3))  predicti: [ 74.6307373]  actual: [ 1.74603175]  P&L: [-1.74603175]
+For  ('600598 CH Equity', datetime.date(2014, 4, 3))  predicti: [ 75.31763458]  actual: [-0.42674253]  P&L: [ 0.42674253]
+For  ('600436 CH Equity', datetime.date(2014, 4, 3))  predicti: [ 75.43000031]  actual: [-0.4915912]  P&L: [ 0.4915912]
+My money: 100.376562559
+loading data: all 14-04-06 14-04-08 5
+get dates: 0
+Length: 0 0
+Dimension:
+Traceback (most recent call last):
+  File "predict.py", line 26, in <module>
+    dataset, indexToSecuirty = load_security_test.load_security('all', startDate = startDate, stopDate = stopDate, days = 5, threshold = 0)
+  File "/home/ubuntu/DeepLearningResearch/pylearn2/myscript/experiment16/load_security_test.py", line 128, in load_security
+    print "Dimension:", len(x[0])
+IndexError: index out of bounds
