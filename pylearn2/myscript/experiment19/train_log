@@ -1,0 +1,57 @@
+modprobe: ERROR: could not insert 'nvidia_346': No such device
+WARNING (theano.sandbox.cuda): CUDA is installed, but device gpu is not available  (error: Unable to get the number of gpus available: no CUDA-capable device is detected)
+loading data: all 2014-06-01 2070-01-01 5
+data for threshold: 5  length: 2114
+data for threshold: 6  length: 936
+data for threshold: 7  length: 428
+data for threshold: 8  length: 182
+data for threshold: 9  length: 104
+data for threshold: 10  length: 44
+data for threshold: 11  length: 28
+data for threshold: 12  length: 20
+data for threshold: 13  length: 18
+data for threshold: 14  length: 8
+data for threshold: 15  length: 4
+data for threshold: 16  length: 2
+data for threshold: 17  length: 0
+data for threshold: 18  length: 0
+data for threshold: 19  length: 0
+data for threshold: 0  length: 89242
+loading stock data: 99
+loading stock data: 199
+loading stock data: 299
+loading stock data: 399
+loading stock data: 499
+loading stock data: 599
+loading stock data: 699
+loading stock data: 799
+loading stock data: 899
+loading stock data: 999
+loading stock data: 1099
+loading stock data: 1199
+loading stock data: 1299
+loading stock data: 1399
+loading stock data: 1499
+loading stock data: 1599
+loading stock data: 1699
+loading stock data: 1799
+loading stock data: 1899
+loading stock data: 1999
+skipping stock data: 600917 CH Equity 2014-12-04
+loading stock data: 2099
+loading stock data: 2199
+loading stock data: 2299
+loading stock data: 2399
+loading stock data: 2499
+loading stock data: 2599
+loading stock data: 2699
+loading stock data: 2799
+loading stock data: 2899
+loading stock data: 2999
+loading stock data: 3099
+loading stock data: 3199
+loading stock data: 3299
+loading stock data: 3399
+loading stock data: 3499
+loading stock data: 3599
+loading stock data: 3699

@@ -1,0 +1,106 @@
+!obj:pylearn2.train.Train {
+    dataset: &train !obj:myscript.experiment18.load_security.load_security {
+        security: &ticker 'all', 
+        stopDate: &train_stop '2014-01-01',
+        days: &security_days 5
+    },
+    model: !obj:pylearn2.models.mlp.MLP {
+        layers: [
+                 !obj:pylearn2.models.mlp.CompositeLayer {
+                     layer_name: "h0",
+                     inputs_to_layers: {
+                         0: [0],    # from ticker to projection vector
+                         1: [1],    # stock mlp layer
+                         2: [2],    # news mlp layer
+                     },
+                     layers: [
+                         !obj:pylearn2.sandbox.nlp.models.mlp.ProjectionLayer {
+                             layer_name: 'projection',
+                             dim: 128,
+                             irange: 0.01
+                         },
+                         !obj:pylearn2.models.mlp.RectifiedLinear {
+                             layer_name: 'stock_h0',
+                             dim: 1200,
+                             irange: .05,
+                         },
+                         !obj:pylearn2.models.mlp.RectifiedLinear {
+                             layer_name: 'stock_h0',
+                             dim: 1200,
+                             irange: .05,
+                         }
+                     ],
+                 }, 
+                 !obj:pylearn2.models.mlp.RectifiedLinear {
+                     layer_name: 'h1',
+                     dim: 1200,
+                     irange: .05,
+                 },
+                 !obj:pylearn2.models.mlp.RectifiedLinear {
+                     layer_name: 'h2',
+                     dim: 1200,
+                     irange: .05
+                 },
+                 !obj:pylearn2.models.mlp.LinearGaussian {
+                     init_bias: 0,
+                     init_beta: 1,
+                     min_beta: 1,
+                     max_beta: 100,
+                     beta_lr_scale: 1.,
+                     dim: 1,
+                     layer_name: 'y',
+                     irange: .05
+                 }
+                ],
+        input_space: !obj:pylearn2.space.CompositeSpace {
+            components: [
+                !obj:pylearn2.space.IndexSpace {
+                    dim: 1,
+                    max_labels: 2000
+                }, 
+                !obj:pylearn2.space.VectorSpace {
+                    dim: 440,
+                },
+                !obj:pylearn2.space.VectorSpace {
+                    dim: 200,
+                }
+            ]
+        },
+        input_source: ['features0','features1', 'features2'],
+    },
+    algorithm: !obj:pylearn2.training_algorithms.bgd.BGD {
+        line_search_mode: 'exhaustive',
+        batch_size: 1024,
+        conjugate: 1,
+        reset_conjugate: 0,
+        reset_alpha: 0,
+        updates_per_batch: 10,
+        monitoring_dataset:
+            {
+                'train' : *train,
+                'valid' : !obj:myscript.experiment18.load_security.load_security {
+                            security: *ticker, 
+                            startDate: *train_stop,
+                            stopDate: &valid_stop '2014-06-01',
+                            days: *security_days
+                          },
+                'test'  : !obj:myscript.experiment18.load_security.load_security {
+                            security: *ticker, 
+                            startDate: *valid_stop,
+                            days: *security_days
+                          }
+            },
+        termination_criterion: !obj:pylearn2.termination_criteria.MonitorBased {
+            channel_name: "valid_y_mse",
+            prop_decrease: 0.,
+            N: 100
+        },
+    },
+    extensions: [
+        !obj:pylearn2.train_extensions.best_params.MonitorBasedSaveBest {
+             channel_name: 'valid_y_mse',
+             save_path: "${PYLEARN2_TRAIN_FILE_FULL_STEM}_best.pkl"
+        },
+    ],
+    save_freq: 1
+}

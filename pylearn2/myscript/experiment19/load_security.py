@@ -88,8 +88,9 @@ and original.Date = important.Date {4};
     cursor.execute(sql.format(maxDate, minDate, str(1.0 - threshold / 100.0), securityFilter, limitFilter))
     negativeDates = list(cursor.fetchall())
 
-    importantDates = positiveDates + negativeDates
-    print "data for threshold:", threshold, " length:", len(importantDates)
+    dataLength = min(len(positiveDates), len(negativeDates)) 
+    importantDates = positiveDates[:dataLength] + negativeDates[:dataLength]
+    print "data for threshold:", threshold, " length:", dataLength * 2
     return importantDates
 
 def getStockData(security, date, days=5):
@@ -142,16 +143,17 @@ def load_security(security = 'all', startDate = '1970-01-01', stopDate = '2070-0
     y = []
 
     importantDates = []
-    importantDates += list(getImportantDates(security = security, minDate = startDate, maxDate = stopDate, threshold = threshold))
-    if len(importantDates) == 0: 
-        return None
+    for i in range(threshold, 20):
+        importantDates += list(getImportantDates(security = security, minDate = startDate, maxDate = stopDate, threshold = i))
+    normalDates = list(getImportantDates(security = security, minDate = startDate, maxDate = stopDate, threshold = 0))
+    importantDates = importantDates * (len(normalDates) / len(importantDates))
+    importantDates += normalDates
 
     tickerToIndex = getTickerToIndex()
 
     tickerIndex = []
     stockData = []
     changeArray = []
-    indexToSecurity = []
     for i in range(len(importantDates)):
         if i % 100 == 99:
             print "loading stock data:", i
@@ -166,8 +168,6 @@ def load_security(security = 'all', startDate = '1970-01-01', stopDate = '2070-0
         tickerIndex.append([tickerToIndex[ticker]])
         stockData += [stockVector]
         changeArray += [change]
-        indexToSecurity += [(ticker, date)]
-
 
     tickerIndex = np.asarray(tickerIndex)
     stockData = np.asarray(stockData)
@@ -189,7 +189,7 @@ def load_security(security = 'all', startDate = '1970-01-01', stopDate = '2070-0
         VectorSpace(dim=1)])    # target
     source = ('features0','features1','targets')
     data_specs = (space,source)
-    return VectorSpacesDataset(data=data,data_specs=data_specs), indexToSecurity
+    return VectorSpacesDataset(data=data,data_specs=data_specs)
 
 if __name__ == "__main__":
     load_security('all', startDate =  '2013-02-01',  stopDate = '2013-03-01', days = 5)

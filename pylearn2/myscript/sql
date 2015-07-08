@@ -1,1 +1,20 @@
+# stock insert
 INSERT INTO ch_day_tech.data (Ticker, Date, PX_OPEN, PX_LAST, PX_HIGH, PX_LOW, ATR, BB_MA, BB_UPPER, BB_LOWER, BB_WIDTH, BB_PERCENT, CMCI, DMI_PLUS, DMI_MINUS, ADX, ADXR, EMAVG, FEAR_GREED, HURST, MIN, MAX, MM_RETRACEMENT, MOMENTUM, MOM_MA, MACD, MACD_DIFF, MACD_SIGNAL, MAE_MIDDLE, MAE_UPPER, MAE_LOWER, MAOsc, MAO_SIGNAL, MAO_DIFF, PTPS, ROC, RSI, SMAVG, TAS_K, TAS_D, TAS_DS, TAS_DSS, TMAVG, VMAVG, WMAVG, WLPR) VALUES ("SHCOMP Index", %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)  
+# get index data
+SELECT PX_OPEN, PX_LAST, PX_HIGH, PX_LOW, ATR, BB_MA, BB_UPPER, BB_LOWER, BB_WIDTH, BB_PERCENT, CMCI, DMI_PLUS, DMI_MINUS, ADX, ADXR, EMAVG, FEAR_GREED, HURST, MIN, MAX, MM_RETRACEMENT, MOMENTUM, MOM_MA, MACD, MACD_DIFF, MACD_SIGNAL, MAE_MIDDLE, MAE_UPPER, MAE_LOWER, MAOsc, MAO_SIGNAL, MAO_DIFF, PTPS, ROC, RSI, SMAVG, TAS_K, TAS_D, TAS_DS, TAS_DSS, TMAVG, VMAVG, WMAVG, WLPR FROM ch_day_tech.data WHERE date <= '1992-01-03' and Ticker = 'SHCOMP Index' ORDER BY Ticker, date asc LIMIT 5
+# Get the date that's important (next day has rise above 5%):
+SELECT original.Ticker, date_sub(original.date, INTERVAL 1 DAY)
+FROM ch_day_tech.data as original,
+    (SELECT Ticker, Date 
+        FROM ch_day_tech.data as stock,
+        (SELECT min(date) as news_date 
+            FROM ch_day_tech.news_vec ) as news
+        WHERE stock.date < '2014-01-03' 
+        and stock.date > news.news_date
+        and stock.PX_LAST > stock.PX_OPEN * 1.05) as important
+WHERE original.Ticker = important.Ticker 
+and original.Date = important.Date;
+# Given a Ticker and date, fetch input data:
+SELECT index_vec.*, security_vec.* FROM 
+(SELECT date, PX_OPEN, PX_LAST, PX_HIGH, PX_LOW, ATR, BB_MA, BB_UPPER, BB_LOWER, BB_WIDTH, BB_PERCENT, CMCI, DMI_PLUS, DMI_MINUS, ADX, ADXR, EMAVG, FEAR_GREED, HURST, MIN, MAX, MM_RETRACEMENT, MOMENTUM, MOM_MA, MACD, MACD_DIFF, MACD_SIGNAL, MAE_MIDDLE, MAE_UPPER, MAE_LOWER, MAOsc, MAO_SIGNAL, MAO_DIFF, PTPS, ROC, RSI, SMAVG, TAS_K, TAS_D, TAS_DS, TAS_DSS, TMAVG, VMAVG, WMAVG, WLPR FROM ch_day_tech.data WHERE date <= '2008-01-03' and Ticker = 'SHCOMP Index' ORDER BY Ticker, date desc) as index_vec,
+(SELECT date, PX_OPEN, PX_LAST, PX_HIGH, PX_LOW, ATR, BB_MA, BB_UPPER, BB_LOWER, BB_WIDTH, BB_PERCENT, CMCI, DMI_PLUS, DMI_MINUS, ADX, ADXR, EMAVG, FEAR_GREED, HURST, MIN, MAX, MM_RETRACEMENT, MOMENTUM, MOM_MA, MACD, MACD_DIFF, MACD_SIGNAL, MAE_MIDDLE, MAE_UPPER, MAE_LOWER, MAOsc, MAO_SIGNAL, MAO_DIFF, PTPS, ROC, RSI, SMAVG, TAS_K, TAS_D, TAS_DS, TAS_DSS, TMAVG, VMAVG, WMAVG, WLPR FROM ch_day_tech.data WHERE date <= '2008-01-03' and Ticker = '600004 CH Equity' ORDER BY Ticker, date desc) as security_vec where index_vec.date = security_vec.date LIMIT 5;

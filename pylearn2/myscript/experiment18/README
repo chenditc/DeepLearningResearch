@@ -3,8 +3,9 @@
 1.2 Balance the up and down number
 1.3 Remove all normalization 
 2. concatenate with 5 day's index feature, 
-3. use news data
+*3. Use News Data, one day's news is the word2vec vector add up
 4. seperate between stock, 
 4. use open price and close price at same day for target, 
 5. use data before 2014 for training and after 2014 for testing. 
 6. Then use mlp to train to predict raise percent
+7. Use stock embedding
