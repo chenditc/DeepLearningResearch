@@ -3,6 +3,8 @@ import re
 import time
 import json
 import sys
+import multiprocessing
+from multiprocessing import Pool
 
 import numpy as np
 import MySQLdb
@@ -18,6 +20,7 @@ dbConnector = MySQLdb.connect(host="stockdb1.cafr6s1nfibs.us-west-2.rds.amazonaw
                                     user="chenditc", 
                                     passwd="cd013001",
                                     db="ch_day_tech")
+dbConnectorList = []
 newsMatrixMap = {}
 
 def getNewsAtDate(date):
@@ -93,7 +96,11 @@ and original.Date = important.Date {4};
     print "data for threshold:", threshold, " length:", dataLength * 2
     return importantDates
 
-def getStockData(security, date, days=5):
+def getStockData(inputTuple):
+    security, date, changes = inputTuple
+    days = 5
+
+    print "loading stock data:", security, date
     sql = '''
 SELECT security_vec.*, index_vec.* 
 FROM 
@@ -107,13 +114,17 @@ FROM
     ORDER BY Ticker, date desc) as security_vec 
 WHERE index_vec.date = security_vec.date LIMIT {2};
 '''
-    cursor = dbConnector.cursor()
+    stockdbConnector = MySQLdb.connect(host="stockdb2.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
+                                        user="chenditc", 
+                                        passwd="cd013001",
+                                        db="ch_day_tech")
+    cursor = stockdbConnector.cursor()
     cursor.execute(sql.format(date, security, str(days)))
     lines = cursor.fetchall()
     data = []
     for line in lines:
         data += [x for x in line if isinstance(x, float)]
-    return data
+    return (security, date, changes, data)
  
 def appendNewsData(stockVector, date):
     resultMatrix = []
@@ -151,16 +162,25 @@ def load_security(security = 'all', startDate = '1970-01-01', stopDate = '2070-0
 
     tickerToIndex = getTickerToIndex()
 
-    tickerIndex = []
-    stockData = []
-    changeArray = []
+    print "about to load ", len(importantDates)
+    jobList = []
     for i in range(len(importantDates)):
-        if i % 100 == 99:
-            print "loading stock data:", i
         ticker = importantDates[i][0]
         date = importantDates[i][1]
         change = importantDates[i][2]
-        stockVector = getStockData(security = ticker, date = date, days = days)
+        jobList.append((ticker, date, change))
+
+    # TODO: fetch data with multiprocess
+    workerNumber = 200
+    workerPool = Pool(workerNumber)
+    dataList = workerPool.map(getStockData, jobList)
+    print "Finish loading data"
+
+    tickerIndex = []
+    stockData = []
+    changeArray = []
+    for dataTuple in dataList:
+        ticker, date, change, stockVector = dataTuple
         # validate data
         if len(stockVector) != 88 * days:
             print "skipping stock data:", ticker, date
