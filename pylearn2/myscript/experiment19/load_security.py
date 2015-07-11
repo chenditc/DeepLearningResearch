@@ -16,14 +16,14 @@ from pylearn2.space import IndexSpace
 from pylearn2.datasets.dense_design_matrix import DenseDesignMatrix
 from pylearn2.datasets.vector_spaces_dataset import VectorSpacesDataset
 
-dbConnector = MySQLdb.connect(host="stockdb1.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
-                                    user="chenditc", 
-                                    passwd="cd013001",
-                                    db="ch_day_tech")
-dbConnectorList = []
 newsMatrixMap = {}
 
 def getNewsAtDate(date):
+    dbConnector = MySQLdb.connect(host="stockdb1.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
+                                        user="chenditc", 
+                                        passwd="cd013001",
+                                        db="ch_day_tech")
+
     if date in newsMatrixMap:
         return newsMatrixMap[date]
 
@@ -43,6 +43,11 @@ SELECT news_vector FROM ch_day_tech.news_vec WHERE date = '{0}'
 
 
 def getImportantDates(security = 'all', minDate = '1970-01-01', maxDate = '2070-01-01', threshold = 5 , limit = 0):
+    dbConnector = MySQLdb.connect(host="stockdb1.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
+                                        user="chenditc", 
+                                        passwd="cd013001",
+                                        db="ch_day_tech")
+
     cursor = dbConnector.cursor()
 
     securityFilter = ""
@@ -134,6 +139,11 @@ def appendNewsData(stockVector, date):
     return resultMatrix
 
 def getTickerToIndex():
+    dbConnector = MySQLdb.connect(host="stockdb1.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
+                                        user="chenditc", 
+                                        passwd="cd013001",
+                                        db="ch_day_tech")
+
     sql = '''
 SELECT DISTINCT(Ticker) FROM ch_day_tech.data;
 '''
