@@ -7,7 +7,7 @@ import heapq
 import datetime
 import operator
 
-model_path = './mlp_regression1.pkl'
+model_path = './mlp_regression1_best.pkl'
 model = serial.load( model_path )
 X = model.get_input_space().make_theano_batch()
 Y = model.fprop( X )

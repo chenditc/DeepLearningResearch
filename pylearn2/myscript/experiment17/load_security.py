@@ -18,6 +18,7 @@ dbConnector = MySQLdb.connect(host="stockdb1.cafr6s1nfibs.us-west-2.rds.amazonaw
                                     user="chenditc", 
                                     passwd="cd013001",
                                     db="ch_day_tech")
+
 newsMatrixMap = {}
 
 def getNewsAtDate(date):
