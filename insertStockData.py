@@ -15,8 +15,8 @@ def uploadVector(securityFile):
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
     dbConnector = MySQLdb.connect(host="stockdb.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
-                                        user="chenditc", 
-                                        passwd="cd013001",
+                                        user="", 
+                                        passwd="",
                                         db="ch_day_tech")
     cursor = dbConnector.cursor()
 
