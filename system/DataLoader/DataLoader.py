@@ -86,8 +86,8 @@ class DataLoader:
         if ( None == self._dbConnector ):
             # TODO: use configuration file to control user name and password
             self._dbConnector = MySQLdb.connect(host="deeplearningdb1.cafr6s1nfibs.us-west-2.rds.amazonaws.com", 
-                                                user="research", 
-                                                passwd="Research013001",
+                                                user="", 
+                                                passwd="",
                                                 db="DeepLearningDB1")
         return self._dbConnector
     
